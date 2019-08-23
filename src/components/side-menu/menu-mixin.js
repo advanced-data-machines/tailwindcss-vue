@@ -18,6 +18,28 @@ export default {
 				parent = parent.$parent;
 			}
 			return parent;
+		},
+		currentClass() {
+			const tag = this.$options._componentTag;
+			const theme = this.$tvTheme[this.$options.name];
+			if (!theme) {
+				console.warn('(TV Warn[Theme -TvSideMenuItem]) - theme is not installed properly');
+				return '';
+			};
+			let state = this.active ? 'active' : 'default';
+			if (this.disabled) {
+				state = 'disabled';
+			}
+			// add tags first
+			let classes = [
+				tag,
+				`${tag}-state-${state}`
+			];
+			// base theme classes
+			classes.push(theme.base);
+			// state theme classes
+			classes.push(theme.state[state]);
+			return classes;
 		}
 	}
 };

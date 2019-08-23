@@ -21,8 +21,8 @@ export default {
 	methods: {
 		transitionStyle(duration = 300) {
 			// duration in from duration prop
-			let durationInSeconds = duration / 1000;
-			let style = `${durationInSeconds}s height ease-in-out, ${durationInSeconds}s padding-top ease-in-out, ${durationInSeconds}s padding-bottom ease-in-out`;
+			const durationInSeconds = duration / 1000;
+			const style = `${durationInSeconds}s height ease-in-out, ${durationInSeconds}s padding-top ease-in-out, ${durationInSeconds}s padding-bottom ease-in-out`;
 			return style;
 		},
 		beforeEnter(el) {

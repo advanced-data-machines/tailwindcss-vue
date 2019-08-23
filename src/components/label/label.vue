@@ -1,5 +1,5 @@
 <template>
-	<label :class="[{ 'asterisk': !hideRequiredAsterisk }, currentClass]">
+	<label ref="label" :class="[{ 'asterisk': !hideRequiredAsterisk && isRequired }, currentClass]">
 		<slot />
 	</label>
 </template>

@@ -1,30 +1,23 @@
 <template>
-	<li :class="{
-		'side-submenu-item': true,
-		'relative':true,
-		'is-active': active,
-		'is-opened': opened,
-		'is-disabled': disabled
-	}" @mouseenter="hover = true" @mouseleave="hover = false"
-	>
-		<div @click="handleClick" class="side-submenu-item-title relative">
+	<li class="relative" @mouseenter="hover = true" @mouseleave="hover = false">
+		<div @click="handleClick" :class="['relative', currentClass]">
 			<slot name="icon" />
 			<fade-in-transition>
 				<span v-show="!menuCollapsed">
 					<slot name="title" />
 				</span>
 			</fade-in-transition>
-			<fade-in-transition :duration="{ leave: 100, enter: 300 }" :delay="{ leave: 0, enter: 400 }">
-				<i v-show="!menuCollapsed" :class="['arrow mdi mdi-chevron-right', theme]" />
-			</fade-in-transition>
+			<slot name="arrow" :collapse="menuCollapsed" :opened="opened">
+				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" />
+			</slot>
 		</div>
 		<slide-y-up-transition v-if="menuCollapsed">
-			<ul v-show="hover" class="popup side-sub-menu-children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
+			<ul v-show="hover" class="absolute top-0 z-50 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
 				<slot />
 			</ul>
 		</slide-y-up-transition>
 		<collapse-transition v-else>
-			<ul v-show="opened" class="side-sub-menu-children">
+			<ul v-show="opened" class="children">
 				<slot />
 			</ul>
 		</collapse-transition>
@@ -34,6 +27,7 @@
 import CollapseTransition from '../transistions/collapse-transition.vue';
 import SlideYUpTransition from '../transistions/slide-y-up-transition.vue';
 import FadeInTransition from '../transistions/fade-in-transition.vue';
+import MenuArrow from './menu-arrow.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
@@ -42,7 +36,8 @@ export default {
 	components: {
 		'collapse-transition': CollapseTransition,
 		'slide-y-up-transition': SlideYUpTransition,
-		'fade-in-transition': FadeInTransition
+		'fade-in-transition': FadeInTransition,
+		'tv-menu-arrow': MenuArrow
 	},
 	props: {
 		index: {
@@ -53,10 +48,6 @@ export default {
 		disabled: {
 			type: Boolean,
 			default: false
-		},
-		theme: {
-			type: String,
-			default: 'dark'
 		},
 		popupWidth: {
 			type: String,
@@ -95,20 +86,6 @@ export default {
 			});
 
 			return isActive;
-		},
-		isFirstLevel() {
-			let isFirstLevel = true;
-			let parent = this.$parent;
-			while (parent && parent !== this.rootMenu) {
-				// is not first level
-				if (['TvSubmenu'].indexOf(parent.$options.name) > -1) {
-					isFirstLevel = false;
-					break;
-				} else {
-					parent = parent.$parent;
-				}
-			}
-			return isFirstLevel;
 		}
 	},
 	methods: {
@@ -142,36 +119,3 @@ export default {
 	}
 };
 </script>
-<style lang="postcss">
-.arrow {
-	@apply inline-block absolute;
-	top: 50%;
-	font-size: 20px;
-	margin-top: -15px;
-	right: 1rem;
-	transition: transform .3s;
-}
-.arrow.dark {
-	@apply text-gray-100;
-}
-.sub-menu-item .title:hover .arrow.dark {
-	@apply text-gray-300;
-}
-
-.arrow.light {
-	@apply text-gray-700;
-}
-.sub-menu-item .title:hover .arrow.light {
-	@apply text-gray-900;
-}
-
-.is-opened .arrow {
-	transform: rotate(90deg);
-}
-
-.side-submenu-item {
-	& .popup {
-		@apply absolute top-0;
-	}
-}
-</style>

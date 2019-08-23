@@ -1,9 +1,5 @@
 <template>
-	<li :class="{
-		'side-menu-item': true,
-		'is-active': active
-	}" @click="handleClick"
-	>
+	<li :class="currentClass" @click="handleClick">
 		<slot />
 		<fade-in-transition v-if="transitionTitle">
 			<span v-show="!menuCollapsed">

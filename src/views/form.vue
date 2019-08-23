@@ -1,12 +1,13 @@
 <template>
-	<section>
-		<h1 class="text-danger-500">This is an about page</h1>
-		<tv-button variant="primary">Test</tv-button>
-		<tv-form ref="form" :model="test" :rules="rules" @submit.prevent>
+	<section class="px-4 w-full">
+		<h1 class="text-3xl text-primary-300">Form</h1>
+		<tv-form class="w-full max-w-xl" ref="form" :model="test" :rules="rules" @submit.prevent>
 			<tv-form-group prop="name">
+				<tv-label>Name</tv-label>
 				<tv-input name="test" class="resize-none" v-model="test.name" />
 			</tv-form-group>
 			<tv-form-group prop="city">
+				<tv-label>City</tv-label>
 				<tv-select v-model="test.city" placeholder="Select a City">
 					<option v-for="city in cities" :value="city" :key="city" :disabled="city === 'Franktown'">
 						{{ city }}
@@ -22,12 +23,12 @@
 </template>
 <script>
 export default {
-	name: 'About',
+	name: 'Form',
 	data() {
 		return {
 			cities: ['Denver', 'Parker', 'Franktown'],
 			test: {
-				name: 'bart',
+				name: '',
 				city: ''
 			},
 			variants: ['default', 'primary', 'success', 'warning', 'danger', 'info'],
@@ -36,7 +37,7 @@ export default {
 					{ required: true, message: 'Please insert name', trigger: 'change' }
 				],
 				city: [
-					{ required: true, message: 'Please select one', trigger: 'change' }
+					{ required: true, message: 'Please select a city', trigger: 'change' }
 				]
 			}
 		};

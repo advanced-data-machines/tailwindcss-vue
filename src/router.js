@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Home from './views/home.vue';
+import BaseRoute from './views/base-route.vue';
+import Form from './views/form.vue';
 
 Vue.use(Router);
 
@@ -11,15 +13,33 @@ export default new Router({
 		{
 			path: '/',
 			name: 'home',
-			component: Home
+			component: Home,
+			meta: {
+				index: 'TD',
+				title: 'Home',
+				icon: 'mdi-view-dashboard'
+			}
 		},
 		{
-			path: '/about',
-			name: 'about',
-			// route level code-splitting
-			// this generates a separate chunk (about.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+			path: '/Components',
+			name: 'components',
+			component: BaseRoute,
+			meta: {
+				index: 'C',
+				title: 'Components',
+				icon: 'mdi-lock'
+			},
+			children: [
+				{
+					path: 'Form',
+					name: 'form',
+					component: Form,
+					meta: {
+						index: 'C-1',
+						title: 'Form'
+					}
+				}
+			]
 		}
 	]
 });

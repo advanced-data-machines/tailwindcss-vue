@@ -1,5 +1,5 @@
 <template>
-	<ul :class="{'side-menu': true, 'is-collapsed': collapse}">
+	<ul :class="currentClass" :style="style">
 		<slot name="body" />
 		<slot name="footer" />
 	</ul>
@@ -32,9 +32,9 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		miniWidth: {
-			type: String,
-			default: '56px'
+		duration: {
+			type: Number,
+			default: 300
 		}
 	},
 	data() {
@@ -44,6 +44,31 @@ export default {
 			items: {},
 			submenus: {}
 		};
+	},
+	computed: {
+		currentClass() {
+			const tag = this.$options._componentTag;
+			const theme = this.$tvTheme[this.$options.name];
+			if (!theme) {
+				console.warn('(TV Warn[Theme -TvSideMenu]) - theme is not installed properly');
+				return '';
+			};
+			const state = this.collapse ? 'mini' : 'full';
+			// add tags first
+			let classes = [
+				tag,
+				`${tag}-state-${state}`
+			];
+			// base theme classes
+			classes.push(theme.base);
+			// state theme classes
+			classes.push(theme.state[state]);
+			return classes;
+		},
+		style() {
+			const durationInSeconds = this.duration / 1000;
+			return { transition: `width ease-in-out ${durationInSeconds}s` };
+		}
 	},
 	watch: {
 		'items': 'updateActiveIndex'

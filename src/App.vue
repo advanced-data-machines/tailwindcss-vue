@@ -1,12 +1,83 @@
 <template>
-	<div id="app" class="container">
-		<div id="nav" class="text-center">
-			<router-link to="/">Home</router-link> |
-			<router-link to="/about">About</router-link>
+	<div class="flex flex-col h-screen">
+		<div class="relative flex flex-wrap items-center py-2 px-4 shadow bg-gray-900 flex-grow-0">
+			<a class="text-xl py-2 cursor-pointer text-white hover:text-gray-500 mr-auto">Tailwindcss-Vue</a>
 		</div>
-		<router-view />
+		<div class="flex flex-row flex-grow">
+			<tv-side-menu :default-active="activeRoute" :collapse="menuCollapse" class="flex flex-col bg-gray-700">
+				<div class="flex-grow" slot="body">
+					<tv-side-menu-item @click="handleToggle">
+						<i :class="['mdi mdi-menu', 'text-2xl']" />
+						<span class="ml-4 nowrap" slot="title">
+							Menu
+						</span>
+					</tv-side-menu-item>
+					<template v-for="item in routes">
+						<tv-side-submenu v-if="item.children && item.children.length > 0" :key="item.meta.index" :index="item.meta.index" :popup-width="'200px'">
+							<i slot="icon" :class="['mdi', item.meta.icon, 'text-2xl']" />
+							<span slot="title" class="ml-3 nowrap">
+								{{ item.meta.title }}
+							</span>
+							<template v-for="child in item.children">
+								<tv-side-menu-item :key="child.meta.index" :index="child.meta.index" :route="routeConverter(child)" :transition-title="false">
+									<template slot="title">
+										<span class="pl-4 nowrap">
+											{{ child.meta.title }}
+										</span>
+									</template>
+								</tv-side-menu-item>
+							</template>
+						</tv-side-submenu>
+						<tv-side-menu-item v-else :key="item.meta.index" :index="item.meta.index" :route="routeConverter(item)">
+							<i :class="['mdi', item.meta.icon, 'text-2xl']" />
+							<span class="ml-4 nowrap" slot="title">
+								{{ item.meta.title }}
+							</span>
+						</tv-side-menu-item>
+					</template>
+				</div>
+			</tv-side-menu>
+			<div class="flex-grow">
+				<router-view />
+			</div>
+		</div>
 	</div>
 </template>
-
+<script>
+export default {
+	name: 'App',
+	data() {
+		return {
+			routes: [],
+			menuCollapse: false
+		};
+	},
+	computed: {
+		activeRoute() {
+			const current = this.$route;
+			let index = null;
+			if (current && current.meta && current.meta.index) {
+				index = current.meta.index;
+			}
+			return index;
+		}
+	},
+	methods: {
+		routeConverter(route) {
+			return { name: route.name };
+		},
+		handleToggle() {
+			this.menuCollapse = !this.menuCollapse;
+		}
+	},
+	mounted() {
+		const router = this.$router;
+		if (router && router.options && router.options.routes) {
+			const routes = router.options.routes.filter((r) => Object.prototype.hasOwnProperty.call(r, 'meta'));
+			this.routes = routes;
+		}
+	}
+};
+</script>
 <style>
 </style>

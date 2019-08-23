@@ -44,3 +44,19 @@ const plugins = {
 };
 
 export default plugins;
+
+export {
+	Button,
+	Checkbox,
+	CheckboxButton,
+	Form,
+	FormGroup,
+	Input,
+	Label,
+	Radio,
+	RadioButton,
+	Select,
+	SideMenu,
+	SideMenuItem,
+	SideSubmenu
+};
