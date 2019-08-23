@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<h1 class="text-danger-500">This is an about page</h1>
-		<tv-button varient="primary">Test</tv-button>
+		<tv-button variant="primary">Test</tv-button>
 		<tv-form ref="form" :model="test" :rules="rules" @submit.prevent>
 			<tv-form-group prop="name">
 				<tv-input name="test" class="resize-none" v-model="test.name" />
