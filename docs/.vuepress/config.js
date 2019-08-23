@@ -3,24 +3,31 @@ module.exports = {
 	description: 'Just playing around',
 	themeConfig: {
 		nav: [
-		  { text: 'Home', link: '/' },
-		  { text: 'Github', link: 'https://github.com/jgraham44/tailwindcss-vue' },
+			{ text: 'Home', link: '/' },
+			{ text: 'Github', link: 'https://github.com/jgraham44/tailwindcss-vue' },
 		],
 		sidebar: [
-		  '/',
-		  {
-			  title: 'Components',
-			  collapsable: false,
-			  children: [
+		'/',
+		{
+			title: 'Getting Started',
+			collapsable: false,
+			children: [
+				'/getting-started/install',
+			]
+		},
+		{
+			title: 'Components',
+			collapsable: false,
+			children: [
 				'/components/button',
-			  ]
-		  }
+			]
+		}
 		]
-	  },
+	},
 	postcss: {
 		'plugins': [
-		  require('tailwindcss')('tailwind.config.js'),
-		  require('autoprefixer')()
+		require('tailwindcss')('tailwind.config.js'),
+		require('autoprefixer')()
 		]
 	}
 };
