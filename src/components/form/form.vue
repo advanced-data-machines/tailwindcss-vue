@@ -5,8 +5,10 @@
 </template>
 <script>
 import { isEmpty, objectAssign } from '../../utils/utils.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvForm',
+	mixins: [ThemeMixin],
 	provide() {
 		return {
 			rootForm: this
@@ -38,6 +40,22 @@ export default {
 			default: false
 		}
 	},
+	data() {
+		return {
+			groups: []
+		};
+	},
+	computed: {
+		currentClass() {
+			const tag = this.$options._componentTag;
+			const theme = this.currentTheme;
+			let classes = [
+				tag,
+				theme.base
+			];
+			return classes;
+		}
+	},
 	watch: {
 		rules() {
 			// remove then add event listeners on form-item after form rules change
@@ -49,22 +67,6 @@ export default {
 			if (this.validateOnRuleChange) {
 				this.validate(() => {});
 			}
-		}
-	},
-	data() {
-		return {
-			groups: []
-		};
-	},
-	computed: {
-		currentClass() {
-			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
-			let classes = [
-				tag,
-				theme.base
-			];
-			return classes;
 		}
 	},
 	created() {

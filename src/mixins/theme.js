@@ -1,4 +1,3 @@
-import Theme from '../utils/theme.js';
 import { isEmpty, objectAssign } from '../utils/utils.js';
 export default {
 	props: {
@@ -9,12 +8,13 @@ export default {
 	},
 	data() {
 		return {
-			theme: Theme[this.$options.name]
+			theme: this.$tailwindVue.theme
 		};
 	},
 	computed: {
 		currentTheme() {
-			return isEmpty(this.themeOverride) ? this.theme : objectAssign({}, this.theme, this.themeOverride);
+			const theme = this.theme[this.$options.name];
+			return isEmpty(this.themeOverride) ? theme : objectAssign({}, theme, this.themeOverride);
 		}
 	}
 };

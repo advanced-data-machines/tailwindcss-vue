@@ -4,8 +4,10 @@
 	</label>
 </template>
 <script>
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvLabel',
+	mixins: [ThemeMixin],
 	inject: {
 		rootForm: {
 			default: ''
@@ -31,7 +33,7 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			// add tags first
 			let classes = [

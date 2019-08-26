@@ -40,9 +40,10 @@
 </template>
 <script>
 import Emitter from '../../mixins/emitter.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvSelect',
-	mixins: [Emitter],
+	mixins: [Emitter, ThemeMixin],
 	inject: {
 		rootForm: {
 			default: ''
@@ -108,7 +109,7 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
 			// add tags first

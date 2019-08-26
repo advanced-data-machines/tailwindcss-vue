@@ -1,5 +1,7 @@
 
-import { installComponents } from './utils/plugins.js';
+// import { installComponents } from './utils/plugins.js';
+import Alert from './components/alert/index.js';
+import AlertNotice from './components/alert-notice/index.js';
 import Button from './components/button/index.js';
 import Checkbox from './components/checkbox/index.js';
 import CheckboxButton from './components/checkbox-button/index.js';
@@ -16,6 +18,8 @@ import SideSubmenu from './components/side-submenu/index.js';
 
 // components to be used
 const components = [
+	Alert,
+	AlertNotice,
 	Button,
 	Checkbox,
 	CheckboxButton,
@@ -39,11 +43,14 @@ const install = function(Vue, args = {}) {
 	}
 	this.installed = true;
 	const componentList = (args.components && Array.isArray(args.components)) || components;
-	installComponents(Vue, args, componentList);
+	componentList.forEach(component => {
+		Vue.use(component);
+	});
 };
 
 export default {
 	install,
+	Alert,
 	Button,
 	Checkbox,
 	CheckboxButton,

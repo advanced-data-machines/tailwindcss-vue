@@ -1,4 +1,3 @@
-import TvAlert from './alert.js';
 import TvButton from './button.js';
 import TvCheckbox from './checkbox.js';
 import TvCheckboxButton from './checkbox-button.js';
@@ -14,7 +13,6 @@ import TvSideMenuItem from './side-menu-item.js';
 import TvSideSubmenu from './side-submenu.js';
 
 export default {
-	TvAlert,
 	TvButton,
 	TvCheckbox,
 	TvCheckboxButton,
@@ -31,7 +29,6 @@ export default {
 };
 
 export {
-	TvAlert,
 	TvButton,
 	TvCheckbox,
 	TvCheckboxButton,

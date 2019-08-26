@@ -11,7 +11,7 @@ Vue.config.productionTip = false;
 const custom = {
 	theme: {
 		TvForm: {
-			base: 'test-gray-300'
+			base: 'text-gray-300'
 		},
 		TvFormGroup: {
 			base: 'w-full mb-6'
