@@ -2,7 +2,7 @@
 	<section class="px-4 w-full">
 		<h1 class="text-3xl text-primary-300">Form</h1>
 		<tv-form class="w-full max-w-xl" ref="form" :model="test" :rules="rules" @submit.prevent>
-			<tv-form-group prop="name">
+			<tv-form-group prop="name" :theme-override="custom">
 				<tv-label>Name</tv-label>
 				<tv-input name="test" class="resize-none" v-model="test.name" />
 			</tv-form-group>
@@ -16,7 +16,9 @@
 			</tv-form-group>
 			<tv-button @click="validate">Submit</tv-button>
 		</tv-form>
-		<code>{{ test.cities }}</code>
+		<code>{{ test.city }}</code>
+		<tv-button @click="setTheme">Test</tv-button>
+
 		<br>
 		<tv-button v-for="variant in variants" disabled :variant="variant" :key="variant" class="mr-2">{{ variant }}</tv-button>
 	</section>
@@ -30,6 +32,9 @@ export default {
 			test: {
 				name: '',
 				city: ''
+			},
+			custom: {
+				base: 'w-full mb-8'
 			},
 			variants: ['default', 'primary', 'success', 'warning', 'danger', 'info'],
 			rules: {

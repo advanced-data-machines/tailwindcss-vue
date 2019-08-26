@@ -1,3 +1,4 @@
+
 import { installComponents } from './utils/plugins.js';
 import Button from './components/button/index.js';
 import Checkbox from './components/checkbox/index.js';
@@ -31,21 +32,18 @@ const components = [
 ];
 
 // use components
-const plugins = {
-	install(Vue, args = {}) {
-		if (this.installed) {
-			console.warn('(TV Warn[Install]) - install is being called more then again');
-			return;
-		}
-		this.installed = true;
-		const componentList = (args.components && Array.isArray(args.components)) || components;
-		installComponents(Vue, args, componentList);
+const install = function(Vue, args = {}) {
+	if (this.installed) {
+		console.warn('(TV Warn[Install]) - install is being called more then again');
+		return;
 	}
+	this.installed = true;
+	const componentList = (args.components && Array.isArray(args.components)) || components;
+	installComponents(Vue, args, componentList);
 };
 
-export default plugins;
-
-export {
+export default {
+	install,
 	Button,
 	Checkbox,
 	CheckboxButton,
