@@ -71,6 +71,19 @@ export default {
 					leave: 'fadeOut'
 				};
 			}
+		},
+		currentPostionCss() {
+			switch (this.position) {
+			case 'top':
+			case 'bottom':
+				return 'center';
+			case 'top-right':
+			case 'bottom-right':
+				return 'right';
+			case 'top-left':
+			case 'bottom-left':
+				return 'left';
+			}
 		}
 	},
 	methods: {
@@ -80,13 +93,11 @@ export default {
 				: true;
 
 			if (!queue) return false;
-
 			return (
 				this.parentTop.childElementCount > 0 ||
                 this.parentBottom.childElementCount > 0
 			);
 		},
-
 		close() {
 			clearTimeout(this.timer);
 			this.isActive = false;
@@ -95,7 +106,7 @@ export default {
 			setTimeout(() => {
 				this.$destroy();
 				removeElement(this.$el);
-			}, 150);
+			}, this.duration);
 		},
 
 		showNotice() {
@@ -125,7 +136,7 @@ export default {
 
 			if (!this.parentBottom) {
 				this.parentBottom = document.createElement('div');
-				this.parentBottom.className = 'notices is-bottom fixed flex top-0 right-0 bottom-0 left-0 p-6 overflow-hidden z-50 pointer-events-none flex-col-reversed';
+				this.parentBottom.className = 'notices is-bottom fixed flex top-0 right-0 bottom-0 left-0 p-6 overflow-hidden z-50 pointer-events-none flex-col-reverse';
 			}
 
 			const container = document.querySelector(this.newContainer) || document.body;

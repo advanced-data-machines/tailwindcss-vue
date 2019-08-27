@@ -1,15 +1,19 @@
 
-import { setThemeKey, extendDefaultTheme } from './theme.js';
+import { extendDefaultTheme } from './theme.js';
+
+export const setComponentTheme = (Vue, args, themeName) => {
+	if (!Vue.prototype.$tailwindVue || !Vue.prototype.$tailwindVue.theme) {
+		registerComponentProgrammatic(Vue, 'theme', {});
+	}
+
+	const extend = extendDefaultTheme(args.theme || {}, themeName);
+	Vue.prototype.$tailwindVue.theme[themeName] = extend;
+};
+
 export const installComponents = function(Vue, args, components) {
-	if (!Vue.prototype.$tailwindVue || !Vue.prototype.$tailwindVue.theme) registerComponentProgrammatic(Vue, 'theme', {});
 	components.forEach(component => {
-		const extend = extendDefaultTheme(args.theme || {}, component.name);
-		if (extend == null) {
-			return;
-		}
+		setComponentTheme(Vue, args, component.name);
 		Vue.component(component.name, component);
-		setThemeKey(component.name, extend);
-		Vue.prototype.$tailwindVue.theme[component.name] = extend;
 	});
 };
 

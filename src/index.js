@@ -1,7 +1,7 @@
 
 // import { installComponents } from './utils/plugins.js';
 import Alert from './components/alert/index.js';
-import AlertNotice from './components/alert-notice/index.js';
+import AlertNotice, { NotifyProgrammatic } from './components/alert-notice/index.js';
 import Button from './components/button/index.js';
 import Checkbox from './components/checkbox/index.js';
 import CheckboxButton from './components/checkbox-button/index.js';
@@ -9,6 +9,7 @@ import Form from './components/form/index.js';
 import FormGroup from './components/form-group/index.js';
 import Input from './components/input/index.js';
 import Label from './components/label/index.js';
+import Modal, { ModalProgrammatic } from './components/modal/index.js';
 import Radio from './components/radio/index.js';
 import RadioButton from './components/radio-button/index.js';
 import Select from './components/select/index.js';
@@ -27,6 +28,7 @@ const components = [
 	FormGroup,
 	Input,
 	Label,
+	Modal,
 	Radio,
 	RadioButton,
 	Select,
@@ -44,13 +46,15 @@ const install = function(Vue, args = {}) {
 	this.installed = true;
 	const componentList = (args.components && Array.isArray(args.components)) || components;
 	componentList.forEach(component => {
-		Vue.use(component);
+		Vue.use(component, args);
 	});
 };
 
 export default {
 	install,
 	Alert,
+	AlertNotice,
+	NotifyProgrammatic,
 	Button,
 	Checkbox,
 	CheckboxButton,
@@ -58,6 +62,8 @@ export default {
 	FormGroup,
 	Input,
 	Label,
+	Modal,
+	ModalProgrammatic,
 	Radio,
 	RadioButton,
 	Select,

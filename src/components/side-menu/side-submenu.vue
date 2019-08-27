@@ -12,7 +12,7 @@
 			</slot>
 		</div>
 		<slide-y-up-transition v-if="menuCollapsed">
-			<ul v-show="hover" class="absolute top-0 z-50 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
+			<ul v-show="hover" class="absolute top-0 z-30 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
 				<slot />
 			</ul>
 		</slide-y-up-transition>
