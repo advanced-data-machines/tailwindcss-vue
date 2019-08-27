@@ -26,9 +26,10 @@
 </template>
 <script>
 import Emitter from '../../mixins/emitter.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvCheckbox',
-	mixins: [Emitter],
+	mixins: [Emitter, ThemeMixin],
 	inject: {
 		rootForm: {
 			default: ''
@@ -84,7 +85,7 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			// add tags first
 			let classes = [
 				tag,
@@ -95,16 +96,16 @@ export default {
 			return classes;
 		}
 	},
-	methods: {
-		focus() {
-			// MacOS FireFox and Safari do not focus when clicked
-			this.$refs.input.focus();
-		}
-	},
 	watch: {
 		value(value) {
 			this.newValue = value;
 			this.dispatch('TvFormGroup', 'form.change', value);
+		}
+	},
+	methods: {
+		focus() {
+			// MacOS FireFox and Safari do not focus when clicked
+			this.$refs.input.focus();
 		}
 	}
 };

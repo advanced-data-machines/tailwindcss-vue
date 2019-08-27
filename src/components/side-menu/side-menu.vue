@@ -7,9 +7,10 @@
 <script>
 import emitter from '../../mixins/emitter.js';
 import { isEmpty } from '../../utils/utils.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvSideMenu',
-	mixins: [emitter],
+	mixins: [emitter, ThemeMixin],
 	provide() {
 		return {
 			rootMenu: this
@@ -48,7 +49,7 @@ export default {
 	computed: {
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			if (!theme) {
 				console.warn('(TV Warn[Theme -TvSideMenu]) - theme is not installed properly');
 				return '';

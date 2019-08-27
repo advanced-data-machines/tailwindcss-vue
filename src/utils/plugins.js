@@ -1,33 +1,23 @@
-import DefaultTheme from '../themes/default/index.js';
-import { objectAssign } from '../utils/utils.js';
 
-export const currentTheme = function(args) {
-	return {
-		...DefaultTheme,
-		...args.theme || {}
-	};
-};
+import { extendDefaultTheme } from './theme.js';
 
-export const extendTheme = function(theme, name) {
-	const themeCustom = theme[name];
-	const themeDefault = DefaultTheme[name];
-
-	if (themeCustom === undefined) {
-		console.warn(`(TV Warn[Install Extend]) - the component '${name}' is invalid`);
-		return null;
+export const setComponentTheme = (Vue, args, themeName) => {
+	if (!Vue.prototype.$tailwindVue || !Vue.prototype.$tailwindVue.theme) {
+		registerComponentProgrammatic(Vue, 'theme', {});
 	}
-	return objectAssign({}, themeDefault, themeCustom);
+
+	const extend = extendDefaultTheme(args.theme || {}, themeName);
+	Vue.prototype.$tailwindVue.theme[themeName] = extend;
 };
 
 export const installComponents = function(Vue, args, components) {
-	const current = currentTheme(args);
-	if (Vue.prototype.$tvTheme === undefined) Vue.prototype.$tvTheme = {};
 	components.forEach(component => {
-		const extend = extendTheme(current, component.name);
-		if (extend == null) {
-			return;
-		}
+		setComponentTheme(Vue, args, component.name);
 		Vue.component(component.name, component);
-		Vue.prototype.$tvTheme[component.name] = extend;
 	});
+};
+
+export const registerComponentProgrammatic = (Vue, property, component) => {
+	if (!Vue.prototype.$tailwindVue) Vue.prototype.$tailwindVue = {};
+	Vue.prototype.$tailwindVue[property] = component;
 };

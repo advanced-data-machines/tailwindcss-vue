@@ -8,8 +8,17 @@ import '@/assets/css/tailwind.css';
 import Twv from './index.js';
 // root component
 Vue.config.productionTip = false;
-
-Vue.use(Twv);
+const custom = {
+	theme: {
+		TvForm: {
+			base: 'text-gray-300'
+		},
+		TvFormGroup: {
+			base: 'w-full mb-6'
+		}
+	}
+};
+Vue.use(Twv, custom);
 new Vue({
 	router,
 	render: h => h(App)

@@ -12,10 +12,11 @@
 <script>
 import AsyncValidator from 'async-validator';
 import Emitter from '../../mixins/emitter.js';
+import ThemeMixin from '../../mixins/theme.js';
 import { getPropByPath, objectAssign, noop } from '../../utils/utils.js';
 export default {
 	name: 'TvFormGroup',
-	mixins: [Emitter],
+	mixins: [Emitter, ThemeMixin],
 	provide() {
 		return {
 			formGroup: this
@@ -56,22 +57,17 @@ export default {
 			default: null
 		}
 	},
-	watch: {
-		error: {
-			immediate: true,
-			handler(value) {
-				this.validateMessage = value;
-				this.validateState = value ? 'error' : '';
-			}
-		},
-		validateStatus(value) {
-			this.validateState = value;
-		}
+	data() {
+		return {
+			validateState: '',
+			validateMessage: '',
+			validateDisabled: true
+		};
 	},
 	computed: {
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			// add tags first
 			let classes = [
@@ -115,12 +111,33 @@ export default {
 			return isRequired;
 		}
 	},
-	data() {
-		return {
-			validateState: '',
-			validateMessage: '',
-			validateDisabled: true
-		};
+	watch: {
+		error: {
+			immediate: true,
+			handler(value) {
+				this.validateMessage = value;
+				this.validateState = value ? 'error' : '';
+			}
+		},
+		validateStatus(value) {
+			this.validateState = value;
+		}
+	},
+	mounted() {
+		if (this.prop) {
+			this.dispatch('TvForm', 'form.addGroup', [this]);
+			let initialValue = this.groupValue;
+			if (Array.isArray(initialValue)) {
+				initialValue = [].concat(initialValue);
+			}
+			Object.defineProperty(this, 'initialValue', {
+				value: initialValue
+			});
+			this.addValidateEvents();
+		}
+	},
+	beforeDestroy() {
+		this.dispatch('TvForm', 'form.removeGroup', [this]);
 	},
 	methods: {
 		validate(trigger, callback = noop) {
@@ -194,22 +211,6 @@ export default {
 		removeValidateEvents() {
 			this.$off();
 		}
-	},
-	mounted() {
-		if (this.prop) {
-			this.dispatch('TvForm', 'form.addGroup', [this]);
-			let initialValue = this.groupValue;
-			if (Array.isArray(initialValue)) {
-				initialValue = [].concat(initialValue);
-			}
-			Object.defineProperty(this, 'initialValue', {
-				value: initialValue
-			});
-			this.addValidateEvents();
-		}
-	},
-	beforeDestroy() {
-		this.dispatch('TvForm', 'form.removeGroup', [this]);
 	}
 };
 </script>

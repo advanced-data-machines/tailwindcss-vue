@@ -1,4 +1,6 @@
+import ThemeMixin from '../../mixins/theme.js';
 export default {
+	mixins: [ThemeMixin],
 	inject: ['rootMenu'],
 	computed: {
 		indexPath() {
@@ -21,9 +23,9 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			if (!theme) {
-				console.warn('(TV Warn[Theme -TvSideMenuItem]) - theme is not installed properly');
+				console.warn(`(TV Warn[Theme - ${this.$options.name}]) - theme is not installed properly`);
 				return '';
 			};
 			let state = this.active ? 'active' : 'default';

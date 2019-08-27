@@ -1,6 +1,8 @@
 <script>
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvButton',
+	mixins: [ThemeMixin],
 	inject: {
 		rootFrom: {
 			default: ''
@@ -63,7 +65,7 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			const variant = this.variant || 'default';
 			const size = this.size || 'default';
 			const style = this.outline ? 'outline' : 'solid';

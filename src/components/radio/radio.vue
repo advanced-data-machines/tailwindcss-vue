@@ -22,9 +22,10 @@
 </template>
 <script>
 import Emitter from '../../mixins/emitter.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvRadio',
-	mixins: [Emitter],
+	mixins: [Emitter, ThemeMixin],
 	inject: {
 		rootForm: {
 			default: ''
@@ -68,7 +69,7 @@ export default {
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.$tvTheme[this.$options.name];
+			const theme = this.currentTheme;
 			// add tags first
 			let classes = [
 				tag,
