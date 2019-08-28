@@ -1,29 +1,29 @@
 <template>
 	<li :class="currentClass" @click="handleClick">
 		<slot />
-		<fade-in-transition v-if="transitionTitle">
+		<custom-transition v-if="transitionTitle">
 			<span v-show="!menuCollapsed">
 				<slot name="title" />
 			</span>
-		</fade-in-transition>
+		</custom-transition>
 		<slot v-else name="title" />
 	</li>
 </template>
 <script>
-import FadeInTransition from '../transistions/fade-in-transition.vue';
+import CustomTransition from '../transistions/custom-transition.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideMenuItem',
 	components: {
-		'fade-in-transition': FadeInTransition
+		'custom-transition': CustomTransition
 	},
 	mixins: [Emitter, Menu],
 	props: {
 		index: {
 			type: String,
 			default: null,
-			validator: val => typeof val === 'string' | val === null
+			validator: val => typeof val === 'string' || val === null
 		},
 		route: {
 			type: [String, Object],

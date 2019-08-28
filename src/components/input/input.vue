@@ -137,7 +137,6 @@ export default {
 		value(value) {
 			this.newValue = value;
 			if (this.validateEvent) {
-				console.log('validate');
 				this.dispatch('TvFormGroup', 'form.change', [value]);
 			}
 		}

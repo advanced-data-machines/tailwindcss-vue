@@ -1,7 +1,7 @@
 <template>
 	<ul :class="currentClass" :style="style">
-		<slot name="body" />
-		<slot name="footer" />
+		<slot />
+		<slot name="footer" :collapse="collapse" />
 	</ul>
 </template>
 <script>
@@ -68,7 +68,7 @@ export default {
 		},
 		style() {
 			const durationInSeconds = this.duration / 1000;
-			return { transition: `width ease-in-out ${durationInSeconds}s` };
+			return { transition: `width ${durationInSeconds}s ease-in-out 0s` };
 		}
 	},
 	watch: {

@@ -5,7 +5,7 @@
 		</div>
 		<div class="flex flex-row flex-grow">
 			<tv-side-menu :default-active="activeRoute" :collapse="menuCollapse" class="flex flex-col bg-gray-700">
-				<div class="flex-grow" slot="body">
+				<div class="flex-grow">
 					<tv-side-menu-item @click="handleToggle">
 						<i :class="['mdi mdi-menu', 'text-2xl']" />
 						<span class="ml-4 nowrap" slot="title">

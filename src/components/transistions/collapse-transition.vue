@@ -14,6 +14,7 @@
 	</component>
 </template>
 <script>
+// from https://github.com/BinarCode/vue2-transitions - repo does not look maintained
 import Transition from './transistion-mixin.js';
 export default {
 	name: 'CollapseTransition',

@@ -2,20 +2,20 @@
 	<li class="relative" @mouseenter="hover = true" @mouseleave="hover = false">
 		<div @click="handleClick" :class="['relative', currentClass]">
 			<slot name="icon" />
-			<fade-in-transition>
+			<custom-transition>
 				<span v-show="!menuCollapsed">
 					<slot name="title" />
 				</span>
-			</fade-in-transition>
+			</custom-transition>
 			<slot name="arrow" :collapse="menuCollapsed" :opened="opened">
 				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" />
 			</slot>
 		</div>
-		<slide-y-up-transition v-if="menuCollapsed">
+		<custom-transition type="slide" v-if="menuCollapsed">
 			<ul v-show="hover" class="absolute top-0 z-30 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
 				<slot />
 			</ul>
-		</slide-y-up-transition>
+		</custom-transition>
 		<collapse-transition v-else>
 			<ul v-show="opened" class="children">
 				<slot />
@@ -25,8 +25,7 @@
 </template>
 <script>
 import CollapseTransition from '../transistions/collapse-transition.vue';
-import SlideYUpTransition from '../transistions/slide-y-up-transition.vue';
-import FadeInTransition from '../transistions/fade-in-transition.vue';
+import CustomTransition from '../transistions/custom-transition.vue';
 import MenuArrow from './menu-arrow.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
@@ -35,15 +34,14 @@ export default {
 	mixins: [Emitter, Menu],
 	components: {
 		'collapse-transition': CollapseTransition,
-		'slide-y-up-transition': SlideYUpTransition,
-		'fade-in-transition': FadeInTransition,
+		'custom-transition': CustomTransition,
 		'tv-menu-arrow': MenuArrow
 	},
 	props: {
 		index: {
 			type: String,
 			default: null,
-			validator: val => typeof val === 'string' | val === null
+			validator: val => typeof val === 'string' || val === null
 		},
 		disabled: {
 			type: Boolean,

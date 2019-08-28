@@ -1,5 +1,5 @@
 <template>
-	<fade-in-transition>
+	<custom-transition>
 		<div :class="currentClass" v-if="isActive">
 			<div :class="['absolute top-0 left-0 right-0 bottom-0', bgStyle]" @click="cancel('outside')" />
 			<div class="relative">
@@ -13,16 +13,16 @@
 				</a>
 			</slot>
 		</div>
-	</fade-in-transition>
+	</custom-transition>
 </template>
 <script>
 import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
-import FadeInTransition from '../../components/transistions/fade-in-transition.vue';
+import CustomTransition from '../../components/transistions/custom-transition.vue';
 export default {
 	name: 'TvModal',
 	components: {
-		'fade-in-transition': FadeInTransition
+		[CustomTransition.name]: CustomTransition
 	},
 	mixins: [ThemeMixin],
 	props: {

@@ -1,5 +1,5 @@
 <template>
-	<fade-in-transition>
+	<custom-transition :type="transition">
 		<div v-show="isActive" :class="['relative', currentClass]">
 			<slot name="close" v-if="closable" :aria-close-label="ariaCloseLabel" :close="close">
 				<a @click="close" class="cursor-pointer pointer-events-auto absolute inset-y-0 right-0 flex items-center pl-1 pr-4" :aria-label="ariaCloseLabel">
@@ -10,22 +10,27 @@
 				<p v-html="message" />
 			</slot>
 		</div>
-	</fade-in-transition>
+	</custom-transition>
 </template>
 <script>
-import FadeInTransition from '../transistions/fade-in-transition.vue';
+import Transition from '../transistions/custom-transition.vue';
 import ThemeMixin from '../../mixins/theme.js';
 import MessageMixin from '../../mixins/message.js';
 export default {
 	name: 'TvAlert',
 	mixins: [MessageMixin, ThemeMixin],
 	components: {
-		'fade-in-transition': FadeInTransition
+		'custom-transition': Transition
 	},
 	props: {
 		ariaCloseLabel: {
 			type: String,
 			default: 'close'
+		},
+		transition: {
+			type: String,
+			default: 'fade',
+			validate: (val) => ['fade', 'slide', 'zoom'].indexOf(val) > -1
 		}
 	},
 	computed: {

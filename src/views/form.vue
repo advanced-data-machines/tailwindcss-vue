@@ -55,7 +55,8 @@ export default {
 			variants: ['default', 'primary', 'success', 'warning', 'danger', 'info'],
 			rules: {
 				name: [
-					{ required: true, message: 'Please insert name', trigger: 'change' }
+					{ required: true, message: 'Please insert name', trigger: 'change' },
+					{ whitespace: true, type: 'string', message: 'Please insert name', trigger: 'change' }
 				],
 				city: [
 					{ required: true, message: 'Please select a city', trigger: 'change' }

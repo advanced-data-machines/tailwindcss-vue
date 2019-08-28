@@ -3,7 +3,7 @@
 		<slot name="label" v-if="$slots.label" :label="label" />
 		<slot />
 		<slot v-if="validateState === 'error' && showMessage && form.showMessage" name="error" :error="validateMessage">
-			<span class="block">
+			<span class="block text-sm text-danger-600">
 				{{ validateMessage }}
 			</span>
 		</slot>

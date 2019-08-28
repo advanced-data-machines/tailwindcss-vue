@@ -106,7 +106,7 @@ export default {
 			setTimeout(() => {
 				this.$destroy();
 				removeElement(this.$el);
-			}, this.duration);
+			}, 300);
 		},
 
 		showNotice() {
