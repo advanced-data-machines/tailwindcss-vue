@@ -28,7 +28,7 @@ or
 yarn serve
 ```
 
-You can also build the project and serve it to another local project using **npm link**. While still in the root of the project directory, run the *build:bundle* command.
+You can also build the project and serve it to another local project using [npm link](https://docs.npmjs.com/cli/link) or the equivalent [yarn link](https://yarnpkg.com/lang/en/docs/cli/link/). While still in the root of the project directory, run the *build:bundle* command. 
 
 ``` sh 
 npm run build:bundle
@@ -51,7 +51,7 @@ Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the
 npm link tailwindcss-vue
 ```
 
-## Local Doc
+## Local Docs
 
 This project is bundled with [VuePress](https://vuepress.vuejs.org/) to generate its documentation. You can run it locally by running the *docs:dev* run command. The docs are currently a work-in-progress.
 
