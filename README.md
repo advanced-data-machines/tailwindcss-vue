@@ -68,7 +68,7 @@ yarn docs:dev
 
 ## License
 
-Code released under [MIT](https://github.com/jgraham44/tailwindcss-vue/blob/master/LICENSE) license.
+Code released under [MIT](https://github.com/advanced-data-machines/tailwindcss-vue/blob/master/LICENSE) license.
 
 ## Thanks to
 
