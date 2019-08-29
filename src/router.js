@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/home.vue';
+import Install from './views/install.vue';
 import BaseRoute from './views/base-route.vue';
 import Form from './views/form.vue';
+import Table from './views/table.vue';
 
 Vue.use(Router);
 
@@ -12,11 +13,11 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
-			component: Home,
+			name: 'install',
+			component: Install,
 			meta: {
 				index: 'TD',
-				title: 'Home',
+				title: 'Install',
 				icon: 'mdi-view-dashboard'
 			}
 		},
@@ -37,6 +38,15 @@ export default new Router({
 					meta: {
 						index: 'C-1',
 						title: 'Form'
+					}
+				},
+				{
+					path: 'Table',
+					name: 'table',
+					component: Table,
+					meta: {
+						index: 'C-2',
+						title: 'Table'
 					}
 				}
 			]

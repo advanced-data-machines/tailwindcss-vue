@@ -6,6 +6,6 @@
 
 <script>
 export default {
-	name: 'Home'
+	name: 'Install'
 };
 </script>

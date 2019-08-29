@@ -77,3 +77,8 @@ export function getPropByPath(obj, path, strict) {
 		v: tempObj ? tempObj[keyArr[i]] : null
 	};
 }
+
+export function getValueByPath(obj, path) {
+	const value = path.split('.').reduce((o, i) => o[i], obj);
+	return value;
+}

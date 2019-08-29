@@ -14,6 +14,8 @@ import TvSelect from './select.js';
 import TvSideMenu from './side-menu.js';
 import TvSideMenuItem from './side-menu-item.js';
 import TvSideSubmenu from './side-submenu.js';
+import TvTable from './table.js';
+import TvTableColumn from './table-column.js';
 
 export default {
 	TvAlert,
@@ -31,7 +33,9 @@ export default {
 	TvSelect,
 	TvSideMenu,
 	TvSideMenuItem,
-	TvSideSubmenu
+	TvSideSubmenu,
+	TvTable,
+	TvTableColumn
 };
 
 export {
@@ -50,5 +54,7 @@ export {
 	TvSelect,
 	TvSideMenu,
 	TvSideMenuItem,
-	TvSideSubmenu
+	TvSideSubmenu,
+	TvTable,
+	TvTableColumn
 };

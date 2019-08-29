@@ -16,6 +16,8 @@ import Select from './components/select/index.js';
 import SideMenu from './components/side-menu/index.js';
 import SideMenuItem from './components/side-menu-item/index.js';
 import SideSubmenu from './components/side-submenu/index.js';
+import Table from './components/table/index.js';
+import TableColumn from './components/table-column/index.js';
 
 // components to be used
 const components = [
@@ -34,7 +36,9 @@ const components = [
 	Select,
 	SideMenu,
 	SideMenuItem,
-	SideSubmenu
+	SideSubmenu,
+	Table,
+	TableColumn
 ];
 
 // use components

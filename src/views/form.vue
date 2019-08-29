@@ -14,7 +14,7 @@
 					</option>
 				</tv-select>
 			</tv-form-group>
-			<tv-button @click="active = true">Submit</tv-button>
+			<tv-button @click="validate">Submit</tv-button>
 		</tv-form>
 		<code>{{ test.city }}</code>
 		<br>

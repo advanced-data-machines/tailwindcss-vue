@@ -1,4 +1,4 @@
-import TvRadioButton from '../radio/radio-button.vue';
+import TvRadioButton from './radio-button.vue';
 import { installComponents } from '../../utils/plugins.js';
 
 TvRadioButton.install = function(Vue, args = {}) {
