@@ -1,13 +1,9 @@
 
-import { extendDefaultTheme } from './theme.js';
+import { extendDefaultTheme, setThemeKey } from './theme.js';
 
 export const setComponentTheme = (Vue, args, themeName) => {
-	if (!Vue.prototype.$tailwindVue || !Vue.prototype.$tailwindVue.theme) {
-		registerComponentProgrammatic(Vue, 'theme', {});
-	}
-
 	const extend = extendDefaultTheme(args.theme || {}, themeName);
-	Vue.prototype.$tailwindVue.theme[themeName] = extend;
+	setThemeKey(themeName, extend);
 };
 
 export const installComponents = function(Vue, args, components) {

@@ -1,7 +1,7 @@
 import DefaultTheme from '../themes/default/index.js';
 import { objectAssign } from '../utils/utils.js';
 
-let theme = {};
+let theme = objectAssign({}, DefaultTheme);
 
 export const extendDefaultTheme = function(theme, name) {
 	const themeCustom = theme[name] || {};

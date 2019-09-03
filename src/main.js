@@ -14,7 +14,7 @@ const custom = {
 			base: 'text-gray-300'
 		},
 		TvFormGroup: {
-			base: 'w-full mb-6'
+			base: 'w-full mb-8'
 		}
 	}
 };

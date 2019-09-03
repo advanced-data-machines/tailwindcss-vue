@@ -1,7 +1,27 @@
 {
-	"name": "tailwindcss-vue",
-	"version": "0.1.0",
-	"private": true,
+	"name": "@advanced-data-machines/tailwindcss-vue",
+	"version": "0.1.0-alpha.0",
+	"description": "Tailwindcss-Vue is a library of UI components for Vue.js built using the Tailwind CSS utility-first CSS framework.",
+	"directories": {
+		"docs": "docs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/advanced-data-machines/tailwindcss-vue.git"
+	},
+	"keywords": [
+		"Tailwind",
+		"CSS",
+		"Vuejs",
+		"UI",
+		"Components"
+	],
+	"author": "Advanced Data Machines",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/advanced-data-machines/tailwindcss-vue/issues"
+	},
+	"homepage": "https://github.com/advanced-data-machines/tailwindcss-vue#readme",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
@@ -17,8 +37,8 @@
 		"async-validator": "^3.0.4"
 	},
 	"peerDependencies": {
-		"vue": "^2.6.0",
-		"tailwindcss": "^1.1.0"
+		"tailwindcss": "^1.1.0",
+		"vue": "^2.6.0"
 	},
 	"devDependencies": {
 		"@mdi/font": "^4.0.96",

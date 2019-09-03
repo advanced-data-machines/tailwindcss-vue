@@ -18,6 +18,7 @@ import SideMenuItem from './components/side-menu-item/index.js';
 import SideSubmenu from './components/side-submenu/index.js';
 import Table from './components/table/index.js';
 import TableColumn from './components/table-column/index.js';
+import TableHeader from './components/table-header/index.js';
 
 // components to be used
 const components = [
@@ -38,14 +39,14 @@ const components = [
 	SideMenuItem,
 	SideSubmenu,
 	Table,
-	TableColumn
+	TableColumn,
+	TableHeader
 ];
 
 // use components
 const install = function(Vue, args = {}) {
 	if (this.installed) {
-		console.warn('(TV Warn[Install]) - install is being called more then again');
-		return;
+		throw new Error('(TV Warn[Install]) - install is being called more then again');
 	}
 	this.installed = true;
 	const componentList = (args.components && Array.isArray(args.components)) || components;
@@ -73,5 +74,8 @@ export default {
 	Select,
 	SideMenu,
 	SideMenuItem,
-	SideSubmenu
+	SideSubmenu,
+	Table,
+	TableColumn,
+	TableHeader
 };

@@ -1,7 +1,27 @@
 <template>
 	<section class="px-4 w-full">
 		<h1 class="text-3xl text-primary-300">Table</h1>
-		<tv-table :data="data" :columns="columns" />
+		<tv-table :data="data" :columns="columns">
+			<template slot="header" slot-scope="props">
+				{{ props.column.field }} {{ props.index }}
+			</template>
+		</tv-table>
+		<tv-table :data="data">
+			<template slot-scope="props">
+				<tv-table-column label="Name" field="name">
+					<template slot="header" slot-scope="child">
+						<span class="text-danger-500">{{ child.column.field }} {{ child.index }}</span>
+					</template>
+					{{ props.row.name }}
+				</tv-table-column>
+				<tv-table-column label="Department" field="department">
+					<template slot="header" slot-scope="child">
+						{{ child.column.field }} {{ child.index }}
+					</template>
+					{{ props.row.department }}
+				</tv-table-column>
+			</template>
+		</tv-table>
 	</section>
 </template>
 <script>

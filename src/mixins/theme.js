@@ -1,4 +1,5 @@
 import { isEmpty, objectAssign } from '../utils/utils.js';
+import Theme from '../utils/theme.js';
 export default {
 	props: {
 		themeOverride: {
@@ -8,7 +9,7 @@ export default {
 	},
 	data() {
 		return {
-			theme: this.$tailwindVue.theme
+			theme: Theme
 		};
 	},
 	computed: {
