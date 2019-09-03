@@ -48,7 +48,7 @@ npm link
 Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the same directory as the *package.json* file. This will add the project to the global scope to be referenced as a traditional installed npm package (import TailwindcssVue from 'tailwindcss-vue').
 
 ``` sh 
-npm link tailwindcss-vue
+npm link @advanced-data-machines\tailwindcss-vue
 ```
 
 ## Local Docs
