@@ -1,6 +1,6 @@
 {
 	"name": "@advanced-data-machines/tailwindcss-vue",
-	"version": "0.1.0-alpha.1",
+	"version": "0.1.0-alpha.2",
 	"description": "Tailwindcss-Vue is a library of UI components for Vue.js built using the Tailwind CSS utility-first CSS framework.",
 	"directories": {
 		"docs": "docs"
