@@ -2,7 +2,99 @@
 
 > Tailwindcss-Vue is a library of UI components for [Vue.js](https://vuejs.org/) built using the [Tailwind CSS](https://tailwindcss.com/) utility-first CSS framework.
 
-## Developing locally 
+[![Licence](https://img.shields.io/github/license/advanced-data-machines/tailwindcss-vue)](https://github.com/advanced-data-machines/tailwindcss-vue/blob/master/LICENSE)
+[![NPM](https://img.shields.io/npm/v/@advanced-data-machines/tailwindcss-vue)](https://www.npmjs.com/package/@advanced-data-machines/tailwindcss-vue)
+
+## Install
+
+### npm
+``` sh
+npm install @advanced-data-machines\tailwindcss-vue
+```
+
+### yarn
+``` sh
+yarn add @advanced-data-machines\tailwindcss-vue
+```
+
+## Usage
+
+``` js
+import Vue from 'vue';
+// styles for transitions and other base options
+import '@advanced-data-machines/tailwindcss-vue/dist/tailwindcss-vue.css';
+import TailwindcssVue from '@advanced-data-machines/tailwindcss-vue';
+
+Vue.use(TailwindcssVue);
+```
+
+## Base Theme Expectations
+
+Use of this project assumes you are using [PostCSS](https://postcss.org/) and Tailwind CSS in your Vue project.
+
+#### *postcss.config.js*
+
+``` js
+// replace './tailwind.config.js' to your own config path
+module.exports = {
+	plugins: [
+		require('tailwindcss')('./tailwind.config.js'),
+		require('autoprefixer')
+	]
+};
+```
+
+#### *tailwind.config.js*
+
+> This file is likely to change to base color scheme without the need for custom color names
+
+``` js
+const { colors } = require('tailwindcss/defaultTheme');
+// variant defaults
+// https://tailwindcss.com/docs/configuring-variants/#default-variants-reference
+module.exports = {
+	theme: {
+		colors: {
+			primary: colors.teal,
+			info: colors.blue,
+			warning: colors.yellow,
+			danger: colors.red,
+			success: colors.green,
+			gray: colors.gray,
+			white: colors.white,
+			black: colors.black
+		},
+		extend: {
+			spacing: {
+				'9': '2.25rem',
+				'11': '2.75rem',
+				'14': '3.5rem'
+			}
+		},
+		container: {
+			center: true
+		}
+	},
+	variants: {
+		borderColor: ['responsive', 'hover', 'focus', 'first', 'last'],
+		borderRadius: ['responsive', 'first', 'last'],
+		borderWidth: ['responsive', 'first', 'last'],
+		margin: ['responsive', 'before', 'first', 'last'],
+		textColor: ['responsive', 'hover', 'focus', 'before']
+	},
+	plugins: [
+		function({ addVariant, e }) {
+			addVariant('before', ({ modifySelectors, separator }) => {
+				modifySelectors(({ className }) => {
+					return `.${e(`before${separator}${className}`)}:before`;
+				});
+			});
+		}
+	]
+};
+```
+
+## Developing/Running Locally 
 
 Clone the repo to your computer then change to the project directory. Once in the root of the project, use the install command with your dependency manager of choice (yarn or npm).
 
@@ -45,7 +137,7 @@ This will add the build to the *'dist'* folder as a consumable library. Once com
 npm link
 ```
 
-Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the same directory as the *package.json* file. This will add the project to the global scope to be referenced as a traditional installed npm package (import TailwindcssVue from 'tailwindcss-vue').
+Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the same directory as the *package.json* file. This will add the project to the global scope to be referenced as a traditional installed npm package (import TailwindcssVue from '@advanced-data-machines\tailwindcss-vue').
 
 ``` sh 
 npm link @advanced-data-machines\tailwindcss-vue
@@ -64,7 +156,7 @@ or
 ``` sh
 yarn docs:dev
 ```
-### Coming Soon
+### More Coming Soon
 
 ## License
 
