@@ -105,10 +105,6 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			if (!theme) {
-				console.warn('(TV Warn[Theme -TvInput]) - theme is not installed properly');
-				return '';
-			};
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
 			// add tags first

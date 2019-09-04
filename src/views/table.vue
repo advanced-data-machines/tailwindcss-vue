@@ -1,12 +1,12 @@
 <template>
 	<section class="px-4 w-full">
 		<h1 class="text-3xl text-primary-300">Table</h1>
-		<tv-table :data="data" :columns="columns">
+		<tv-table :data="data" :columns="columns" :custom-row-class="handleCustomRow">
 			<template slot="header" slot-scope="props">
 				{{ props.column.field }} {{ props.index }}
 			</template>
 		</tv-table>
-		<tv-table :data="data">
+		<tv-table :data="data" detailed>
 			<template slot-scope="props">
 				<tv-table-column label="Name" field="name">
 					<template slot="header" slot-scope="child">
@@ -21,6 +21,9 @@
 					{{ props.row.department }}
 				</tv-table-column>
 			</template>
+			<div slot="detail" class="p-5 border-b border-gray-300" slot-scope="detail">
+				<strong>Department:</strong> {{ detail.row.department }}
+			</div>
 		</tv-table>
 	</section>
 </template>
@@ -40,6 +43,12 @@ export default {
 				{ label: 'Department', field: 'department' }
 			]
 		};
+	},
+	methods: {
+		handleCustomRow(obj, index) {
+			if (index % 2) return 'bg-info-100 hover:bg-gray-200';
+			else return 'hover:bg-gray-100';
+		}
 	}
 };
 </script>

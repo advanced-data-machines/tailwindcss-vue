@@ -24,10 +24,6 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			if (!theme) {
-				console.warn(`(TV Warn[Theme - ${this.$options.name}]) - theme is not installed properly`);
-				return '';
-			};
 			let state = this.active ? 'active' : 'default';
 			if (this.disabled) {
 				state = 'disabled';

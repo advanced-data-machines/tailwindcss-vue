@@ -50,10 +50,6 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			if (!theme) {
-				console.warn('(TV Warn[Theme -TvSideMenu]) - theme is not installed properly');
-				return '';
-			};
 			const state = this.collapse ? 'mini' : 'full';
 			// add tags first
 			let classes = [
@@ -146,7 +142,7 @@ export default {
 			if (this.router && hasIndex) {
 				this.routeToItem(item, (error) => {
 					this.activeIndex = oldActiveIndex;
-					if (error) console.error(error);
+					if (error) throw new Error(error);
 				});
 			}
 		},
@@ -166,11 +162,7 @@ export default {
 		},
 		routeToItem(item, onError) {
 			const route = item.route || item.index;
-			try {
-				this.$router.push(route, () => {}, onError);
-			} catch (e) {
-				console.error(e);
-			}
+			this.$router.push(route, () => {}, onError);
 		},
 		open(index) {
 			const { indexPath } = this.submenus[index.toString()];

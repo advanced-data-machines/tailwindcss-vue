@@ -51,7 +51,6 @@ export default {
 	methods: {
 		close() {
 			this.isActive = false;
-			console.log('close');
 			this.$emit('close');
 			// update .sync modifier (v-on:update:active)
 			this.$emit('update:active', false);
