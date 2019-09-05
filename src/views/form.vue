@@ -14,15 +14,23 @@
 					</option>
 				</tv-select>
 			</tv-form-group>
-			<tv-button @click="validate">Submit</tv-button>
+			<tv-form-group>
+				<tv-checkbox v-for="city in cities" :key="city + 'check'" v-model="test.checked" :native-value="city">
+					{{ city }}
+				</tv-checkbox>
+			</tv-form-group>
+			<tv-button @click="validate" rounded>Submit</tv-button>
 		</tv-form>
+		<p>Checked:</p>
+		<code>{{ test.checked }}</code>
+		<p>Selected:</p>
 		<code>{{ test.city }}</code>
 		<br>
 		<tv-button v-for="variant in variants" disabled :variant="variant" :key="variant" class="mr-2 mb-2">{{ variant }}</tv-button>
 		<br>
 		<tv-button @click="notify" class="mr-2">Notify</tv-button>
 		<tv-button @click="handleShow" class="mr-2">Show Programmatic</tv-button>
-		<tv-button @click="show = true">Show Inline</tv-button>
+		<tv-button @click="show = true" class="text-red-900">Show Inline</tv-button>
 		<tv-modal :active.sync="show" :on-cancel="handleCancel">
 			<modal-test />
 			<template slot="close" slot-scope="props">
@@ -45,7 +53,8 @@ export default {
 			cities: ['Denver', 'Parker', 'Franktown'],
 			test: {
 				name: '',
-				city: ''
+				city: '',
+				checked: []
 			},
 			active: true,
 			custom: {

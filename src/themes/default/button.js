@@ -56,5 +56,6 @@ export default {
 		default: 'text-base py-2 px-4',
 		sm: 'text-sm py-1 px-3',
 		lg: 'text-lg py-3 px-5'
-	}
+	},
+	rounded: 'rounded-full'
 };

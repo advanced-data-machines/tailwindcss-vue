@@ -1,3 +1,15 @@
+<template>
+	<component
+		:is="componentToRender"
+		:class="currentClass"
+		v-bind="getAttributes()"
+		@click="handleClick"
+		@focus="handleFocus"
+		@blur="handleBlur"
+	>
+		<slot />
+	</component>
+</template>
 <script>
 import ThemeMixin from '../../mixins/theme.js';
 export default {
@@ -57,6 +69,10 @@ export default {
 		outline: {
 			type: Boolean,
 			default: false
+		},
+		rounded: {
+			type: Boolean,
+			default: false
 		}
 	},
 	computed: {
@@ -73,7 +89,8 @@ export default {
 			let classes = [
 				tag,
 				`${tag}-size-${size}`,
-				this.disabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${style}`
+				this.disabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${style}`,
+				this.rounded ? `${tag}-rounded` : ''
 			];
 			// base theme classes
 			classes.push(theme.base);
@@ -86,6 +103,8 @@ export default {
 			} else {
 				classes.push(`${theme.normal[variant][style]}`);
 			}
+
+			if (this.rounded) classes.push(`${theme.rounded}`);
 
 			return classes;
 		},
@@ -128,33 +147,17 @@ export default {
 					tag: this.tagName,
 					activeClass: this.activeClass,
 					exact: this.exact,
-					event: ['click', 'focus', 'blur'],
 					exactActiveClass: this.exactActiveClass,
 					disabled: this.buttonDisabled,
 					type: this.type
 				};
 			}
 			return {
-				id: this.id,
 				disabled: this.buttonDisabled,
 				href: this.href,
 				type: this.type
 			};
 		}
-	},
-	render: function(createElement) {
-		return createElement(
-			this.componentToRender, {
-				attrs: this.getAttributes(),
-				class: this.currentClass,
-				on: {
-					click: this.handleClick,
-					focus: this.handleFocus,
-					blur: this.handleBlur
-				}
-			},
-			this.$slots.default
-		);
 	}
 };
 </script>

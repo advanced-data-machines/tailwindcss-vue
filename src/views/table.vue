@@ -6,7 +6,7 @@
 				{{ props.column.field }} {{ props.index }}
 			</template>
 		</tv-table>
-		<tv-table :data="data" detailed>
+		<tv-table :data="data" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox>
 			<template slot-scope="props">
 				<tv-table-column label="Name" field="name">
 					<template slot="header" slot-scope="child">
@@ -25,6 +25,8 @@
 				<strong>Department:</strong> {{ detail.row.department }}
 			</div>
 		</tv-table>
+		<p>Checked Rows:</p>
+		<code>{{ checkedRows }}</code>
 	</section>
 </template>
 <script>
@@ -41,7 +43,8 @@ export default {
 			columns: [
 				{ label: 'Name', field: 'name' },
 				{ label: 'Department', field: 'department' }
-			]
+			],
+			checkedRows: []
 		};
 	},
 	methods: {

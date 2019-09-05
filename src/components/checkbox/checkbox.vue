@@ -15,11 +15,10 @@
 			v-model="computedValue"
 			:disabled="isDisabled"
 			:value="nativeValue"
-			class="align-middle"
 			:true-value="trueValue"
 			:false-value="falseValue"
 		>
-		<span class="align-middle">
+		<span>
 			<slot />
 		</span>
 	</label>
@@ -38,11 +37,11 @@ export default {
 	props: {
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: undefined
 		},
 		nativeValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: undefined
 		},
 		name: {
 			type: String,
@@ -58,11 +57,11 @@ export default {
 		},
 		trueValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: null
+			default: true
 		},
 		falseValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: null
+			default: false
 		}
 	},
 	data() {

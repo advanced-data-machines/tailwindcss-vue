@@ -38,11 +38,11 @@ export default {
 	props: {
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: undefined
 		},
 		nativeValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: undefined
 		},
 		variant: {
 			type: String,
@@ -59,11 +59,11 @@ export default {
 		},
 		trueValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: null
+			default: true
 		},
 		falseValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: null
+			default: false
 		}
 	},
 	data() {
