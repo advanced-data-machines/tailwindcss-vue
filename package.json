@@ -10,9 +10,8 @@
 		"url": "git+https://github.com/advanced-data-machines/tailwindcss-vue.git"
 	},
 	"keywords": [
-		"Tailwind",
-		"CSS",
-		"Vuejs",
+		"Tailwind CSS",
+		"Vue.js",
 		"UI",
 		"Components"
 	],
@@ -61,10 +60,6 @@
 		"vuepress": "1.0.3"
 	},
 	"files": [
-		"dist/*",
-		"src/*",
-		"public/*",
-		"*.json",
-		"*.js"
+		"dist/*"
 	]
 }

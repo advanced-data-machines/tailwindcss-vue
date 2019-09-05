@@ -9,12 +9,12 @@
 
 ### npm
 ``` sh
-npm install @advanced-data-machines\tailwindcss-vue
+npm install @advanced-data-machines/tailwindcss-vue
 ```
 
 ### yarn
 ``` sh
-yarn add @advanced-data-machines\tailwindcss-vue
+yarn add @advanced-data-machines/tailwindcss-vue
 ```
 
 ## Usage
@@ -137,10 +137,10 @@ This will add the build to the *'dist'* folder as a consumable library. Once com
 npm link
 ```
 
-Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the same directory as the *package.json* file. This will add the project to the global scope to be referenced as a traditional installed npm package (import TailwindcssVue from '@advanced-data-machines\tailwindcss-vue').
+Next, in the project you wish to link, run the *npm link tailwindcss-vue* in the same directory as the *package.json* file. This will add the project to the global scope to be referenced as a traditional installed npm package (import TailwindcssVue from '@advanced-data-machines/tailwindcss-vue').
 
 ``` sh 
-npm link @advanced-data-machines\tailwindcss-vue
+npm link @advanced-data-machines/tailwindcss-vue
 ```
 
 ## Local Docs
