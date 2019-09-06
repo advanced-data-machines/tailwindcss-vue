@@ -17,6 +17,11 @@ import TvSideSubmenu from './side-submenu.js';
 import TvTable from './table.js';
 import TvTableColumn from './table-column.js';
 import TvTableHeader from './table-header.js';
+// TODO
+// import TvSwitch from './switch.js'
+// import TvProgressBar from './progress-bar.js'
+// import TvDropDownMenu from './drop-down-menu.js'
+// import TvToolTip from './tooltip.js'
 
 export default {
 	TvAlert,
