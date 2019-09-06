@@ -3,13 +3,23 @@
 		<thead>
 			<tr>
 				<tv-table-header v-if="detailed" :column="{ label: '' }" class="w-1" />
-				<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index">
-					<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
-						<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
-					</template>
-					<template v-else-if="$scopedSlots['header']">
-						<slot name="header" :column="column" :index="index" />
-					</template>
+				<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="{'cursor-pointer': column && column.sortable}">
+					<div class="flex items-center">
+						<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
+							<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
+						</template>
+						<template v-else-if="$scopedSlots['header']">
+							<slot name="header" :column="column" :index="index" />
+						</template>
+						<span :class="currentSortColumn === column ? 'visible': 'invisible'">
+							<slot name="direction" :is-asc="isAsc">
+								<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+									<path v-if="isAsc" d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
+									<path v-else d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+								</svg>
+							</slot>
+						</span>
+					</div>
 				</tv-table-header>
 				<tv-table-header v-if="showCheckbox" :column="{ label: '' }" class="w-1">
 					<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
@@ -17,7 +27,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<template v-for="(row, index) in data">
+			<template v-for="(row, index) in newData">
 				<tr :class="handleCustomRowClass(row, index)" :key="customRowKey ? row[customRowKey] : index">
 					<tv-table-column v-if="detailed" internal>
 						<slot name="arrow" :opened="isDetailActive">
@@ -117,6 +127,18 @@ export default {
 		isRowCheckable: {
 			type: Function,
 			default: () => true
+		},
+		backendSorting: {
+			type: Boolean,
+			default: false
+		},
+		defaultSortField: {
+			type: String,
+			default: undefined
+		},
+		defaultSortDirection: {
+			type: String,
+			default: 'asc' // assending
 		}
 	},
 	data() {
@@ -124,7 +146,10 @@ export default {
 			newData: this.data,
 			newColumns: [...this.columns],
 			newCheckedRows: [...this.checkedRows],
-			visibleDetails: []
+			visibleDetails: [],
+			currentSortColumn: {},
+			isAsc: true,
+			firstTimeSort: true
 		};
 	},
 	computed: {
@@ -138,7 +163,7 @@ export default {
 			return classes;
 		},
 		isAllChecked() {
-			const checkableRows = this.data.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
 			if (checkableRows.length === 0) return false;
 			const unchecked = checkableRows.some((current) => {
 				return indexOf(this.newCheckedRows, current, this.customIsChecked) < 0;
@@ -146,11 +171,11 @@ export default {
 			return !unchecked;
 		},
 		isAllUncheckable() {
-			const checkableRows = this.data.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
 			return checkableRows.length === 0;
 		},
 		isIndeterminate() {
-			return this.newCheckedRows.length > 0 && this.data.length > this.newCheckedRows.length;
+			return this.newCheckedRows.length > 0 && this.newData.length > this.newCheckedRows.length;
 		}
 	},
 	watch: {
@@ -164,12 +189,22 @@ export default {
 			this.$nextTick(() => {
 				if (!this.newColumns.length) this.newColumns = newColumns;
 			});
+
+			if (!this.backendSorting) {
+				this.sort(this.currentSortColumn, true);
+			}
 		},
 		columns(value) {
 			this.newColumns = [...value];
 		},
 		checkedRows(value) {
 			this.newCheckedRows = [...value];
+		},
+		openedDetails(expandedRows) {
+			this.visibleDetails = expandedRows;
+		},
+		newColumns() {
+			this.checkSort();
 		}
 	},
 	methods: {
@@ -212,6 +247,12 @@ export default {
 		isDetailActive(obj) {
 			return this.detailed && this.isVisibleDetail(obj);
 		},
+		checkPredefinedDetailedRows() {
+			const defaultExpandedRowsDefined = this.openedDetailed.length > 0;
+			if (defaultExpandedRowsDefined && !this.detailKey.length) {
+				throw new Error('If you set a predefined opened-detailed, you must provide a unique key using the prop "detail-key"');
+			}
+		},
 		isRowChecked(obj) {
 			return indexOf(this.newCheckedRows, obj, this.customRowChecked) > -1;
 		},
@@ -232,7 +273,7 @@ export default {
 		},
 		checkAll() {
 			const allChecked = this.isAllChecked;
-			this.data.forEach((current) => {
+			this.newData.forEach((current) => {
 				this.removeCheckedRow(current);
 				if (!allChecked) {
 					if (this.isRowCheckable(current)) {
@@ -241,6 +282,79 @@ export default {
 				}
 			});
 			this.$emit('update:checkedRows', this.newCheckedRows);
+		},
+		sortBy(array, key, fn, isAsc) {
+			let sorted = [];
+			// sorting without mutating original data
+			if (fn && typeof fn === 'function') {
+				sorted = [...array].sort((a, b) => fn(a, b, isAsc));
+			} else {
+				sorted = [...array].sort((a, b) => {
+					// get nested values from objects
+					let newA = getValueByPath(a, key);
+					let newB = getValueByPath(b, key);
+					// sort boolean type
+					if (typeof newA === 'boolean' && typeof newB === 'boolean') {
+						return isAsc ? newA - newB : newB - newA;
+					}
+					if (!newA && newA !== 0) return 1;
+					if (!newB && newB !== 0) return -1;
+					if (newA === newB) return 0;
+					newA = (typeof newA === 'string') ? newA.toUpperCase() : newA;
+					newB = (typeof newB === 'string') ? newB.toUpperCase() : newB;
+					return isAsc ? newA > newB ? 1 : -1 : newA > newB ? -1 : 1;
+				});
+			}
+			return sorted;
+		},
+		sort(column, updatingData = false) {
+			if (!column || !column.sortable) return;
+			const isCurrent = column === this.currentSortColumn;
+			if (!updatingData) {
+				this.isAsc = isCurrent ? !this.isAsc : true;
+			}
+			if (!this.firstTimeSort) {
+				this.$emit('sort', column.field, this.isAsc ? 'asc' : 'desc');
+			}
+			if (!this.backendSorting) {
+				this.newData = !isCurrent
+					? this.sortBy(
+						this.newData,
+						column.field,
+						column.customSort,
+						this.isAsc
+					)
+					: [...this.newData].reverse();
+			}
+			this.currentSortColumn = column;
+		},
+		checkSort() {
+			if (this.newColumns.length && this.firstTimeSort) {
+				this.initSort();
+				this.firstTimeSort = false;
+			} else if (this.newColumns.length) {
+				if (this.currentSortColumn.field) {
+					for (let i = 0; i < this.newColumns.length; i++) {
+						if (this.newColumns[i].field === this.currentSortColumn.field) {
+							this.currentSortColumn = this.newColumns[i];
+							break;
+						}
+					}
+				}
+			}
+		},
+		initSort() {
+			if (!this.defaultSortField) return;
+			this.newColumns.forEach((column) => {
+				if (column.field === this.defaultSortField) {
+					this.isAsc = this.defaultSortDirection.toLowerCase() !== 'desc';
+					this.sort(column, true);
+				}
+			});
+		},
+		mounted() {
+			this.checkPredefinedDetailedRows();
+			this.checkSort();
 		}
 	}
 };

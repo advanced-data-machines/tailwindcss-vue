@@ -15,8 +15,8 @@ const ModalProgrammatic = function(params) {
 	const propsData = Object.assign({ content }, typeof params === 'string' ? {} : params, { programmatic: true });
 
 	const vm = typeof window !== 'undefined' && window.Vue ? window.Vue : Vue;
-	if (!vm.options.components['TvModel']) {
-		throw new Error('(TV Warn[TvModel Programmatic]) - the \'TvModal\' component is requried for notify to work');
+	if (!vm.options.components['TvModal']) {
+		throw new Error('(TV Warn[TvModal Programmatic]) - the \'TvModal\' component is requried for notify to work');
 	};
 	const ModelComponent = vm.extend(TvModel);
 	return new ModelComponent({
@@ -28,7 +28,7 @@ const ModalProgrammatic = function(params) {
 
 TvModel.install = function(Vue, args = {}) {
 	installComponents(Vue, args, [this]);
-	registerComponentProgrammatic(Vue, 'model', ModalProgrammatic);
+	registerComponentProgrammatic(Vue, 'modal', ModalProgrammatic);
 };
 
 export default TvModel;

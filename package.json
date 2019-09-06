@@ -10,10 +10,13 @@
 		"url": "git+https://github.com/advanced-data-machines/tailwindcss-vue.git"
 	},
 	"keywords": [
-		"Tailwind CSS",
-		"Vue.js",
-		"UI",
-		"Components"
+		"tailwind css",
+		"postcss",
+		"vue",
+		"vue.js",
+		"ui",
+		"components",
+		"library"
 	],
 	"author": "Advanced Data Machines",
 	"license": "MIT",

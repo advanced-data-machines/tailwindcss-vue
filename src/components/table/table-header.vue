@@ -1,5 +1,5 @@
 <template>
-	<th :class="currentClass">
+	<th :class="currentClass" @click.stop="handleClick">
 		<slot :column="column" :index="index">
 			{{ column.label }}
 		</slot>
@@ -31,6 +31,11 @@ export default {
 				theme.base
 			];
 			return classes;
+		}
+	},
+	methods: {
+		handleClick() {
+			this.$emit('click');
 		}
 	}
 };

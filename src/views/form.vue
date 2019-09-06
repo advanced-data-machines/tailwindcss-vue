@@ -86,13 +86,13 @@ export default {
 			});
 		},
 		handleShow() {
-			this.$tailwindVue.model({
+			this.$tailwindVue.modal({
 				component: ModalTest,
 				bgStyle: 'bg-info-900 opacity-75'
 			});
 		},
 		handleCancel(type, args) {
-			console.log(args);
+			console.log(`Test Args: ${args}`);
 		}
 	}
 };
