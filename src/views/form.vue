@@ -19,6 +19,18 @@
 					{{ city }}
 				</tv-checkbox>
 			</tv-form-group>
+			<tv-form-group>
+				<p>
+					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" @input="handleChange()" :disabled="true">
+						disabled
+					</tv-switch>
+				</p>
+				<p>
+					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" @input="handleChange()">
+						{{ switchValue }}
+					</tv-switch>
+				</p>
+			</tv-form-group>
 			<tv-button @click="validate" rounded>Submit</tv-button>
 		</tv-form>
 		<p>Checked:</p>
@@ -71,7 +83,8 @@ export default {
 				]
 			},
 			show: false,
-			showTwo: false
+			showTwo: false,
+			switchValue: false
 		};
 	},
 	methods: {
@@ -93,6 +106,9 @@ export default {
 		},
 		handleCancel(type, args) {
 			console.log(`Test Args: ${args}`);
+		},
+		handleChange() {
+			alert('Switched clicked');
 		}
 	}
 };
