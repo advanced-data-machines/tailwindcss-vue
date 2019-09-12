@@ -21,7 +21,7 @@
 			</tv-form-group>
 			<tv-form-group>
 				<p>
-					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" @input="handleChange()" :disabled="true">
+					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" :disabled="switchValue">
 						disabled
 					</tv-switch>
 				</p>

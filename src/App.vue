@@ -36,6 +36,23 @@
 						</tv-side-menu-item>
 					</template>
 				</div>
+				<div v-if="!menuCollapse" slot="footer" class="w-full text-center border-t border-grey p-4 pin-b">
+					<p class="text-white text-xs">
+						Version: 1.2.12345.6
+					</p>
+				</div>
+			</tv-side-menu>
+			<tv-side-menu v-if="hasChildren" class="flex flex-col bg-gray-600">
+				<div class="flex-grow">
+					<template v-for="item in getChildren">
+						<tv-side-menu-item :key="item.meta.index" :index="item.meta.index" :route="routeConverter(item)">
+							<i :class="['mdi', item.meta.icon, 'text-2xl']" />
+							<span class="ml-4 nowrap" slot="title">
+								{{ item.meta.title }}
+							</span>
+						</tv-side-menu-item>
+					</template>
+				</div>
 			</tv-side-menu>
 			<div class="flex-grow">
 				<router-view />
@@ -60,6 +77,20 @@ export default {
 				index = current.meta.index;
 			}
 			return index;
+		},
+		hasChildren() {
+			const current = this.$route;
+			if (current.meta.hasChildren || current.meta.parent) {
+				// if (!this.menuCollapse) this.handleToggle();
+				return true;
+			}
+			return false;
+		},
+		getChildren() {
+			if (this.hasChildren) {
+
+			}
+			return null;
 		}
 	},
 	methods: {

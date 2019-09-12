@@ -37,8 +37,20 @@ export default new Router({
 					component: Form,
 					meta: {
 						index: 'C-1',
-						title: 'Form'
-					}
+						title: 'Form',
+						hasChildren: true
+					},
+					children: [
+						{
+							path: 'Switch',
+							name: 'switch',
+							parent: 'form',
+							meta: {
+								index: 'C-F-1',
+								title: 'Switch'
+							}
+						}
+					]
 				},
 				{
 					path: 'Table',

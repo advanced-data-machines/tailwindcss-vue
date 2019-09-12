@@ -21,12 +21,15 @@
 				:value="nativeValue"
 				:true-value="trueValue"
 				:false-value="falseValue"
-				:style="isDisabled ? 'cursor: no-drop' : ''"
 			>
 			<!-- line -->
-			<div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner" />
+			<div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"
+				:style="isDisabled ? 'cursor: no-drop' : ''"
+			/>
 			<!-- dot -->
-			<div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-1 left-0" />
+			<div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-1 left-0"
+				:style="isDisabled ? 'cursor: no-drop' : ''"
+			/>
 		</div>
 		<span>
 			<slot />
