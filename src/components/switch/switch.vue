@@ -15,7 +15,7 @@
 				class="hidden"
 				:name="name"
 				@click.stop
-				:indeterminate.prop="indeterminate"
+				@change="checkEvent"
 				v-model="computedValue"
 				:disabled="isDisabled"
 				:value="nativeValue"
@@ -27,7 +27,7 @@
 				:style="isDisabled ? 'cursor: no-drop' : ''"
 			/>
 			<!-- dot -->
-			<div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-1 left-0"
+			<div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow"
 				:style="isDisabled ? 'cursor: no-drop' : ''"
 			/>
 		</div>
@@ -38,14 +38,17 @@
 </template>
 <style>
 .toggle__dot {
-  top: -.25rem;
-  left: -.25rem;
-  transition: all 0.3s ease-in-out;
+	top: -.25rem;
+	left: -.25rem;
+	transition: all 0.3s ease-in-out;
 }
 
 input:checked ~ .toggle__dot {
   transform: translateX(100%);
-  background-color: #48bb78;
+}
+
+input:checked ~ .toggle__line {
+	background-color: #48bb48;
 }
 </style>
 <script>
@@ -90,10 +93,6 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		indeterminate: {
-			type: Boolean,
-			default: false
-		},
 		trueValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: true
@@ -105,7 +104,8 @@ export default {
 	},
 	data() {
 		return {
-			newValue: this.value
+			newValue: this.value,
+			checked: false
 		};
 	},
 	computed: {
@@ -144,7 +144,11 @@ export default {
 		focus() {
 			// MacOS FireFox and Safari do not focus when clicked
 			this.$refs.input.focus();
+		},
+		checkEvent(e) {
+			this.checked = e.target.checked;
 		}
+
 	}
 };
 </script>
