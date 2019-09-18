@@ -89,7 +89,7 @@ export default {
 			let classes = [
 				tag,
 				`${tag}-size-${size}`,
-				this.disabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${style}`,
+				this.buttonDisabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${style}`,
 				this.rounded ? `${tag}-rounded` : ''
 			];
 			// base theme classes

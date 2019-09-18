@@ -7,7 +7,7 @@
 		@keydown.prevent.enter="$refs.label.click()"
 	>
 		<!-- toggle -->
-		<div class="relative">
+		<div class="relative flex items-center">
 			<!-- input -->
 			<input
 				ref="input"
@@ -23,34 +23,13 @@
 				:false-value="falseValue"
 			>
 			<!-- line -->
-			<div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"
-				:style="isDisabled ? 'cursor: no-drop' : ''"
-			/>
+			<div :class="LineClass"	/>
 			<!-- dot -->
-			<div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow"
-				:style="isDisabled ? 'cursor: no-drop' : ''"
-			/>
-		</div>
-		<span>
+			<div :class="dotClass" :style="dotStyle" />
 			<slot />
-		</span>
+		</div>
 	</label>
 </template>
-<style>
-.toggle__dot {
-	top: -.25rem;
-	left: -.25rem;
-	transition: all 0.3s ease-in-out;
-}
-
-input:checked ~ .toggle__dot {
-  transform: translateX(100%);
-}
-
-input:checked ~ .toggle__line {
-	background-color: #48bb48;
-}
-</style>
 <script>
 import Emitter from '../../mixins/emitter.js';
 import ThemeMixin from '../../mixins/theme.js';
@@ -104,6 +83,7 @@ export default {
 	},
 	data() {
 		return {
+			input: null,
 			newValue: this.value,
 			checked: false
 		};
@@ -129,14 +109,72 @@ export default {
 				tag,
 				theme.base
 			];
+			return classes;
+		},
+		dotClass() {
+			const tag = `${this.$options._componentTag}-dot`;
+			const theme = this.currentTheme;
+			const size = this.size || 'default';
+			const state = this.checked ? 'checked' : 'unchecked';
+			let classes = [
+				tag,
+				`${tag}-size-${size}`,
+				`${tag}-state-${state}`,
+				this.isDisabled ? `${tag}-disabled` : ''
+			];
+
 			// base theme classes
-			classes.push(theme.base);
+			classes.push(theme.dot.base);
+			// size theme classes
+			classes.push(theme.dot.size[size]);
+			if (this.isDisabled) {
+				classes.push(theme.dot.disabled[state]);
+			} else {
+				classes.push(theme.dot.normal[state]);
+			}
+			return classes;
+		},
+		dotStyle() {
+			const style = {
+				left: '-.25rem',
+				transition: 'all 0.3s ease-in-out'
+			};
+
+			if (this.checked) {
+				style.transform = 'translateX(100%)';
+			}
+			return style;
+		},
+		LineClass() {
+			const tag = `${this.$options._componentTag}-line`;
+			const theme = this.currentTheme;
+			const size = this.size || 'default';
+			const state = this.checked ? 'checked' : 'unchecked';
+			let classes = [
+				tag,
+				`${tag}-size-${size}`,
+				`${tag}-state-${state}`,
+				this.isDisabled ? `${tag}-disabled` : ''
+			];
+
+			// base theme classes
+			classes.push(theme.line.base);
+			// size theme classes
+			classes.push(theme.line.size[size]);
+			if (this.isDisabled) {
+				classes.push(theme.line.disabled[state]);
+			} else {
+				classes.push(theme.line.normal[state]);
+			}
 			return classes;
 		}
 	},
 	watch: {
 		value(value) {
 			this.newValue = value;
+			this.$nextTick(() => {
+				this.checkEvent();
+			});
 			this.dispatch('TvFormGroup', 'form.change', value);
 		}
 	},
@@ -145,10 +183,13 @@ export default {
 			// MacOS FireFox and Safari do not focus when clicked
 			this.$refs.input.focus();
 		},
-		checkEvent(e) {
-			this.checked = e.target.checked;
+		checkEvent() {
+			this.checked = this.input.checked;
 		}
-
+	},
+	mounted() {
+		this.input = this.$refs.input;
+		this.checkEvent();
 	}
 };
 </script>
