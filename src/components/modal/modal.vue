@@ -1,8 +1,8 @@
 <template>
 	<custom-transition>
 		<div :class="currentClass" v-if="isActive">
-			<div :class="['absolute top-0 left-0 right-0 bottom-0', bgStyle]" @click="cancel('outside')" />
-			<div class="relative">
+			<div :class="['absolute inset-0', bgStyle]" @click="cancel('outside')" />
+			<div class="relative flex flex-col items-center justify-center h-full">
 				<component v-if="component" :is="component" v-bind="props" v-on="events" @close="close" />
 				<div v-else-if="content" v-html="content" />
 				<slot v-else />

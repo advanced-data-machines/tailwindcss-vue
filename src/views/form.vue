@@ -4,7 +4,15 @@
 		<tv-form class="w-full max-w-xl" ref="form" :model="test" :rules="rules" @submit.prevent>
 			<tv-form-group prop="name" :theme-override="custom">
 				<tv-label>Name</tv-label>
+				<tv-input name="test" size="sm" class="resize-none" v-model="test.name" />
+			</tv-form-group>
+			<tv-form-group prop="name" :theme-override="custom">
+				<tv-label>Name</tv-label>
 				<tv-input name="test" class="resize-none" v-model="test.name" />
+			</tv-form-group>
+			<tv-form-group prop="name" :theme-override="custom">
+				<tv-label>Name</tv-label>
+				<tv-input name="test" size="lg" class="resize-none" v-model="test.name" />
 			</tv-form-group>
 			<tv-form-group prop="city">
 				<tv-label>City</tv-label>
@@ -50,9 +58,9 @@
 		<br>
 		<tv-button v-for="variant in variants" disabled :variant="variant" :key="variant" class="mr-2 mb-2">{{ variant }}</tv-button>
 		<br>
-		<tv-button @click="notify" class="mr-2">Notify</tv-button>
+		<tv-button @click="notify" size="lg" class="mr-2">Notify</tv-button>
 		<tv-button @click="handleShow" class="mr-2">Show Programmatic</tv-button>
-		<tv-button @click="show = true" class="text-red-900">Show Inline</tv-button>
+		<tv-button @click="show = true" size="sm" class="text-red-900">Show Inline</tv-button>
 		<tv-modal :active.sync="show" :on-cancel="handleCancel">
 			<modal-test />
 			<template slot="close" slot-scope="props">

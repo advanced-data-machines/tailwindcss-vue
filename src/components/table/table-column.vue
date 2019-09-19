@@ -34,6 +34,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		customHeaderClass: {
+			type: [Function, String],
+			default: null
+		},
 		internal: {
 			type: Boolean,
 			default: false

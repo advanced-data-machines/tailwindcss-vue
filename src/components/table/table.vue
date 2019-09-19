@@ -3,7 +3,7 @@
 		<thead>
 			<tr>
 				<tv-table-header v-if="detailed" :column="{ label: '' }" class="w-1" />
-				<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="{'cursor-pointer': column && column.sortable}">
+				<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
 					<div class="flex items-center">
 						<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
 							<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
@@ -11,6 +11,7 @@
 						<template v-else-if="$scopedSlots['header']">
 							<slot name="header" :column="column" :index="index" />
 						</template>
+						<template v-else>{{ column.label }}</template>
 						<span :class="currentSortColumn === column ? 'visible': 'invisible'">
 							<slot name="direction" :is-asc="isAsc">
 								<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

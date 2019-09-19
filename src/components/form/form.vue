@@ -1,5 +1,5 @@
 <template>
-	<form :class="currentClass">
+	<form :class="currentClass" @submit="handleSubmit">
 		<slot />
 	</form>
 </template>
@@ -118,6 +118,9 @@ export default {
 			if (promise) {
 				return promise;
 			}
+		},
+		handleSubmit(event) {
+			this.$emit('submit', event);
 		}
 	}
 };

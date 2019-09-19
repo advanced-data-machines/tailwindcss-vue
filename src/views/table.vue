@@ -9,9 +9,6 @@
 		<tv-table :data="data" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox>
 			<template slot-scope="props">
 				<tv-table-column label="Name" field="name" sortable>
-					<template slot="header" slot-scope="child">
-						<span class="text-danger-500">{{ child.column.field }} {{ child.index }}</span>
-					</template>
 					{{ props.row.name }}
 				</tv-table-column>
 				<tv-table-column label="Department" field="department" sortable>

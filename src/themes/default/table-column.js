@@ -1,3 +1,3 @@
 export default {
-	base: 'py-3 px-5 border-b boarder-gray-300'
+	base: 'py-2 px-4 border-b boarder-gray-300'
 };

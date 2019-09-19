@@ -1,9 +1,9 @@
 export default {
-	base: 'inline-block mb-3 mr-3 last:mr-0',
+	base: 'inline-block mr-3 last:mr-0',
 	line: {
 		base: 'rounded-full shadow-inner',
 		normal: {
-			unchecked: 'bg-gray-400',
+			unchecked: 'bg-gray-500',
 			checked: 'bg-success-400'
 		},
 		disabled: {
@@ -11,9 +11,9 @@ export default {
 			checked: 'bg-success-200 cursor-not-allowed'
 		},
 		size: {
-			default: 'w-14 h-6',
-			sm: 'w-10 h-4',
-			lg: 'w-18 h-8'
+			default: 'w-10 h-4',
+			sm: 'w-8 h-4',
+			lg: 'w-14 h-6'
 		}
 	},
 	dot: {
@@ -27,9 +27,9 @@ export default {
 			checked: 'cursor-not-allowed'
 		},
 		size: {
-			default: 'w-8 h-8',
-			sm: 'w-6 h-6',
-			lg: 'w-10 h-10'
+			default: 'w-6 h-6',
+			sm: 'w-5 h-5',
+			lg: 'w-8 h-8'
 		}
 	}
 };

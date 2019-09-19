@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white p-5 rounded shadow">
+	<div class="bg-white p-5 rounded shadow w-full max-w-xl">
 		Hello Content <br>
 		<tv-button @click="handleCancel">
 			Cancel
