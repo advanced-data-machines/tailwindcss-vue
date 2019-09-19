@@ -21,15 +21,25 @@
 			</tv-form-group>
 			<tv-form-group>
 				<p>
-					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" :disabled="switchValue">
+					<tv-switch v-model="trueValue" size="sm" :native-value="trueValue" true-value="test" false-value="notest">
+						{{ trueValue }}
+					</tv-switch>
+				</p>
+				<p>
+					<tv-switch v-model="switchValue" disabled>
 						disabled
 					</tv-switch>
 				</p>
 				<p>
-					<tv-switch v-model="switchValue" size="lg" :native-value="switchValue" @input="handleChange()">
+					<tv-switch v-model="switchValue" size="lg" @input="handleChange()">
 						{{ switchValue }}
 					</tv-switch>
 				</p>
+			</tv-form-group>
+			<tv-form-group>
+				<tv-switch v-for="city in cities" :key="city + 'switch'" v-model="test.checked" :native-value="city" class="">
+					<span class="ml-3">{{ city }}</span>
+				</tv-switch>
 			</tv-form-group>
 			<tv-button @click="validate" rounded>Submit</tv-button>
 		</tv-form>
@@ -84,7 +94,8 @@ export default {
 			},
 			show: false,
 			showTwo: false,
-			switchValue: false
+			switchValue: false,
+			trueValue: 'test'
 		};
 	},
 	methods: {

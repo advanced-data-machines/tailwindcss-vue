@@ -36,14 +36,14 @@
 	},
 	"main": "./dist/tailwindcss-vue.common.js",
 	"dependencies": {
-		"async-validator": "^3.0.4"
+		"async-validator": "^3.1.0"
 	},
 	"peerDependencies": {
 		"tailwindcss": "^1.1.0",
 		"vue": "^2.6.0"
 	},
 	"devDependencies": {
-		"@mdi/font": "^4.0.96",
+		"@mdi/font": "^4.4.95",
 		"@vue/cli-plugin-babel": "^3.11.0",
 		"@vue/cli-plugin-eslint": "^3.11.0",
 		"@vue/cli-plugin-unit-jest": "^3.11.0",
@@ -51,16 +51,16 @@
 		"@vue/eslint-config-standard": "^4.0.0",
 		"@vue/test-utils": "1.0.0-beta.29",
 		"babel-core": "7.0.0-bridge.0",
-		"babel-eslint": "^10.0.2",
+		"babel-eslint": "^10.0.3",
 		"babel-jest": "^24.9.0",
 		"core-js": "^2.6.5",
-		"eslint": "^6.2.1",
+		"eslint": "^6.4.0",
 		"eslint-plugin-vue": "^5.2.3",
 		"tailwindcss": "^1.1.2",
 		"vue": "^2.6.10",
-		"vue-router": "^3.1.2",
+		"vue-router": "^3.1.3",
 		"vue-template-compiler": "^2.6.10",
-		"vuepress": "1.0.3"
+		"vuepress": "^1.0.3"
 	},
 	"files": [
 		"dist/*"
