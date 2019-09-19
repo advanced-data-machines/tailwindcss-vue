@@ -1,5 +1,5 @@
 export default {
-	base: 'rounded shadow focus:outline-none uppercase border',
+	base: 'rounded shadow focus:outline-none uppercase border leading-tight',
 	normal: {
 		default: {
 			solid: 'text-white bg-gray-600 hover:bg-gray-700 focus:bg-gray-700 border-gray-600 hover:border-gray-700 focus:border-gray-700',
@@ -53,9 +53,9 @@ export default {
 		}
 	},
 	size: {
-		default: 'text-base py-1 px-3',
-		sm: 'text-xs py-1 px-2',
-		lg: 'text-base py-2 px-4'
+		default: 'py-2 px-3',
+		sm: 'py-1 px-2',
+		lg: 'py-3 px-4'
 	},
 	rounded: 'rounded-full'
 };
