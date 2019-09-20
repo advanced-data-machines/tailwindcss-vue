@@ -58,9 +58,15 @@
 		<br>
 		<tv-button v-for="variant in variants" disabled :variant="variant" :key="variant" class="mr-2 mb-2">{{ variant }}</tv-button>
 		<br>
-		<tv-button @click="notify" size="lg" class="mr-2">Notify</tv-button>
-		<tv-button @click="handleShow" class="mr-2">Show Programmatic</tv-button>
-		<tv-button @click="show = true" size="sm" class="text-red-900">Show Inline</tv-button>
+		<tv-button @click="notify" size="lg" class="mr-2" rounded square>
+			<tv-icon icon="comment" wrap-icon class="h-5 w-5" />
+		</tv-button>
+		<tv-button @click="handleShow" class="mr-2" rounded square>
+			<tv-icon icon="eye" wrap-icon class="h-5 w-5" />
+		</tv-button>
+		<tv-button @click="show = true" size="sm" class="text-red-900" rounded square>
+			<tv-icon icon="square-edit-outline" wrap-icon class="h-5 w-5 text-success-200" />
+		</tv-button>
 		<tv-modal :active.sync="show" :on-cancel="handleCancel">
 			<modal-test />
 			<template slot="close" slot-scope="props">

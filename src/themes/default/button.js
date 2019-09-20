@@ -53,9 +53,28 @@ export default {
 		}
 	},
 	size: {
-		default: 'py-2 px-3',
-		sm: 'py-1 px-2',
-		lg: 'py-3 px-4'
+		normal: {
+			default: 'py-2 px-3',
+			sm: 'py-1 px-2',
+			lg: 'py-3 px-4'
+		},
+		square: {
+			default: 'p-2',
+			sm: 'p-1',
+			lg: 'p-3'
+		}
 	},
-	rounded: 'rounded-full'
+	rounded: 'rounded-full',
+	icon: {
+		size: {
+			// line height
+			default: 'h-5 w-5',
+			sm: 'h-5 w-5',
+			lg: 'h-5 w-5'
+		},
+		spacing: {
+			right: 'mr-2',
+			left: 'ml-2'
+		}
+	}
 };

@@ -7,6 +7,7 @@ import Checkbox from './components/checkbox/index.js';
 import CheckboxButton from './components/checkbox-button/index.js';
 import Form from './components/form/index.js';
 import FormGroup from './components/form-group/index.js';
+import Icon from './components/icon/index.js';
 import Input from './components/input/index.js';
 import Label from './components/label/index.js';
 import Modal, { ModalProgrammatic } from './components/modal/index.js';
@@ -30,6 +31,7 @@ const components = [
 	CheckboxButton,
 	Form,
 	FormGroup,
+	Icon,
 	Input,
 	Label,
 	Modal,
@@ -70,6 +72,7 @@ export {
 	CheckboxButton,
 	Form,
 	FormGroup,
+	Icon,
 	Input,
 	Label,
 	Modal,
