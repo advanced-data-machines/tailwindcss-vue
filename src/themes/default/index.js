@@ -5,6 +5,7 @@ import TvCheckbox from './checkbox.js';
 import TvCheckboxButton from './checkbox-button.js';
 import TvForm from './form.js';
 import TvFormGroup from './form-group.js';
+import TvIcon from './icon.js';
 import TvInput from './input.js';
 import TvLabel from './label.js';
 import TvModal from './modal.js';
@@ -31,6 +32,7 @@ export default {
 	TvCheckboxButton,
 	TvForm,
 	TvFormGroup,
+	TvIcon,
 	TvInput,
 	TvLabel,
 	TvModal,
@@ -54,6 +56,7 @@ export {
 	TvCheckboxButton,
 	TvForm,
 	TvFormGroup,
+	TvIcon,
 	TvInput,
 	TvLabel,
 	TvModal,

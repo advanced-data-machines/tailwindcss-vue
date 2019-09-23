@@ -12,9 +12,13 @@
 </template>
 <script>
 import ThemeMixin from '../../mixins/theme.js';
+import TvIcon from '../icon/icon.vue';
 export default {
 	name: 'TvButton',
 	mixins: [ThemeMixin],
+	components: {
+		'tv-icon': TvIcon
+	},
 	inject: {
 		rootFrom: {
 			default: ''
@@ -54,13 +58,13 @@ export default {
 		},
 		variant: {
 			type: String,
-			default: null,
-			validator: (value) => value == null || ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) !== -1
+			default: 'default',
+			validator: (value) => ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) !== -1
 		},
 		size: {
 			type: String,
-			default: null,
-			validator: (value) => value == null || ['sm', 'lg'].indexOf(value) >= 0
+			default: 'default',
+			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) >= 0
 		},
 		disabled: {
 			type: Boolean,
@@ -69,6 +73,10 @@ export default {
 		outline: {
 			type: Boolean,
 			default: false
+		},
+		square: {
+			type: Boolean,
+			default: null
 		},
 		rounded: {
 			type: Boolean,
@@ -82,27 +90,22 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			const variant = this.variant || 'default';
-			const size = this.size || 'default';
+			const square = this.square ? 'square' : 'normal';
 			const style = this.outline ? 'outline' : 'solid';
+			const disabled = this.buttonDisabled ? 'disabled' : 'normal';
 			// add tags first
 			let classes = [
 				tag,
-				`${tag}-size-${size}`,
-				this.buttonDisabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${style}`,
+				`${tag}-size-${this.size}`,
+				`${tag}-${disabled}-${this.variant}-${style}`,
 				this.rounded ? `${tag}-rounded` : ''
 			];
 			// base theme classes
 			classes.push(theme.base);
 			// size theme classes
-			classes.push(theme.size[size]);
-			// if disabled skip normal variant classes
-			// else add normal variant classes
-			if (this.buttonDisabled) {
-				classes.push(`${theme.disabled[variant][style]}`);
-			} else {
-				classes.push(`${theme.normal[variant][style]}`);
-			}
+			classes.push(theme.size[square][this.size]);
+
+			classes.push(`${theme[disabled][this.variant][style]}`);
 
 			if (this.rounded) classes.push(`${theme.rounded}`);
 
