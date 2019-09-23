@@ -1,5 +1,5 @@
 export default {
-	base: 'rounded shadow focus:outline-none uppercase border leading-tight',
+	base: 'appearance-none whitespace-no-wrap rounded text-center shadow focus:outline-none border align-baseline leading-tight',
 	normal: {
 		default: {
 			solid: 'text-white bg-gray-600 hover:bg-gray-700 focus:bg-gray-700 border-gray-600 hover:border-gray-700 focus:border-gray-700',
@@ -54,9 +54,9 @@ export default {
 	},
 	size: {
 		normal: {
-			default: 'py-2 px-3',
-			sm: 'py-1 px-2',
-			lg: 'py-3 px-4'
+			default: 'py-2 px-4',
+			sm: 'py-1 px-3',
+			lg: 'py-3 px-5'
 		},
 		square: {
 			default: 'p-2',
@@ -64,17 +64,5 @@ export default {
 			lg: 'p-3'
 		}
 	},
-	rounded: 'rounded-full',
-	icon: {
-		size: {
-			// line height
-			default: 'h-5 w-5',
-			sm: 'h-5 w-5',
-			lg: 'h-5 w-5'
-		},
-		spacing: {
-			right: 'mr-2',
-			left: 'ml-2'
-		}
-	}
+	rounded: 'rounded-full'
 };
