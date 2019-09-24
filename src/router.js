@@ -4,6 +4,7 @@ import Install from './views/install.vue';
 import BaseRoute from './views/base-route.vue';
 import Form from './views/form.vue';
 import Table from './views/table.vue';
+import Progress from './views/progress.vue';
 
 Vue.use(Router);
 
@@ -59,6 +60,15 @@ export default new Router({
 					meta: {
 						index: 'C-2',
 						title: 'Table'
+					}
+				},
+				{
+					path: 'Progress',
+					name: 'progress',
+					component: Progress,
+					meta: {
+						index: 'C-3',
+						title: 'Progress Bar'
 					}
 				}
 			]

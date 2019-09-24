@@ -9,6 +9,7 @@ import TvIcon from './icon.js';
 import TvInput from './input.js';
 import TvLabel from './label.js';
 import TvModal from './modal.js';
+import TvProgress from './progress.js';
 import TvRadio from './radio.js';
 import TvRadioButton from './radio-button.js';
 import TvSelect from './select.js';
@@ -20,7 +21,6 @@ import TvTableColumn from './table-column.js';
 import TvTableHeader from './table-header.js';
 import TvSwitch from './switch.js';
 // TODO
-// import TvProgressBar from './progress-bar.js'
 // import TvDropDownMenu from './drop-down-menu.js'
 // import TvToolTip from './tooltip.js'
 
@@ -36,6 +36,7 @@ export default {
 	TvInput,
 	TvLabel,
 	TvModal,
+	TvProgress,
 	TvRadio,
 	TvRadioButton,
 	TvSelect,
@@ -60,6 +61,7 @@ export {
 	TvInput,
 	TvLabel,
 	TvModal,
+	TvProgress,
 	TvRadio,
 	TvRadioButton,
 	TvSelect,

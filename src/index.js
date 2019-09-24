@@ -11,6 +11,7 @@ import Icon from './components/icon/index.js';
 import Input from './components/input/index.js';
 import Label from './components/label/index.js';
 import Modal, { ModalProgrammatic } from './components/modal/index.js';
+import Progress from './components/progress/index.js';
 import Radio from './components/radio/index.js';
 import RadioButton from './components/radio-button/index.js';
 import Select from './components/select/index.js';
@@ -35,6 +36,7 @@ const components = [
 	Input,
 	Label,
 	Modal,
+	Progress,
 	Radio,
 	RadioButton,
 	Select,
@@ -77,6 +79,7 @@ export {
 	Label,
 	Modal,
 	ModalProgrammatic,
+	Progress,
 	Radio,
 	RadioButton,
 	Select,
