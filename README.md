@@ -70,6 +70,9 @@ module.exports = {
 				'11': '2.75rem',
 				'14': '3.5rem',
 				'18': '4.5rem'
+			},
+			fontSize: {
+				'xxs': '0.625rem'
 			}
 		},
 		container: {
