@@ -6,24 +6,24 @@ export default {
 			checked: 'bg-gray-800 hover:bg-gray-800 focus:bg-gray-900'
 		},
 		primary: {
-			unchecked: 'bg-primary-400 hover:bg-primary-500 focus:bg-primary-500',
-			checked: 'bg-primary-600 hover:bg-primary-600 focus:bg-primary-700'
+			unchecked: 'bg-teal-400 hover:bg-teal-500 focus:bg-teal-500',
+			checked: 'bg-teal-600 hover:bg-teal-600 focus:bg-teal-700'
 		},
 		success: {
-			unchecked: 'bg-success-600 hover:bg-success-700 focus:bg-success-700',
-			checked: 'bg-success-800 hover:bg-success-800 focus:bg-success-900'
+			unchecked: 'bg-green-600 hover:bg-green-700 focus:bg-green-700',
+			checked: 'bg-green-800 hover:bg-green-800 focus:bg-green-900'
 		},
 		warning: {
-			unchecked: 'bg-warning-600 hover:bg-warning-700 focus:bg-warning-700',
-			checked: 'bg-warning-800 hover:bg-warning-800 focus:bg-warning-900'
+			unchecked: 'bg-yellow-600 hover:bg-yellow-700 focus:bg-yellow-700',
+			checked: 'bg-yellow-800 hover:bg-yellow-800 focus:bg-yellow-900'
 		},
 		danger: {
-			unchecked: 'bg-danger-600 hover:bg-danger-700 focus:bg-danger-700',
-			checked: 'bg-danger-800 hover:bg-danger-900 focus:bg-danger-900'
+			unchecked: 'bg-red-600 hover:bg-red-700 focus:bg-red-700',
+			checked: 'bg-red-800 hover:bg-red-900 focus:bg-red-900'
 		},
 		info: {
-			unchecked: 'bg-info-500 hover:bg-info-600 focus:bg-info-600',
-			checked: 'bg-info-700 hover:bg-info-800 focus:bg-info-800'
+			unchecked: 'bg-blue-500 hover:bg-blue-600 focus:bg-blue-600',
+			checked: 'bg-blue-700 hover:bg-blue-800 focus:bg-blue-800'
 		}
 	},
 	disabled: {
@@ -32,24 +32,24 @@ export default {
 			checked: 'cursor-not-allowed bg-gray-400'
 		},
 		primary: {
-			unchecked: 'cursor-not-allowed bg-primary-300',
-			checked: 'cursor-not-allowed bg-primary-300'
+			unchecked: 'cursor-not-allowed bg-teal-300',
+			checked: 'cursor-not-allowed bg-teal-300'
 		},
 		success: {
-			unchecked: 'cursor-not-allowed bg-success-300',
-			checked: 'cursor-not-allowed bg-success-300'
+			unchecked: 'cursor-not-allowed bg-green-300',
+			checked: 'cursor-not-allowed bg-green-300'
 		},
 		warning: {
-			unchecked: 'cursor-not-allowed bg-warning-400',
-			checked: 'cursor-not-allowed bg-warning-400'
+			unchecked: 'cursor-not-allowed bg-yellow-400',
+			checked: 'cursor-not-allowed bg-yellow-400'
 		},
 		danger: {
-			unchecked: 'cursor-not-allowed bg-danger-300',
-			checked: 'cursor-not-allowed bg-danger-300'
+			unchecked: 'cursor-not-allowed bg-red-300',
+			checked: 'cursor-not-allowed bg-red-300'
 		},
 		info: {
-			unchecked: 'cursor-not-allowed bg-info-300',
-			checked: 'cursor-not-allowed bg-info-300'
+			unchecked: 'cursor-not-allowed bg-blue-300',
+			checked: 'cursor-not-allowed bg-blue-300'
 		}
 	},
 	size: {

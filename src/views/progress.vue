@@ -1,6 +1,6 @@
 <template>
 	<section class="px-4 w-full">
-		<h1 class="text-3xl text-primary-300">Progress Bar</h1>
+		<h1 class="text-3xl text-teal-300">Progress Bar</h1>
 		<tv-progress :value="progress" class="mb-2" v-for="(variant, index) in variants" :key="index" :variant="variant" />
 		<tv-progress :value="progress" class="mb-2" size="sm" :show-value="false" :custom-variant-class="handleCustomVarient" />
 		<tv-button @click="handleProgress">Set Progress</tv-button>
@@ -21,19 +21,19 @@ export default {
 		},
 		handleCustomVarient(val) {
 			if (val < 20) {
-				return 'bg-danger-800';
+				return 'bg-red-800';
 			} else if (val < 40) {
-				return 'bg-danger-600';
+				return 'bg-red-600';
 			} else if (val < 60) {
-				return 'bg-warning-600';
+				return 'bg-yellow-600';
 			} else if (val < 80) {
-				return 'bg-warning-400';
+				return 'bg-yellow-400';
 			} else if (val < 90) {
-				return 'bg-success-400';
+				return 'bg-green-400';
 			} else if (val < 100) {
-				return 'bg-success-600';
+				return 'bg-green-600';
 			} else {
-				return 'bg-success-800';
+				return 'bg-green-800';
 			}
 		}
 	}

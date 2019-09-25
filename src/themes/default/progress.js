@@ -4,11 +4,11 @@ export default {
 		base: 'text-center text-white leading-none',
 		variant: {
 			default: 'bg-gray-600',
-			primary: 'bg-primary-400',
-			success: 'bg-success-600',
-			warning: 'bg-warning-600',
-			danger: 'bg-danger-700',
-			info: 'bg-info-500'
+			primary: 'bg-teal-400',
+			success: 'bg-green-600',
+			warning: 'bg-yellow-600',
+			danger: 'bg-red-700',
+			info: 'bg-blue-500'
 		}
 	},
 	size: {

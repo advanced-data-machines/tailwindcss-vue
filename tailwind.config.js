@@ -1,18 +1,8 @@
-const { colors } = require('tailwindcss/defaultTheme');
+// const { colors } = require('tailwindcss/defaultTheme');
 // variant defaults
 // https://tailwindcss.com/docs/configuring-variants/#default-variants-reference
 module.exports = {
 	theme: {
-		colors: {
-			primary: colors.teal,
-			info: colors.blue,
-			warning: colors.yellow,
-			danger: colors.red,
-			success: colors.green,
-			gray: colors.gray,
-			white: colors.white,
-			black: colors.black
-		},
 		extend: {
 			spacing: {
 				'9': '2.25rem',

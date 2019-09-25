@@ -6,24 +6,24 @@ export default {
 			outline: 'text-gray-600 hover:text-gray-700 focus:text-gray-700 border-gray-600 hover:border-gray-700 focus:border-gray-700'
 		},
 		primary: {
-			solid: 'text-white bg-primary-400 hover:bg-primary-500 focus:bg-primary-500 border-primary-400 hover:border-primary-500 focus:border-primary-500',
-			outline: 'text-primary-400 hover:text-primary-600 focus:text-primary-600 border-primary-400 hover:border-primary-600 focus:border-primary-600'
+			solid: 'text-white bg-teal-400 hover:bg-teal-500 focus:bg-teal-500 border-teal-400 hover:border-teal-500 focus:border-teal-500',
+			outline: 'text-teal-400 hover:text-teal-600 focus:text-teal-600 border-teal-400 hover:border-teal-600 focus:border-teal-600'
 		},
 		success: {
-			solid: 'text-white bg-success-600 hover:bg-success-700 focus:bg-success-700 border-success-600 hover:border-success-700 focus:border-success-700',
-			outline: 'text-success-600 hover:text-success-800 focus:text-success-800 border-success-600 hover:border-success-800 focus:border-success-800'
+			solid: 'text-white bg-green-600 hover:bg-green-700 focus:bg-green-700 border-green-600 hover:border-green-700 focus:border-green-700',
+			outline: 'text-green-600 hover:text-green-800 focus:text-green-800 border-green-600 hover:border-green-800 focus:border-green-800'
 		},
 		warning: {
-			solid: 'text-white bg-warning-600 hover:bg-warning-700 focus:bg-warning-700 border-warning-600 hover:border-warning-700 focus:border-warning-700',
-			outline: 'text-warning-600 hover:text-warning-800 focus:text-warning-800 border-warning-600 hover:border-warning-800 focus:border-warning-800'
+			solid: 'text-white bg-yellow-600 hover:bg-yellow-700 focus:bg-yellow-700 border-yellow-600 hover:border-yellow-700 focus:border-yellow-700',
+			outline: 'text-yellow-600 hover:text-yellow-800 focus:text-yellow-800 border-yellow-600 hover:border-yellow-800 focus:border-yellow-800'
 		},
 		danger: {
-			solid: 'text-white bg-danger-700 hover:bg-danger-800 focus:bg-danger-800 border-danger-700 hover:border-danger-800 focus:border-danger-800',
-			outline: 'text-danger-600 hover:text-danger-800 focus:text-danger-800 border-danger-600 hover:border-danger-800 focus:border-danger-800'
+			solid: 'text-white bg-red-700 hover:bg-red-800 focus:bg-red-800 border-red-700 hover:border-red-800 focus:border-red-800',
+			outline: 'text-red-600 hover:text-red-800 focus:text-red-800 border-red-600 hover:border-red-800 focus:border-red-800'
 		},
 		info: {
-			solid: 'text-white bg-info-500 hover:bg-info-600 focus:bg-info-600 border-info-500 hover:border-info-600 focus:border-info-600',
-			outline: 'text-info-500 hover:text-info-700 focus:text-info-700 border-info-500 hover:border-info-700 focus:border-info-700'
+			solid: 'text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 border-blue-500 hover:border-blue-600 focus:border-blue-600',
+			outline: 'text-blue-500 hover:text-blue-700 focus:text-blue-700 border-blue-500 hover:border-blue-700 focus:border-blue-700'
 		}
 	},
 	disabled: {
@@ -32,24 +32,24 @@ export default {
 			outline: 'cursor-not-allowed text-gray-400 border-gray-400'
 		},
 		primary: {
-			solid: 'cursor-not-allowed text-white bg-primary-300 border-primary-300',
-			outline: 'cursor-not-allowed text-primary-300 border-primary-300'
+			solid: 'cursor-not-allowed text-white bg-teal-300 border-teal-300',
+			outline: 'cursor-not-allowed text-teal-300 border-teal-300'
 		},
 		success: {
-			solid: 'cursor-not-allowed text-white bg-success-300 border-success-300',
-			outline: 'cursor-not-allowed text-success-300 border-success-300'
+			solid: 'cursor-not-allowed text-white bg-green-300 border-green-300',
+			outline: 'cursor-not-allowed text-green-300 border-green-300'
 		},
 		warning: {
-			solid: 'cursor-not-allowed text-white bg-warning-400 border-warning-400',
-			outline: 'cursor-not-allowed text-warning-400 border-warning-400'
+			solid: 'cursor-not-allowed text-white bg-yellow-400 border-yellow-400',
+			outline: 'cursor-not-allowed text-yellow-400 border-yellow-400'
 		},
 		danger: {
-			solid: 'cursor-not-allowed text-white bg-danger-300 border-danger-300',
-			outline: 'cursor-not-allowed text-danger-300 border-danger-300'
+			solid: 'cursor-not-allowed text-white bg-red-300 border-red-300',
+			outline: 'cursor-not-allowed text-red-300 border-red-300'
 		},
 		info: {
-			solid: 'cursor-not-allowed text-white bg-info-300 border-info-300',
-			outline: 'cursor-not-allowed text-info-300 border-info-300'
+			solid: 'cursor-not-allowed text-white bg-blue-300 border-blue-300',
+			outline: 'cursor-not-allowed text-blue-300 border-blue-300'
 		}
 	},
 	size: {

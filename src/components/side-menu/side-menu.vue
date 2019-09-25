@@ -21,6 +21,10 @@ export default {
 			type: String,
 			default: ''
 		},
+		defaultOpeneds: {
+			type: Array,
+			default: undefined
+		},
 		collapse: {
 			type: Boolean,
 			default: false
@@ -68,7 +72,21 @@ export default {
 		}
 	},
 	watch: {
-		'items': 'updateActiveIndex'
+		items: 'updateActiveIndex',
+		defaultActive(value) {
+			if (!this.items[value]) {
+				this.activeIndex = null;
+			}
+			this.updateActiveIndex(value);
+		},
+		defaultOpeneds(value) {
+			if (!this.collapse) {
+				this.openedMenus = value;
+			}
+		},
+		collapse(value) {
+			if (value) this.openedMenus = [];
+		}
 	},
 	methods: {
 		updateActiveIndex(index) {
@@ -142,7 +160,7 @@ export default {
 			if (this.router && hasIndex) {
 				this.routeToItem(item, (error) => {
 					this.activeIndex = oldActiveIndex;
-					if (error) throw new Error(error);
+					if (error) console.warn(error);
 				});
 			}
 		},

@@ -144,7 +144,7 @@ export default {
 			this.$el.blur();
 		},
 		getAttributes() {
-			if (this.isARouterLink) {
+			if (this.isRouterLink) {
 				return {
 					to: this.to,
 					tag: this.tagName,

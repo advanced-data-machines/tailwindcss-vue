@@ -63,7 +63,7 @@ export default {
 		addToTable() {
 			if (!this.tableColumns) {
 				this.$destroy();
-				throw new Error('(TV Error[TvTableColumn]) - TvTableColumn should be wrapped in TvTable');
+				console.warn('(TV Error[TvTableColumn]) - TvTableColumn should be wrapped in TvTable');
 			}
 			if (this.internal) return;
 			// check to make sure columns are not duplicated

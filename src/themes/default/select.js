@@ -1,11 +1,11 @@
 export default {
 	base: 'appearance-none block w-full border rounded leading-tight focus:outline-none',
 	state: {
-		default: 'bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-400',
+		default: 'bg-gray-100 text-gray-700 border-gray-300 focus:border-teal-400',
 		disabled: 'bg-gray-200 text-gray-700 border-gray-300',
 		readonly: 'bg-gray-200 text-gray-700 border-gray-300',
-		success: 'bg-success-100 text-gray-700 border-success-300 focus:border-success-400',
-		error: 'bg-danger-100 text-gray-700 border-danger-300 focus:border-danger-400'
+		success: 'bg-green-100 text-gray-700 border-green-300 focus:border-green-400',
+		error: 'bg-red-100 text-gray-700 border-red-300 focus:border-red-400'
 	},
 	size: {
 		default: 'text-base py-3 px-4',

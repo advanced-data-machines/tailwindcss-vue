@@ -4,11 +4,11 @@ export default {
 		base: 'rounded-full shadow-inner',
 		normal: {
 			unchecked: 'bg-gray-500',
-			checked: 'bg-success-400'
+			checked: 'bg-green-400'
 		},
 		disabled: {
 			unchecked: 'bg-gray-200 cursor-not-allowed',
-			checked: 'bg-success-200 cursor-not-allowed'
+			checked: 'bg-green-200 cursor-not-allowed'
 		},
 		size: {
 			default: 'w-10 h-4',

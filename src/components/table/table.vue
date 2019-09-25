@@ -251,7 +251,7 @@ export default {
 		checkPredefinedDetailedRows() {
 			const defaultExpandedRowsDefined = this.openedDetailed.length > 0;
 			if (defaultExpandedRowsDefined && !this.detailKey.length) {
-				throw new Error('If you set a predefined opened-detailed, you must provide a unique key using the prop "detail-key"');
+				console.warn('If you set a predefined opened-detailed, you must provide a unique key using the prop "detail-key"');
 			}
 		},
 		isRowChecked(obj) {
