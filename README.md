@@ -49,6 +49,7 @@ module.exports = {
 > This file is likely to change to base color scheme without the need for custom color names
 
 ``` js
+const { colors } = require('tailwindcss/defaultTheme');
 // variant defaults
 // https://tailwindcss.com/docs/configuring-variants/#default-variants-reference
 module.exports = {
@@ -62,6 +63,9 @@ module.exports = {
 			},
 			fontSize: {
 				'xxs': '0.625rem'
+			},
+			stroke: {
+				...colors
 			}
 		},
 		container: {
