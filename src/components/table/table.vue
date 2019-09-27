@@ -1,61 +1,63 @@
 <template>
-	<table :class="currentClass">
-		<thead>
-			<tr>
-				<tv-table-header v-if="detailed" :column="{ label: '' }" class="w-1" />
-				<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
-					<div class="flex items-center">
-						<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
-							<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
-						</template>
-						<template v-else-if="$scopedSlots['header']">
-							<slot name="header" :column="column" :index="index" />
-						</template>
-						<template v-else>{{ column.label }}</template>
-						<span :class="currentSortColumn === column ? 'visible': 'invisible'">
-							<slot name="direction" :is-asc="isAsc">
-								<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-									<path v-if="isAsc" d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
-									<path v-else d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-								</svg>
-							</slot>
-						</span>
-					</div>
-				</tv-table-header>
-				<tv-table-header v-if="showCheckbox" :column="{ label: '' }" class="w-1">
-					<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
-				</tv-table-header>
-			</tr>
-		</thead>
-		<tbody>
-			<template v-for="(row, index) in newData">
-				<tr :class="handleCustomRowClass(row, index)" :key="customRowKey ? row[customRowKey] : index">
-					<tv-table-column v-if="detailed" internal>
-						<slot name="arrow" :opened="isDetailActive">
-							<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
-						</slot>
-					</tv-table-column>
-					<slot v-if="$scopedSlots['default']" :row="row" :index="index" />
-					<template v-else>
-						<tv-table-column v-for="column in newColumns" :key="column.field" v-bind="column" internal>
-							<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
-							<template v-else>
-								{{ getValueByPath(row, column.field) }}
+	<div :class="{ 'overflow-x-auto': responsive }">
+		<table :class="currentClass">
+			<thead>
+				<tr>
+					<tv-table-header v-if="detailed" :column="{ label: '' }" class="w-1" />
+					<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
+						<div class="flex items-center">
+							<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
+								<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
 							</template>
+							<template v-else-if="$scopedSlots['header']">
+								<slot name="header" :column="column" :index="index" />
+							</template>
+							<template v-else>{{ column.label }}</template>
+							<span :class="currentSortColumn === column ? 'visible': 'invisible'">
+								<slot name="direction" :is-asc="isAsc">
+									<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+										<path v-if="isAsc" d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
+										<path v-else d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+									</svg>
+								</slot>
+							</span>
+						</div>
+					</tv-table-header>
+					<tv-table-header v-if="showCheckbox" :column="{ label: '' }" class="w-1">
+						<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
+					</tv-table-header>
+				</tr>
+			</thead>
+			<tbody>
+				<template v-for="(row, index) in newData">
+					<tr :class="handleCustomRowClass(row, index)" :key="customRowKey ? row[customRowKey] : index">
+						<tv-table-column v-if="detailed" internal>
+							<slot name="arrow" :opened="isDetailActive">
+								<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
+							</slot>
 						</tv-table-column>
-					</template>
-					<tv-table-column v-if="showCheckbox" internal>
-						<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
-					</tv-table-column>
-				</tr>
-				<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
-					<td colspan="100">
-						<slot name="detail" :row="row" :index="index" />
-					</td>
-				</tr>
-			</template>
-		</tbody>
-	</table>
+						<slot v-if="$scopedSlots['default']" :row="row" :index="index" />
+						<template v-else>
+							<tv-table-column v-for="column in newColumns" :key="column.field" v-bind="column" internal>
+								<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
+								<template v-else>
+									{{ getValueByPath(row, column.field) }}
+								</template>
+							</tv-table-column>
+						</template>
+						<tv-table-column v-if="showCheckbox" internal>
+							<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
+						</tv-table-column>
+					</tr>
+					<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
+						<td colspan="100">
+							<slot name="detail" :row="row" :index="index" />
+						</td>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+	</div>
 </template>
 <script>
 import { getValueByPath, indexOf } from '../../utils/utils.js';
@@ -140,6 +142,10 @@ export default {
 		defaultSortDirection: {
 			type: String,
 			default: 'asc' // assending
+		},
+		responsive: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data() {

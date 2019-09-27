@@ -54,7 +54,7 @@
 					</template>
 				</div>
 			</tv-side-menu>
-			<div class="flex-grow">
+			<div class="w-full overflow-x-hidden">
 				<router-view />
 			</div>
 		</div>

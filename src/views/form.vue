@@ -16,7 +16,23 @@
 			</tv-form-group>
 			<tv-form-group prop="city">
 				<tv-label>City</tv-label>
+				<tv-select v-model="test.city" placeholder="Select a City" size="sm">
+					<option v-for="city in cities" :value="city" :key="city" :disabled="city === 'Franktown'">
+						{{ city }}
+					</option>
+				</tv-select>
+			</tv-form-group>
+			<tv-form-group prop="city">
+				<tv-label>City</tv-label>
 				<tv-select v-model="test.city" placeholder="Select a City">
+					<option v-for="city in cities" :value="city" :key="city" :disabled="city === 'Franktown'">
+						{{ city }}
+					</option>
+				</tv-select>
+			</tv-form-group>
+			<tv-form-group prop="city">
+				<tv-label>City</tv-label>
+				<tv-select v-model="test.city" placeholder="Select a City" size="lg">
 					<option v-for="city in cities" :value="city" :key="city" :disabled="city === 'Franktown'">
 						{{ city }}
 					</option>

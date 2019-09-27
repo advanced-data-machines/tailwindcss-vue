@@ -125,7 +125,7 @@ export default {
 			classes.push(`${theme.size[size]} ${theme.arrowSpace[size]}`);
 			// if disabled skip normal state classes
 			// else add normal state classes
-			if (this.inputDisabled) {
+			if (this.isDisabled) {
 				classes.push(`${theme.state.disabled}`);
 			} else {
 				classes.push(`${theme.state[state]}`);

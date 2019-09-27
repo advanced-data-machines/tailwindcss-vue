@@ -1,5 +1,5 @@
 export default {
-	base: 'appearance-none block w-full border rounded focus:outline-none leading-tight',
+	base: 'appearance-none w-full border rounded focus:outline-none leading-tight',
 	state: {
 		default: 'bg-gray-100 text-gray-700 border-gray-300 focus:border-teal-400',
 		disabled: 'bg-gray-200 text-gray-700 border-gray-300',
