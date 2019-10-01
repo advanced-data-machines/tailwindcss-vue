@@ -17,8 +17,6 @@ import TvSideMenu from './side-menu.js';
 import TvSideMenuItem from './side-menu-item.js';
 import TvSideSubmenu from './side-submenu.js';
 import TvTable from './table.js';
-import TvTableColumn from './table-column.js';
-import TvTableHeader from './table-header.js';
 import TvSwitch from './switch.js';
 // TODO
 // import TvDropDownMenu from './drop-down-menu.js'
@@ -44,8 +42,6 @@ export default {
 	TvSideMenuItem,
 	TvSideSubmenu,
 	TvTable,
-	TvTableColumn,
-	TvTableHeader,
 	TvSwitch
 };
 
@@ -69,7 +65,5 @@ export {
 	TvSideMenuItem,
 	TvSideSubmenu,
 	TvTable,
-	TvTableColumn,
-	TvTableHeader,
 	TvSwitch
 };

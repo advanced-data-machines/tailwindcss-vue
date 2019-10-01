@@ -3,13 +3,10 @@
 		<table :class="currentClass">
 			<thead>
 				<tr>
-					<tv-table-header v-if="detailed" :column="{ label: '' }" class="w-1" />
-					<tv-table-header v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
+					<th v-if="detailed" :class="[thClass, 'w-1']"><span :class="detailToggleHrClass" /></th>
+					<th v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
 						<div class="flex items-center">
-							<template v-if="column.$scopedSlots && column.$scopedSlots['header']">
-								<tv-slot-component :component="column" :scoped="true" name="header" tag="span" :props="{ column, index }" />
-							</template>
-							<template v-else-if="$scopedSlots['header']">
+							<template v-if="$scopedSlots['header']">
 								<slot name="header" :column="column" :index="index" />
 							</template>
 							<template v-else>{{ column.label }}</template>
@@ -22,32 +19,32 @@
 								</slot>
 							</span>
 						</div>
-					</tv-table-header>
-					<tv-table-header v-if="showCheckbox" :column="{ label: '' }" class="w-1">
+					</th>
+					<th v-if="showCheckbox" :column="{ label: '' }" :class="[thClass, 'w-1']">
 						<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
-					</tv-table-header>
+					</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody v-if="newData.length > 0">
 				<template v-for="(row, index) in newData">
-					<tr :class="handleCustomRowClass(row, index)" :key="customRowKey ? row[customRowKey] : index">
-						<tv-table-column v-if="detailed" internal>
+					<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
+						<td v-if="detailed" :class="tdClass">
 							<slot name="arrow" :opened="isDetailActive">
 								<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
 							</slot>
-						</tv-table-column>
-						<slot v-if="$scopedSlots['default']" :row="row" :index="index" />
+						</td>
+						<slot v-if="$scopedSlots['default']" :row="row" :index="index" :td-class="tdClass" />
 						<template v-else>
-							<tv-table-column v-for="column in newColumns" :key="column.field" v-bind="column" internal>
+							<td v-for="column in newColumns" :key="column.field" :class="tdClass">
 								<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
 								<template v-else>
 									{{ getValueByPath(row, column.field) }}
 								</template>
-							</tv-table-column>
+							</td>
 						</template>
-						<tv-table-column v-if="showCheckbox" internal>
+						<td v-if="showCheckbox" :class="tdClass">
 							<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
-						</tv-table-column>
+						</td>
 					</tr>
 					<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
 						<td colspan="100">
@@ -56,23 +53,27 @@
 					</tr>
 				</template>
 			</tbody>
+			<tbody v-else>
+				<tr :class="trClass">
+					<slot name="no-data" :data="newData" :td-class="tdClass" :loading="loading">
+						<td :class="tdClass" colspan="100">
+							<span v-if="loading">Loading</span>
+							<span v-else>No Matching Results</span>
+						</td>
+					</slot>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </template>
 <script>
 import { getValueByPath, indexOf } from '../../utils/utils.js';
 import ThemeMixin from '../../mixins/theme.js';
-import TvTableColumn from './table-column.vue';
-import TvTableHeader from './table-header.vue';
-import TvSlotComponent from '../slot/slot-component.js';
 import TvTableArrow from './table-arrow.vue';
 import TvCheckbox from '../checkbox/checkbox.vue';
 export default {
 	name: 'TvTable',
 	components: {
-		'tv-table-column': TvTableColumn,
-		'tv-table-header': TvTableHeader,
-		'tv-slot-component': TvSlotComponent,
 		'tv-table-arrow': TvTableArrow,
 		'tv-checkbox': TvCheckbox
 	},
@@ -97,7 +98,7 @@ export default {
 		},
 		customRowClass: {
 			type: [Function, String],
-			default: 'hover:bg-gray-100'
+			default: ''
 		},
 		detailed: {
 			type: Boolean,
@@ -110,6 +111,10 @@ export default {
 		detailKey: {
 			type: String,
 			default: ''
+		},
+		detailToggleHrClass: {
+			type: String,
+			default: 'w-5 inline-block' // prevent table size jump
 		},
 		showCheckbox: {
 			type: Boolean,
@@ -146,6 +151,10 @@ export default {
 		responsive: {
 			type: Boolean,
 			default: true
+		},
+		loading: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -166,6 +175,33 @@ export default {
 			let classes = [
 				tag,
 				theme.base
+			];
+			return classes;
+		},
+		thClass() {
+			const tag = `${this.$options._componentTag}-th`;
+			const theme = this.currentTheme;
+			let classes = [
+				tag,
+				theme.th
+			];
+			return classes;
+		},
+		trClass() {
+			const tag = `${this.$options._componentTag}-tr`;
+			const theme = this.currentTheme;
+			let classes = [
+				tag,
+				theme.tr
+			];
+			return classes;
+		},
+		tdClass() {
+			const tag = `${this.$options._componentTag}-td`;
+			const theme = this.currentTheme;
+			let classes = [
+				tag,
+				theme.td
 			];
 			return classes;
 		},

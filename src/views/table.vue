@@ -6,17 +6,17 @@
 				{{ props.column.field }} {{ props.index }}
 			</template>
 		</tv-table>
-		<tv-table :data="data" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox>
+		<tv-table :data="data2" :columns="columns" :loading="loading" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox>
 			<template slot-scope="props">
-				<tv-table-column label="Name" field="name" sortable>
+				<td :class="props.tdClass">
 					{{ props.row.name }}
-				</tv-table-column>
-				<tv-table-column label="Department" field="department" sortable>
+				</td>
+				<td :class="props.tdClass">
 					<template slot="header" slot-scope="child">
 						{{ child.column.field }} {{ child.index }}
 					</template>
 					{{ props.row.department }}
-				</tv-table-column>
+				</td>
 			</template>
 			<div slot="detail" class="p-5 border-b border-gray-300" slot-scope="detail">
 				<strong>Department:</strong> {{ detail.row.department }}
@@ -37,11 +37,14 @@ export default {
 				{ name: 'Britany', department: 'Accounting', email: 'Britany@tailwind-vue.com' },
 				{ name: 'Lisa', department: 'Sales', email: 'lisa@tailwind-vue.com' }
 			],
-			columns: [
-				{ label: 'Name', field: 'name' },
-				{ label: 'Department', field: 'department' }
+			data2: [
 			],
-			checkedRows: []
+			columns: [
+				{ label: 'Name', field: 'name', sortable: true },
+				{ label: 'Department', field: 'department', sortable: true }
+			],
+			checkedRows: [],
+			loading: true
 		};
 	},
 	methods: {
@@ -49,6 +52,17 @@ export default {
 			if (index % 2) return 'bg-info-100 hover:bg-gray-200';
 			else return 'hover:bg-gray-100';
 		}
+	},
+	created() {
+		setTimeout(() => {
+			this.data2 = [
+				{ name: 'Joe', department: 'HR', email: 'joe@tailwind-vue.com' },
+				{ name: 'Andrew', department: 'Marketing', email: 'andrew@tailwind-vue.com' },
+				{ name: 'Britany', department: 'Accounting', email: 'Britany@tailwind-vue.com' },
+				{ name: 'Lisa', department: 'Sales', email: 'lisa@tailwind-vue.com' }
+			];
+			this.loading = false;
+		}, 300);
 	}
 };
 </script>
