@@ -58,10 +58,7 @@ const install = function(Vue, args = {}) {
 };
 
 export default {
-	install
-};
-
-export {
+	install,
 	Alert,
 	AlertNotice,
 	NotifyProgrammatic,
