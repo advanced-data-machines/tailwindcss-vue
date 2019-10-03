@@ -1,5 +1,3 @@
-
-// import { installComponents } from './utils/plugins.js';
 import Alert from './components/alert/index.js';
 import AlertNotice, { NotifyProgrammatic } from './components/alert-notice/index.js';
 import Button from './components/button/index.js';
@@ -20,6 +18,8 @@ import SideMenuItem from './components/side-menu-item/index.js';
 import SideSubmenu from './components/side-submenu/index.js';
 import Switch from './components/switch/index.js';
 import Table from './components/table/index.js';
+
+import Theme from './utils/theme.js';
 
 // components to be used
 const components = [
@@ -80,5 +80,6 @@ export default {
 	SideMenuItem,
 	SideSubmenu,
 	Switch,
-	Table
+	Table,
+	Theme
 };

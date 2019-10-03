@@ -1,5 +1,5 @@
 export default {
-	base: 'inline-block mr-3 last:mr-0',
+	base: 'inline-block mr-3 last:mr-0 uppercase tracking-wide text-xs font-bold text-gray-700',
 	line: {
 		base: 'rounded-full shadow-inner',
 		normal: {
