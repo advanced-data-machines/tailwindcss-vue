@@ -8,13 +8,16 @@ export default {
 		error: 'bg-gray-100 text-gray-700 border-red-300 focus:border-red-400'
 	},
 	size: {
-		default: 'py-2 px-4',
-		sm: 'py-1 px-3',
-		lg: 'py-3 px-5'
+		default: 'py-2 pl-4 pr-11 ',
+		sm: 'py-1 pl-3 pr-10',
+		lg: 'py-3 pl-5 pr-12'
 	},
-	arrowSpace: {
-		default: 'pr-11',
-		sm: 'pr-10',
-		lg: 'pr-12'
+	arrow: {
+		base: 'text-gray-700',
+		size: {
+			default: 'h-5 w-5',
+			sm: 'h-4 w-4',
+			lg: 'h-6 w-6'
+		}
 	}
 };

@@ -13,11 +13,8 @@
 			v-model="computedValue"
 			:disabled="isDisabled"
 			:value="nativeValue"
-			class="align-middle"
 		>
-		<span class="align-middle">
-			<slot />
-		</span>
+		<slot />
 	</label>
 </template>
 <script>

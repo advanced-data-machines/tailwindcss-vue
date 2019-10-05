@@ -3,7 +3,7 @@
 		<slot name="label" v-if="$slots.label" :label="label" />
 		<slot />
 		<slot v-if="validateState === 'error' && showMessage && form.showMessage" name="error" :error="validateMessage">
-			<span class="block text-sm text-danger-600">
+			<span :class="errorClass">
 				{{ validateMessage }}
 			</span>
 		</slot>
@@ -78,6 +78,16 @@ export default {
 			];
 			return classes;
 		},
+		errorClass() {
+			const tag = `${this.$options._componentTag}-error`;
+			const theme = this.currentTheme;
+			// add tags first
+			let classes = [
+				tag,
+				theme.error
+			];
+			return classes;
+		},
 		form() {
 			let parent = this.$parent;
 			let parentName = parent.$options.name;
@@ -122,22 +132,6 @@ export default {
 		validateStatus(value) {
 			this.validateState = value;
 		}
-	},
-	mounted() {
-		if (this.prop) {
-			this.dispatch('TvForm', 'form.addGroup', [this]);
-			let initialValue = this.groupValue;
-			if (Array.isArray(initialValue)) {
-				initialValue = [].concat(initialValue);
-			}
-			Object.defineProperty(this, 'initialValue', {
-				value: initialValue
-			});
-			this.addValidateEvents();
-		}
-	},
-	beforeDestroy() {
-		this.dispatch('TvForm', 'form.removeGroup', [this]);
 	},
 	methods: {
 		validate(trigger, callback = noop) {
@@ -211,6 +205,22 @@ export default {
 		removeValidateEvents() {
 			this.$off();
 		}
+	},
+	mounted() {
+		if (this.prop) {
+			this.dispatch('TvForm', 'form.addGroup', [this]);
+			let initialValue = this.groupValue;
+			if (Array.isArray(initialValue)) {
+				initialValue = [].concat(initialValue);
+			}
+			Object.defineProperty(this, 'initialValue', {
+				value: initialValue
+			});
+			this.addValidateEvents();
+		}
+	},
+	beforeDestroy() {
+		this.dispatch('TvForm', 'form.removeGroup', [this]);
 	}
 };
 </script>

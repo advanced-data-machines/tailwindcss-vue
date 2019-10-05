@@ -19,8 +19,8 @@ module.exports = {
 			'error',
 			'single'
 		],
-		"space-before-function-paren": ["error", "never"],
-		'no-console': process.env.NODE_ENV === 'production' ? ["error", { allow: ["warn", "error"] }] : 'off',
+		'space-before-function-paren': ['error', 'never'],
+		'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['warn', 'error'] }] : 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'vue/html-indent': [
@@ -33,4 +33,4 @@ module.exports = {
 	parserOptions: {
 		parser: 'babel-eslint'
 	}
-}
+};

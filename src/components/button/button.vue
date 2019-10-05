@@ -12,18 +12,11 @@
 </template>
 <script>
 import ThemeMixin from '../../mixins/theme.js';
-import TvIcon from '../icon/icon.vue';
 export default {
 	name: 'TvButton',
 	mixins: [ThemeMixin],
-	components: {
-		'tv-icon': TvIcon
-	},
 	inject: {
 		rootFrom: {
-			default: ''
-		},
-		formGroup: {
 			default: ''
 		}
 	},
@@ -147,7 +140,6 @@ export default {
 			if (this.isRouterLink) {
 				return {
 					to: this.to,
-					tag: this.tagName,
 					activeClass: this.activeClass,
 					exact: this.exact,
 					exactActiveClass: this.exactActiveClass,

@@ -59,7 +59,7 @@ export default {
 	watch: {
 		rules() {
 			// remove then add event listeners on form-item after form rules change
-			this.fields.forEach(field => {
+			this.groups.forEach(field => {
 				field.removeValidateEvents();
 				field.addValidateEvents();
 			});
@@ -84,7 +84,7 @@ export default {
 	methods: {
 		validate(callback) {
 			if (isEmpty(this.model)) {
-				console.warn('(TV Warn[Form]) - model prop is required for validate to work - v-model="{YOUR_MODEL}"');
+				console.warn('(TV Warn[Form]) - model prop is required for validate to work - :model="{YOUR_MODEL}"');
 				return;
 			}
 
