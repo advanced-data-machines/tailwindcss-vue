@@ -26,14 +26,11 @@ export default {
 		},
 		currentWrapperClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
-			// add tags first
-			let classes = [
-				`${tag}-wrapper`
+			const theme = this.currentTheme.wrapper;
+			return [
+				`${tag}-wrapper`,
+				theme.base
 			];
-			// base theme classes
-			classes.push(theme.wrapper.base);
-			return classes;
 		}
 	}
 };

@@ -28,16 +28,12 @@ export default {
 			if (this.disabled) {
 				state = 'disabled';
 			}
-			// add tags first
-			let classes = [
+			return [
 				tag,
-				`${tag}-state-${state}`
+				`${tag}-state-${state}`,
+				theme.base,
+				theme.state[state]
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// state theme classes
-			classes.push(theme.state[state]);
-			return classes;
 		}
 	}
 };

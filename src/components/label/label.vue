@@ -35,18 +35,13 @@ export default {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				`${tag}-state-${state}`,
-				this.isRequired ? `${tag}-required` : ''
+				this.isRequired ? `${tag}-required` : '',
+				theme.base,
+				`${theme.state[state]}`
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			// else add normal state classes
-			classes.push(`${theme.state[state]}`);
-			return classes;
 		}
 	}
 };

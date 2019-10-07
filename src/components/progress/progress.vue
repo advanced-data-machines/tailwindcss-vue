@@ -163,20 +163,16 @@ export default {
 			const tag = `${this.$options._componentTag}-svg-text`;
 			const theme = this.currentTheme.svg;
 			const value = this.value;
-			// add tags first
 			let classes = [
 				tag,
-				`${tag}-${this.variant}`
+				`${tag}-${this.variant}`,
+				theme.text.base
 			];
-			// base theme classes
-			classes.push(theme.text.base);
-
 			if (typeof this.customTextVariantClass === 'function') {
 				classes.push(this.customTextVariantClass.apply(null, [value]));
 			} else if (typeof this.customTextVariantClass === 'string') {
 				classes.push(this.customTextVariantClass);
 			} else {
-				// theme variant classes
 				classes.push(`${theme.text.variant[this.variant]}`);
 			}
 			return classes;
@@ -184,12 +180,10 @@ export default {
 		currentSvgPathClass() {
 			const tag = `${this.$options._componentTag}-svg-path`;
 			const theme = this.currentTheme.svg;
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				theme.path
 			];
-			return classes;
 		},
 		relativeStrokeWidth() {
 			return (this.strokeWidth / this.width * 100).toFixed(1);

@@ -6,9 +6,7 @@
 		@click="focus"
 		@keydown.prevent.enter="$refs.label.click()"
 	>
-		<!-- toggle -->
 		<div class="relative flex items-center">
-			<!-- input -->
 			<input
 				ref="input"
 				type="checkbox"
@@ -22,9 +20,7 @@
 				:true-value="trueValue"
 				:false-value="falseValue"
 			>
-			<!-- line -->
 			<div :class="LineClass"	/>
-			<!-- dot -->
 			<div :class="dotClass" :style="dotStyle" />
 			<slot />
 		</div>
@@ -104,35 +100,24 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				theme.base
 			];
-			return classes;
 		},
 		dotClass() {
 			const tag = `${this.$options._componentTag}-dot`;
-			const theme = this.currentTheme;
+			const theme = this.currentTheme.dot;
 			const size = this.size || 'default';
 			const state = this.checked ? 'checked' : 'unchecked';
-			let classes = [
+			return [
 				tag,
 				`${tag}-size-${size}`,
 				`${tag}-state-${state}`,
-				this.isDisabled ? `${tag}-disabled` : ''
+				theme.base,
+				this.isDisabled ? `${tag}-disabled ${theme.disabled[state]}` : theme.normal[state],
+				theme.size[size]
 			];
-
-			// base theme classes
-			classes.push(theme.dot.base);
-			// size theme classes
-			classes.push(theme.dot.size[size]);
-			if (this.isDisabled) {
-				classes.push(theme.dot.disabled[state]);
-			} else {
-				classes.push(theme.dot.normal[state]);
-			}
-			return classes;
 		},
 		dotStyle() {
 			const style = {
@@ -147,26 +132,17 @@ export default {
 		},
 		LineClass() {
 			const tag = `${this.$options._componentTag}-line`;
-			const theme = this.currentTheme;
+			const theme = this.currentTheme.line;
 			const size = this.size || 'default';
 			const state = this.checked ? 'checked' : 'unchecked';
-			let classes = [
+			return [
 				tag,
 				`${tag}-size-${size}`,
 				`${tag}-state-${state}`,
-				this.isDisabled ? `${tag}-disabled` : ''
+				theme.base,
+				this.isDisabled ? `${tag}-disabled ${theme.disabled[state]}` : theme.normal[state],
+				theme.size[size]
 			];
-
-			// base theme classes
-			classes.push(theme.line.base);
-			// size theme classes
-			classes.push(theme.line.size[size]);
-			if (this.isDisabled) {
-				classes.push(theme.line.disabled[state]);
-			} else {
-				classes.push(theme.line.normal[state]);
-			}
-			return classes;
 		}
 	},
 	watch: {

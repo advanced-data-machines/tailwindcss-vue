@@ -38,16 +38,12 @@ export default {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
 			const variant = this.variant || 'default';
-			// add tags first
-			let classes = [
+			return [
 				tag,
-				`${tag}-${variant}`
+				`${tag}-${variant}`,
+				theme.base,
+				`${theme.normal[variant]}`
 			];
-			// base theme classes
-			classes.push(theme.base);
-			classes.push(`${theme.normal[variant]}`);
-
-			return classes;
 		}
 	}
 };

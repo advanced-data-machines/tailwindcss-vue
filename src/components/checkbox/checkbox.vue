@@ -90,8 +90,6 @@ export default {
 				tag,
 				theme.base
 			];
-			// base theme classes
-			classes.push(theme.base);
 			return classes;
 		}
 	},

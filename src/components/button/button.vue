@@ -77,7 +77,7 @@ export default {
 		}
 	},
 	computed: {
-		buttonDisabled() {
+		isDisabled() {
 			return this.disabled || (this.rootFrom || {}).disabled;
 		},
 		currentClass() {
@@ -85,24 +85,16 @@ export default {
 			const theme = this.currentTheme;
 			const square = this.square ? 'square' : 'normal';
 			const style = this.outline ? 'outline' : 'solid';
-			const disabled = this.buttonDisabled ? 'disabled' : 'normal';
-			// add tags first
-			let classes = [
+			const disabled = this.isDisabled ? 'disabled' : 'normal';
+			return [
 				tag,
 				`${tag}-size-${this.size}`,
 				`${tag}-${disabled}-${this.variant}-${style}`,
-				this.rounded ? `${tag}-rounded` : ''
+				theme.base,
+				this.rounded ? `${tag}-rounded ${theme.rounded}` : '',
+				theme.size[square][this.size],
+				`${theme[disabled][this.variant][style]}`
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			classes.push(theme.size[square][this.size]);
-
-			classes.push(`${theme[disabled][this.variant][style]}`);
-
-			if (this.rounded) classes.push(`${theme.rounded}`);
-
-			return classes;
 		},
 		isRouterlinkAvailable() {
 			return !!this.$options.components.RouterLink;
@@ -143,12 +135,12 @@ export default {
 					activeClass: this.activeClass,
 					exact: this.exact,
 					exactActiveClass: this.exactActiveClass,
-					disabled: this.buttonDisabled,
+					disabled: this.isDisabled,
 					type: this.type
 				};
 			}
 			return {
-				disabled: this.buttonDisabled,
+				disabled: this.isDisabled,
 				href: this.href,
 				type: this.type
 			};

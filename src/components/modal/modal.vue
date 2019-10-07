@@ -92,14 +92,10 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			// add tags first
-			let classes = [
-				tag
+			return [
+				tag,
+				theme.base
 			];
-			// base theme classes
-			classes.push(theme.base);
-
-			return classes;
 		}
 	},
 	watch: {

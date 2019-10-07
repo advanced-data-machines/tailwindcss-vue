@@ -49,11 +49,10 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			let classes = [
+			return [
 				tag,
 				theme.base
 			];
-			return classes;
 		}
 	},
 	watch: {

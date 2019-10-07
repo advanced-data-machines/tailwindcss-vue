@@ -55,16 +55,12 @@ export default {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
 			const state = this.collapse ? 'mini' : 'full';
-			// add tags first
-			let classes = [
+			return [
 				tag,
-				`${tag}-state-${state}`
+				`${tag}-state-${state}`,
+				theme.base,
+				theme.state[state]
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// state theme classes
-			classes.push(theme.state[state]);
-			return classes;
 		},
 		style() {
 			const durationInSeconds = this.duration / 1000;
@@ -152,10 +148,16 @@ export default {
 			}
 
 			this.$emit('select', index, indexPath, item);
+
 			// if collapse clear open menues
 			if (this.collapse) {
 				this.openedMenus = [];
+			} else if (this.uniqueOpened) {
+				this.openedMenus = this.openedMenus.filter(index => {
+					return indexPath.indexOf(index) !== -1;
+				});
 			}
+
 			// if vue router and index exists - route to item
 			if (this.router && hasIndex) {
 				this.routeToItem(item, (error) => {

@@ -5,7 +5,7 @@ import BaseRoute from './views/base-route.vue';
 import Form from './views/form.vue';
 import Table from './views/table.vue';
 import Progress from './views/progress.vue';
-
+import Modal from './views/modal.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -69,6 +69,15 @@ export default new Router({
 					meta: {
 						index: 'C-3',
 						title: 'Progress Bar'
+					}
+				},
+				{
+					path: 'Modal',
+					name: 'modal',
+					component: Modal,
+					meta: {
+						index: 'C-4',
+						title: 'Modal'
 					}
 				}
 			]

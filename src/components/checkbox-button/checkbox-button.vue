@@ -97,25 +97,15 @@ export default {
 			const variant = this.variant || 'default';
 			const size = this.size || 'default';
 			const status = this.checked ? 'checked' : 'unchecked';
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				`${tag}-size-${size}`,
-				this.disabled ? `${tag}-${variant}-disabled` : `${tag}-${variant}-${status}`
+				this.isDisabled
+					? `${tag}-${variant}-disabled ${theme.disabled[variant][status]}`
+					: `${tag}-${variant}-${status} ${theme.normal[variant][status]}`,
+				theme.base,
+				theme.size[size]
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			classes.push(theme.size[size]);
-			// if disabled skip normal variant classes
-			// else add normal variant classes
-			if (this.isDisabled) {
-				classes.push(`${theme.disabled[variant][status]}`);
-			} else {
-				classes.push(`${theme.normal[variant][status]}`);
-			}
-
-			return classes;
 		}
 	},
 	methods: {

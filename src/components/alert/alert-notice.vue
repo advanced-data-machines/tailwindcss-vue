@@ -20,16 +20,12 @@ export default {
 			const tag = this.$options.name.split(/(?=[A-Z])/).join('-').toLowerCase();
 			const theme = this.currentTheme;
 			const position = this.currentPostionCss;
-			// add tags first
-			let classes = [
+			return [
 				tag,
-				`${tag}-${position}`
+				`${tag}-${position}`,
+				theme.base,
+				`${theme.position[position]}`
 			];
-			// base theme classes
-			classes.push(theme.base);
-			classes.push(`${theme.position[position]}`);
-
-			return classes;
 		}
 	}
 };

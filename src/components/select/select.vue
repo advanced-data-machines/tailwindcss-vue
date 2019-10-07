@@ -102,43 +102,27 @@ export default {
 			const tag = `${this.$options._componentTag}-arrow`;
 			const theme = this.currentTheme.arrow;
 			const size = this.size || 'default';
-			// add tags first
-			let classes = [
+			return [
 				tag,
-				`${tag}-size-${size}`
+				`${tag}-size-${size}`,
+				theme.base,
+				`${theme.size[size]}`
 			];
-
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			classes.push(`${theme.size[size]}`);
-
-			return classes;
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				`${tag}-size-${size}`,
-				this.disabled ? `${tag}-state-disabled` : `${tag}-state-${state}`
+				theme.base,
+				this.isDisabled
+					? `${tag}-state-disabled ${theme.state.disabled}`
+					: `${tag}-state-${state} ${theme.state[state]}`,
+				`${theme.size[size]}`
 			];
-
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			classes.push(`${theme.size[size]}`);
-			// if disabled skip normal state classes
-			// else add normal state classes
-			if (this.isDisabled) {
-				classes.push(`${theme.state.disabled}`);
-			} else {
-				classes.push(`${theme.state[state]}`);
-			}
-			return classes;
 		}
 	},
 	watch: {

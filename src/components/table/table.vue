@@ -172,38 +172,34 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
-			let classes = [
+			return [
 				tag,
 				theme.base
 			];
-			return classes;
 		},
 		thClass() {
 			const tag = `${this.$options._componentTag}-th`;
 			const theme = this.currentTheme;
-			let classes = [
+			return [
 				tag,
 				theme.th
 			];
-			return classes;
 		},
 		trClass() {
 			const tag = `${this.$options._componentTag}-tr`;
 			const theme = this.currentTheme;
-			let classes = [
+			return [
 				tag,
 				theme.tr
 			];
-			return classes;
 		},
 		tdClass() {
 			const tag = `${this.$options._componentTag}-td`;
 			const theme = this.currentTheme;
-			let classes = [
+			return [
 				tag,
 				theme.td
 			];
-			return classes;
 		},
 		isAllChecked() {
 			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));

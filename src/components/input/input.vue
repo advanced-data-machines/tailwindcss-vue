@@ -3,7 +3,7 @@
 		v-if="this.tagName == 'input'"
 		ref="input"
 		:class="currentClass"
-		:disabled="inputDisabled"
+		:disabled="isDisabled"
 		:readonly="readonly"
 		:value="computedValue"
 		:type="this.type"
@@ -17,7 +17,7 @@
 		v-else
 		ref="input"
 		:class="currentClass"
-		:disabled="inputDisabled"
+		:disabled="isDisabled"
 		:readonly="readonly"
 		:value="computedValue"
 		@input="handleInput"
@@ -99,7 +99,7 @@ export default {
 			if (state === 'success' && !this.showSuccessState) state = 'default';
 			return state;
 		},
-		inputDisabled() {
+		isDisabled() {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
@@ -107,24 +107,18 @@ export default {
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
-			// add tags first
 			let classes = [
 				tag,
 				`${tag}-size-${size}`,
-				this.disabled ? `${tag}-state-disabled` : `${tag}-state-${state}`
+				theme.base,
+				theme.size[size]
 			];
-			// base theme classes
-			classes.push(theme.base);
-			// size theme classes
-			classes.push(theme.size[size]);
-			// if disabled skip normal state classes
-			// else add normal state classes
-			if (this.inputDisabled) {
-				classes.push(`${theme.state.disabled}`);
+			if (this.isDisabled) {
+				classes.push(`${tag}-state-disabled ${theme.state.disabled}`);
 			} else if (this.readonly) {
-				classes.push(`${theme.state.readonly}`);
+				classes.push(`${tag}-state-readonly ${theme.state.readonly}`);
 			} else {
-				classes.push(`${theme.state[state]}`);
+				classes.push(`${tag}-state-${state} ${theme.state[state]}`);
 			}
 			return classes;
 		}

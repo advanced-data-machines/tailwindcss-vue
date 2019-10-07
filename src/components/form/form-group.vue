@@ -69,24 +69,20 @@ export default {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				`${tag}-state-${state}`,
 				this.isRequired ? `${tag}-required` : '',
 				theme.base
 			];
-			return classes;
 		},
 		errorClass() {
 			const tag = `${this.$options._componentTag}-error`;
 			const theme = this.currentTheme;
-			// add tags first
-			let classes = [
+			return [
 				tag,
 				theme.error
 			];
-			return classes;
 		},
 		form() {
 			let parent = this.$parent;
