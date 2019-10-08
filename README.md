@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" height="400" src="https://github.com/advanced-data-machines/tailwindcss-vue/blob/master/images/tailwindcss-vue.jpg">
+  <img width="400" height="400" src="/images/tailwindcss-vue.jpg?raw=true">
 </p>
 
 # Tailwindcss-Vue
