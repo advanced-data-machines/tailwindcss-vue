@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="400" height="400" src="https://github.com/advanced-data-machines/tailwindcss-vue/blob/master/images/tailwindcss-vue.jpg">
+</p>
+
 # Tailwindcss-Vue
 
 > Tailwindcss-Vue is a library of UI components for [Vue.js](https://vuejs.org/) built using the [Tailwind CSS](https://tailwindcss.com/) utility-first CSS framework.
