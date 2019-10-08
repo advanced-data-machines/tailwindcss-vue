@@ -6,13 +6,11 @@
 		aria-valuemax="100"
 	>
 		<div :class="currentBarClass" :style="barStyle" v-if="type === 'line'">
-			<div v-if="showValue">
-				<span v-if="!$scopedSlots.default" class="inline-block mx-auto px-3">
-					<slot :value="value">
-						{{ newValue }}
-					</slot>
-				</span>
-			</div>
+			<span v-if="showValue" class="inline-block mx-auto px-3">
+				<slot :value="value">
+					{{ newValue }}
+				</slot>
+			</span>
 		</div>
 		<div v-else :style="{height: width + 'px', width: width + 'px'}">
 			<svg viewBox="0 0 100 100">

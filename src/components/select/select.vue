@@ -1,11 +1,11 @@
 <template>
-	<div class="relative">
+	<div :class="[wrapperClass]">
 		<select
 			ref="select"
 			v-model="computedValue"
 			:disabled="isDisabled"
 			:multiple="multiple"
-			:class="currentClass"
+			:class="[currentClass, customInputClass]"
 			@blur="handleBlur"
 			@focus="handleFocus"
 		>
@@ -73,6 +73,10 @@ export default {
 			type: String,
 			default: null,
 			validator: (value) => value == null || ['sm', 'lg'].indexOf(value) !== -1
+		},
+		customInputClass: {
+			type: String,
+			default: ''
 		}
 	},
 	data() {
@@ -97,6 +101,14 @@ export default {
 		},
 		isDisabled() {
 			return this.disabled || (this.rootForm || {}).disabled;
+		},
+		wrapperClass() {
+			const tag = `${this.$options._componentTag}-wrapper`;
+			const theme = this.currentTheme;
+			return [
+				tag,
+				theme.wrapper
+			];
 		},
 		arrowClass() {
 			const tag = `${this.$options._componentTag}-arrow`;
