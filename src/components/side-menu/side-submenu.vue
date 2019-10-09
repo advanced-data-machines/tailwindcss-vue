@@ -24,10 +24,10 @@
 	</li>
 </template>
 <script>
-import CollapseTransition from '../transistions/collapse-transition.vue';
-import CustomTransition from '../transistions/custom-transition.vue';
+import CollapseTransition from '@/components/transitions/collapse-transition.vue';
+import CustomTransition from '@/components/transitions/custom-transition.vue';
 import MenuArrow from './menu-arrow.vue';
-import Emitter from '../../mixins/emitter.js';
+import Emitter from '@/mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideSubmenu',

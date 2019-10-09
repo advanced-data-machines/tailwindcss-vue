@@ -39,7 +39,6 @@ export const isEmpty = function(val) {
 export const objectAssign = function(target) {
 	for (let i = 0; i < arguments.length; i++) {
 		const source = arguments[i] || {};
-		// eslint-disable-next-line no-unused-vars
 		for (let prop in source) {
 			if (hasOwn(source, prop)) {
 				const value = source[prop];

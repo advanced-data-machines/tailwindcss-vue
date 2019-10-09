@@ -25,8 +25,8 @@
 	</label>
 </template>
 <script>
-import Emitter from '../../mixins/emitter.js';
-import ThemeMixin from '../../mixins/theme.js';
+import Emitter from '@/mixins/emitter.js';
+import ThemeMixin from '@/mixins/theme.js';
 export default {
 	name: 'TvCheckboxButton',
 	mixins: [Emitter, ThemeMixin],

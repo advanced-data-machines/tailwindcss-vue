@@ -18,7 +18,7 @@
 <script>
 import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
-import CustomTransition from '../../components/transistions/custom-transition.vue';
+import CustomTransition from '../../components/transitions/custom-transition.vue';
 export default {
 	name: 'TvModal',
 	provide() {

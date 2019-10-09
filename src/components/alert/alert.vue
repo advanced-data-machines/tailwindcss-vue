@@ -13,7 +13,7 @@
 	</custom-transition>
 </template>
 <script>
-import Transition from '../transistions/custom-transition.vue';
+import Transition from '../transitions/custom-transition.vue';
 import ThemeMixin from '../../mixins/theme.js';
 import MessageMixin from '../../mixins/message.js';
 export default {

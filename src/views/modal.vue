@@ -20,7 +20,7 @@
 <script>
 import ModalTest from './modal-test.vue';
 export default {
-	name: 'Form',
+	name: 'Modal',
 	components: {
 		'modal-test': ModalTest
 	},

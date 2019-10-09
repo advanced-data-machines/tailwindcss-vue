@@ -10,7 +10,7 @@
 	</li>
 </template>
 <script>
-import CustomTransition from '../transistions/custom-transition.vue';
+import CustomTransition from '../transitions/custom-transition.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {

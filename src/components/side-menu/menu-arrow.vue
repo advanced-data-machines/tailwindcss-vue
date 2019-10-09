@@ -8,7 +8,7 @@
 	</custom-transition>
 </template>
 <script>
-import CustomTransition from '../transistions/custom-transition.vue';
+import CustomTransition from '../transitions/custom-transition.vue';
 export default {
 	name: 'TvMenuArrow',
 	components: {
