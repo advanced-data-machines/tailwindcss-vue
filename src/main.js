@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import '@mdi/font/css/materialdesignicons.css';
 import '@/assets/css/tailwind.css';
-import 'animate.css';
+import '@/assets/css/animate.css';
 // plugin
 // import Button from './components/button/index.js';
 import Twv from './index.js';

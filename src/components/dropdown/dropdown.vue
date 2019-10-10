@@ -3,7 +3,7 @@
 		<div class="" role="button" ref="trigger" @click="toggle" aria-haspopup="true">
 			<slot name="trigger" />
 		</div>
-		<transition name="custom" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" :duration="{ enter: 2000, leave: 2000 }">
+		<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
 			<div
 				v-show="(!disabled && (isActive || isHoverable))"
 				:class="[currentClass, 'dropdown-menu']"
@@ -19,13 +19,9 @@
 </template>
 <script>
 import ThemeMixin from '@/mixins/theme.js';
-import CustomTransition from '@/components/transitions/custom-transition.vue';
 export default {
 	name: 'TvDropdown',
 	mixins: [ThemeMixin],
-	components: {
-		'custom-transition': CustomTransition
-	},
 	props: {
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
@@ -144,6 +140,7 @@ export default {
 		isChild(key, target) {
 			if (this.$refs[key] !== undefined) {
 				const children = this.$refs[key].querySelectorAll('*');
+				// eslint-disable-next-line no-unused-vars
 				for (const child of children) {
 					if (target === child) return true;
 				}
@@ -152,6 +149,7 @@ export default {
 		},
 		isInWhiteList(target) {
 			const whitelist = ['trigger', 'dropdownMenu'];
+			// eslint-disable-next-line no-unused-vars
 			for (const elem of whitelist) {
 				if (target === this.$refs[elem] || this.isChild(elem, target)) return true;
 			}

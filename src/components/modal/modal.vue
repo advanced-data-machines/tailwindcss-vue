@@ -1,5 +1,5 @@
 <template>
-	<custom-transition>
+	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
 		<div :class="currentClass" v-if="isActive">
 			<div :class="['absolute inset-0', bgStyle]" @click="cancel('outside')" />
 			<div class="relative flex flex-col items-center justify-center h-full">
@@ -13,12 +13,11 @@
 				</a>
 			</slot>
 		</div>
-	</custom-transition>
+	</transition>
 </template>
 <script>
 import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
-import CustomTransition from '../../components/transitions/custom-transition.vue';
 export default {
 	name: 'TvModal',
 	provide() {
@@ -26,9 +25,6 @@ export default {
 			closeModal: this.close,
 			cancelModal: this.cancel
 		};
-	},
-	components: {
-		'custom-transition': CustomTransition
 	},
 	mixins: [ThemeMixin],
 	props: {
