@@ -23,7 +23,7 @@ export default {
 		},
 		separator: {
 			type: Boolean,
-			default: true
+			default: false
 		},
 		focusable: {
 			type: Boolean,
@@ -32,6 +32,10 @@ export default {
 		ariaRole: {
 			type: String,
 			default: null
+		},
+		custom: {
+			type: Boolean,
+			default: false
 		}
 	},
 	computed: {
@@ -61,10 +65,20 @@ export default {
 			if (this.$parent.selected === null) return false;
 			if (this.$parent.multiple) return this.$parent.selected.indexOf(this.value) > -1;
 			return this.value === this.$parent.selected;
+		},
+		dropdown() {
+			let parent = this.$parent;
+			let parentName = parent.$options.name;
+			while (parentName !== 'TvDropdown') {
+				parent = parent.$parent;
+				parentName = parent.$options.name;
+			}
+			return parent;
 		}
 	},
 	methods: {
 		selectItem() {
+			console.log(this.$parent);
 			if (!this.isClickable) return;
 			this.$parent.selectItem(this.value);
 			this.$emit('click');

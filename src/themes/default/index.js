@@ -4,6 +4,7 @@ import TvButton from './button.js';
 import TvCheckbox from './checkbox.js';
 import TvCheckboxButton from './checkbox-button.js';
 import TvDropdown from './dropdown.js';
+import TvDropdownItem from './dropdown-item.js';
 import TvForm from './form.js';
 import TvFormGroup from './form-group.js';
 import TvIcon from './icon.js';
@@ -29,6 +30,7 @@ export default {
 	TvCheckbox,
 	TvCheckboxButton,
 	TvDropdown,
+	TvDropdownItem,
 	TvForm,
 	TvFormGroup,
 	TvIcon,

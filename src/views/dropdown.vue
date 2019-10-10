@@ -5,7 +5,7 @@
 			<tv-button slot="trigger">
 				Default <tv-icon icon="menu-down" />
 			</tv-button>
-			Test 1
+			<tv-dropdown-item>Option</tv-dropdown-item>
 		</tv-dropdown>
 		<tv-dropdown position="bottom-right" hoverable>
 			<tv-button slot="trigger">

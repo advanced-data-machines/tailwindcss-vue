@@ -3,7 +3,7 @@
 		<div class="" role="button" ref="trigger" @click="toggle" aria-haspopup="true">
 			<slot name="trigger" />
 		</div>
-		<custom-transition>
+		<transition name="custom" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" :duration="{ enter: 2000, leave: 2000 }">
 			<div
 				v-show="(!disabled && (isActive || isHoverable))"
 				:class="[currentClass, 'dropdown-menu']"
@@ -14,7 +14,7 @@
 					<slot />
 				</div>
 			</div>
-		</custom-transition>
+		</transition>
 	</div>
 </template>
 <script>
