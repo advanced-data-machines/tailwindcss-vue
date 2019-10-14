@@ -4,7 +4,7 @@
 			<thead>
 				<tr>
 					<th v-if="detailed" :class="[thClass, 'w-1']"><span :class="detailToggleHrClass" /></th>
-					<th v-for="(column, index) in newColumns" :column="column" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
+					<th v-for="(column, index) in newColumns" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
 						<div class="flex items-center">
 							<template v-if="$scopedSlots['header']">
 								<slot name="header" :column="column" :index="index" />

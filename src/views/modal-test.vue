@@ -1,7 +1,10 @@
 <template>
-	<div class="bg-white p-5 rounded shadow w-full max-w-xl">
+	<div class="p-5">
 		Hello Content <br>
-		<tv-button @click="handleCancel">
+		<tv-button @click="handleConfirm" variant="success" class="mr-2">
+			Confirm
+		</tv-button>
+		<tv-button @click="handleCancel" variant="warning">
 			Cancel
 		</tv-button>
 	</div>
@@ -9,10 +12,13 @@
 <script>
 export default {
 	name: 'ModalTest',
-	inject: ['closeModal', 'cancelModal'],
+	inject: ['confirmModal', 'cancelModal'],
 	methods: {
 		handleCancel() {
 			this.cancelModal('button', 'test', 'testing');
+		},
+		handleConfirm() {
+			this.confirmModal('testing123');
 		}
 	},
 	created() {

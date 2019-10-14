@@ -15,7 +15,7 @@ export default {
 	props: {
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: null
 		},
 		disabled: {
 			type: Boolean,
@@ -42,9 +42,13 @@ export default {
 		currentClass() {
 			const tag = this.$options._componentTag;
 			const theme = this.currentTheme;
+			const state = this.isClickable ? 'normal' : 'disabled';
+			const active = this.isActive ? 'active' : 'default';
 			return [
 				tag,
-				theme.base
+				`${tag}-${state}-${active}`,
+				theme.base,
+				theme[state][active]
 			];
 		},
 		separatorClass() {
@@ -78,7 +82,6 @@ export default {
 	},
 	methods: {
 		selectItem() {
-			console.log(this.$parent);
 			if (!this.isClickable) return;
 			this.$parent.selectItem(this.value);
 			this.$emit('click');
@@ -86,8 +89,8 @@ export default {
 	},
 	created() {
 		if (this.$parent.$options.name !== 'TvDropdown') {
-			this.$destroy();
 			console.warn('(TV Warn[Dropdown]) - dropdown-items should have a perent of dropdown"');
+			this.$destroy();
 		}
 	}
 };

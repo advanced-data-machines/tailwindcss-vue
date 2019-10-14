@@ -25,7 +25,7 @@ export default {
 	props: {
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
-			default: () => {}
+			default: null
 		},
 		multiple: {
 			type: Boolean,

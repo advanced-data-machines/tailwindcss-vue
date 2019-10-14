@@ -1,8 +1,8 @@
 <template>
 	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
-		<div :class="currentClass" v-if="isActive">
-			<div :class="['absolute inset-0', bgStyle]" @click="cancel('outside')" />
-			<div class="relative flex flex-col items-center justify-center h-full">
+		<div :class="wrapperClass" v-if="isActive">
+			<div :class="backdropClass" @click="cancel('outside')" />
+			<div :class="[cardClass, width]">
 				<component v-if="component" :is="component" v-bind="props" v-on="events" @close="close" />
 				<div v-else-if="content" v-html="content" />
 				<slot v-else />
@@ -22,7 +22,7 @@ export default {
 	name: 'TvModal',
 	provide() {
 		return {
-			closeModal: this.close,
+			confirmModal: this.confirm,
 			cancelModal: this.cancel
 		};
 	},
@@ -60,13 +60,21 @@ export default {
 			type: Function,
 			default: () => {}
 		},
+		onConfirm: {
+			type: Function,
+			default: () => {}
+		},
 		ariaCloseLabel: {
 			type: String,
 			default: 'close'
 		},
-		bgStyle: {
+		hasCard: {
+			type: Boolean,
+			default: true
+		},
+		width: {
 			type: String,
-			default: 'bg-gray-900 opacity-75'
+			default: 'max-w-md'
 		}
 	},
 	data() {
@@ -85,12 +93,28 @@ export default {
 		showX() {
 			return this.cancelOptions.indexOf('x') > -1;
 		},
-		currentClass() {
-			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
+		wrapperClass() {
+			const tag = 'tv-modal-wrapper';
+			const theme = this.currentTheme.wrapper;
 			return [
 				tag,
-				theme.base
+				theme
+			];
+		},
+		backdropClass() {
+			const tag = 'tv-modal-backdrop';
+			const theme = this.currentTheme.backdrop;
+			return [
+				tag,
+				theme
+			];
+		},
+		cardClass() {
+			const tag = 'tv-modal-card';
+			const theme = this.currentTheme.card;
+			return [
+				tag,
+				this.hasCard ? theme : ''
 			];
 		}
 	},
@@ -132,6 +156,10 @@ export default {
 		cancel(method) {
 			if (this.cancelOptions.indexOf(method) < 0) return;
 			this.onCancel.apply(null, arguments);
+			this.close();
+		},
+		confirm() {
+			this.onConfirm.apply(null, arguments);
 			this.close();
 		},
 		close() {
