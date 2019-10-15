@@ -1,6 +1,6 @@
 <template>
 	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
-		<div :class="wrapperClass" v-if="isActive">
+		<div :role="ariaRole" :class="wrapperClass" v-if="isActive">
 			<div :class="backdropClass" @click="cancel('outside')" />
 			<div :class="[cardClass, width]">
 				<component v-if="component" :is="component" v-bind="props" v-on="events" @close="close" />
@@ -75,6 +75,11 @@ export default {
 		width: {
 			type: String,
 			default: 'max-w-md'
+		},
+		ariaRole: {
+			type: String,
+			default: 'dialog',
+			validator: (v) => ['dialog', 'alertDialog'].indexOf(v) > -1
 		}
 	},
 	data() {

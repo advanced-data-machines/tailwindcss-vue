@@ -14,9 +14,6 @@ const NotifyProgrammatic = function(params) {
 	// don't let inner alert auto close
 	const propsData = Object.assign({ message, position: 'top-right' }, typeof params === 'string' ? {} : params, { autoClose: false });
 	const vm = typeof window !== 'undefined' && window.Vue ? window.Vue : Vue;
-	if (!vm.options.components['TvAlert']) {
-		console.warn('(TV Warn[TvAlertNotive]) - the \'TvAlert\' component is requried for notify to work');
-	}
 	const AlertNoticeComponent = vm.extend(TvAlertNotice);
 	return new AlertNoticeComponent({
 		parent,

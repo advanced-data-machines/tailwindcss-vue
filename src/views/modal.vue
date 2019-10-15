@@ -1,10 +1,10 @@
 <template>
 	<section class="px-4 w-full">
 		<h1 class="text-3xl text-teal-300">Modal</h1>
-		<tv-button @click="handleShow" class="mr-2">
+		<tv-button @click="show = true" class="mr-2">
 			<tv-icon icon="message" /> Inline Modal
 		</tv-button>
-		<tv-button @click="show = true" size="sm" class="text-teal-300">
+		<tv-button @click="handleShow" size="sm" class="text-teal-300">
 			<tv-icon icon="message" /> Programmatic Modal
 		</tv-button>
 		<tv-modal :active.sync="show" :on-cancel="handleCancel">
@@ -19,6 +19,7 @@
 </template>
 <script>
 import ModalTest from './modal-test.vue';
+import ModalConfirm from './modal-confirm.vue';
 export default {
 	name: 'Modal',
 	components: {
@@ -34,8 +35,10 @@ export default {
 		handleShow() {
 			this.$tailwindVue.modal({
 				parent: this,
-				component: ModalTest,
-				bgStyle: 'bg-blue-900 opacity-75',
+				component: ModalConfirm,
+				props: {
+					content: 'Testing'
+				},
 				onConfirm: (args) => {
 					console.log(args);
 				}
