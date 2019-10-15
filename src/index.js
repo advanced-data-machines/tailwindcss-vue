@@ -3,6 +3,8 @@ import AlertNotice, { NotifyProgrammatic } from './components/alert-notice/index
 import Button from './components/button/index.js';
 import Checkbox from './components/checkbox/index.js';
 import CheckboxButton from './components/checkbox-button/index.js';
+import Dropdown from './components/dropdown/index.js';
+import DropdownItem from './components/dropdown-item/index.js';
 import Form from './components/form/index.js';
 import FormGroup from './components/form-group/index.js';
 import Icon from './components/icon/index.js';
@@ -28,6 +30,8 @@ const components = [
 	Button,
 	Checkbox,
 	CheckboxButton,
+	Dropdown,
+	DropdownItem,
 	Form,
 	FormGroup,
 	Icon,
@@ -65,6 +69,8 @@ export default {
 	Button,
 	Checkbox,
 	CheckboxButton,
+	Dropdown,
+	DropdownItem,
 	Form,
 	FormGroup,
 	Icon,

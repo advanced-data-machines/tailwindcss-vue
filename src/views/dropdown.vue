@@ -1,0 +1,48 @@
+<template>
+	<section class="px-4 w-full">
+		<h1 class="text-3xl text-teal-300">Dropdown</h1>
+		<tv-dropdown v-model="value" multiple aria-role="list">
+			<tv-button slot="trigger">
+				Default <tv-icon icon="menu-down" />
+			</tv-button>
+			<tv-dropdown-item value="test" aria-role="listItem" disabled>Option</tv-dropdown-item>
+			<tv-dropdown-item value="test2" aria-role="listItem">Option 2</tv-dropdown-item>
+			<tv-dropdown-item value="test3" aria-role="listItem">Option 3</tv-dropdown-item>
+		</tv-dropdown>
+		<tv-dropdown position="bottom-right" hoverable>
+			<tv-button slot="trigger">
+				Bottom Right <tv-icon icon="menu-down" />
+			</tv-button>
+			<tv-dropdown-item value="test" aria-role="listItem">Option</tv-dropdown-item>
+		</tv-dropdown>
+		<tv-dropdown position="top-left">
+			<tv-button slot="trigger">
+				Top Left <tv-icon icon="menu-down" />
+			</tv-button>
+			<tv-dropdown-item value="test" aria-role="listItem">Option</tv-dropdown-item>
+		</tv-dropdown>
+		<tv-dropdown position="top-right">
+			<tv-button slot="trigger">
+				Top Right <tv-icon icon="menu-down" />
+			</tv-button>
+			<tv-dropdown-item value="test" aria-role="listItem">Option</tv-dropdown-item>
+		</tv-dropdown>
+		<br>
+		<p>Value:</p>
+		<code>
+			{{ value }}
+		</code>
+	</section>
+</template>
+<script>
+export default {
+	name: 'Dropdown',
+	data() {
+		return {
+			value: []
+		};
+	},
+	methods: {
+	}
+};
+</script>

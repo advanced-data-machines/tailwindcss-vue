@@ -2,20 +2,20 @@
 	<li class="relative" @mouseenter="hover = true" @mouseleave="hover = false">
 		<div @click="handleClick" :class="['relative', currentClass]">
 			<slot name="icon" />
-			<custom-transition>
+			<transition name="custom" enter-active-class="animated fadeIn faster" leave-active-class="animated fadeOut faster">
 				<span v-show="!menuCollapsed">
 					<slot name="title" />
 				</span>
-			</custom-transition>
+			</transition>
 			<slot name="arrow" :collapse="menuCollapsed" :opened="opened">
 				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" />
 			</slot>
 		</div>
-		<custom-transition type="slide" v-if="menuCollapsed">
+		<transition type="custom" v-if="menuCollapsed" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
 			<ul v-show="hover" class="absolute top-0 z-30 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
 				<slot />
 			</ul>
-		</custom-transition>
+		</transition>
 		<collapse-transition v-else>
 			<ul v-show="opened" class="children">
 				<slot />
@@ -24,17 +24,15 @@
 	</li>
 </template>
 <script>
-import CollapseTransition from '../transistions/collapse-transition.vue';
-import CustomTransition from '../transistions/custom-transition.vue';
+import CollapseTransition from '@/components/transitions/collapse-transition.vue';
 import MenuArrow from './menu-arrow.vue';
-import Emitter from '../../mixins/emitter.js';
+import Emitter from '@/mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideSubmenu',
 	mixins: [Emitter, Menu],
 	components: {
 		'collapse-transition': CollapseTransition,
-		'custom-transition': CustomTransition,
 		'tv-menu-arrow': MenuArrow
 	},
 	props: {

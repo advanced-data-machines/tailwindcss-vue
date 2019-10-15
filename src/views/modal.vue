@@ -20,7 +20,7 @@
 <script>
 import ModalTest from './modal-test.vue';
 export default {
-	name: 'Form',
+	name: 'Modal',
 	components: {
 		'modal-test': ModalTest
 	},
@@ -33,8 +33,12 @@ export default {
 	methods: {
 		handleShow() {
 			this.$tailwindVue.modal({
+				parent: this,
 				component: ModalTest,
-				bgStyle: 'bg-blue-900 opacity-75'
+				bgStyle: 'bg-blue-900 opacity-75',
+				onConfirm: (args) => {
+					console.log(args);
+				}
 			});
 		},
 		handleCancel(type, args) {

@@ -1,23 +1,19 @@
 <template>
 	<li :class="currentClass" @click="handleClick">
 		<slot />
-		<custom-transition v-if="transitionTitle">
+		<transition name="custom" enter-active-class="animated fadeIn faster" leave-active-class="animated fadeOut faster" v-if="transitionTitle">
 			<span v-show="!menuCollapsed">
 				<slot name="title" />
 			</span>
-		</custom-transition>
+		</transition>
 		<slot v-else name="title" />
 	</li>
 </template>
 <script>
-import CustomTransition from '../transistions/custom-transition.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideMenuItem',
-	components: {
-		'custom-transition': CustomTransition
-	},
 	mixins: [Emitter, Menu],
 	props: {
 		index: {

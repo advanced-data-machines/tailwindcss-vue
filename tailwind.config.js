@@ -15,6 +15,12 @@ module.exports = {
 			},
 			stroke: {
 				...colors
+			},
+			minWidth: {
+				'48': '12rem'
+			},
+			inset: {
+				'full': '100%'
 			}
 		},
 		container: {
