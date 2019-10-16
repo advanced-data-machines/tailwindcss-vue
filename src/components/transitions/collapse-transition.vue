@@ -87,7 +87,8 @@ export default {
 	}
 };
 </script>
-<style>
+<style lang="postcss">
+@import '../../assets/css/animate.css';
 .collapse-move {
 	transition: transform .3s ease-in-out;
 }

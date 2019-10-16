@@ -1254,8 +1254,8 @@
 }
 
 .animated.none {
-  -webkit-animation-duration: 0;
-  animation-duration: 0;
+  -webkit-animation-duration: 0s;
+  animation-duration: 0s;
 }
 
 .animated.slow {

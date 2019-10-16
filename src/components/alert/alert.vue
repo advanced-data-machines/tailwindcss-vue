@@ -1,5 +1,5 @@
 <template>
-	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast" :type="transition">
+	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
 		<div v-show="isActive" :class="['relative', currentClass]">
 			<slot name="close" v-if="closable" :aria-close-label="ariaCloseLabel" :close="close">
 				<a @click="close" class="cursor-pointer pointer-events-auto absolute inset-y-0 right-0 flex items-center pl-1 pr-4" :aria-label="ariaCloseLabel">
@@ -22,11 +22,6 @@ export default {
 		ariaCloseLabel: {
 			type: String,
 			default: 'close'
-		},
-		transition: {
-			type: String,
-			default: 'fade',
-			validate: (val) => ['fade', 'slide', 'zoom'].indexOf(val) > -1
 		}
 	},
 	computed: {

@@ -7,7 +7,7 @@ export default {
 		variant: {
 			type: String,
 			default: null,
-			validator: (value) => value == null || ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) !== -1
+			validator: (value) => value == null || ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) > -1
 		},
 		closable: {
 			type: Boolean,
