@@ -1,5 +1,5 @@
 export default {
-	base: 'appearance-none whitespace-no-wrap rounded text-center shadow focus:outline-none border align-baseline leading-tight',
+	base: 'appearance-none whitespace-no-wrap inline-block rounded text-center shadow focus:outline-none border align-baseline leading-tight',
 	normal: {
 		default: {
 			solid: 'text-white bg-gray-600 hover:bg-gray-700 focus:bg-gray-700 border-gray-600 hover:border-gray-700 focus:border-gray-700',
