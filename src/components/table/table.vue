@@ -26,7 +26,7 @@
 				</tr>
 			</thead>
 			<tbody v-if="newData.length > 0">
-				<template v-for="(row, index) in newData">
+				<template v-for="(row, index) in visibleData">
 					<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
 						<td v-if="detailed" :class="tdClass">
 							<slot name="arrow" :opened="isDetailActive">
@@ -155,6 +155,26 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false
+		},
+		paginated: {
+			type: Boolean,
+			default: false
+		},
+		backendPaginated: {
+			type: Boolean,
+			default: false
+		},
+		total: {
+			type: [Number, String],
+			default: 0
+		},
+		perPage: {
+			type: [Number, String],
+			default: 25
+		},
+		currentPage: {
+			type: [Number, String],
+			default: 1
 		}
 	},
 	data() {
@@ -165,7 +185,9 @@ export default {
 			visibleDetails: [],
 			currentSortColumn: {},
 			isAsc: true,
-			firstTimeSort: true
+			firstTimeSort: true,
+			newCurrentPage: this.currentPage,
+			newDataTotal: this.backendPaginated ? this.total : this.data.length
 		};
 	},
 	computed: {
@@ -202,7 +224,7 @@ export default {
 			];
 		},
 		isAllChecked() {
-			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.visibleData.filter((row) => this.isRowCheckable(row));
 			if (checkableRows.length === 0) return false;
 			const unchecked = checkableRows.some((current) => {
 				return indexOf(this.newCheckedRows, current, this.customIsChecked) < 0;
@@ -210,11 +232,23 @@ export default {
 			return !unchecked;
 		},
 		isAllUncheckable() {
-			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.visibleData.filter((row) => this.isRowCheckable(row));
 			return checkableRows.length === 0;
 		},
 		isIndeterminate() {
-			return this.newCheckedRows.length > 0 && this.newData.length > this.newCheckedRows.length;
+			return this.newCheckedRows.length > 0 && this.visibleData.length > this.newCheckedRows.length;
+		},
+		visibleData() {
+			if (!this.paginated) return this.newData;
+			const currentPage = this.newCurrentPage;
+			const perPage = this.perPage;
+			if (this.newData.length <= perPage) {
+				return this.newData;
+			} else {
+				const start = (currentPage - 1) * perPage;
+				const end = parseInt(start, 10) + parseInt(perPage, 10);
+				return this.newData.slice(start, end);
+			}
 		}
 	},
 	watch: {
@@ -232,6 +266,10 @@ export default {
 			if (!this.backendSorting) {
 				this.sort(this.currentSortColumn, true);
 			}
+
+			if (!this.backendPaginated) {
+				this.newDataTotal = value.length;
+			}
 		},
 		columns(value) {
 			this.newColumns = [...value];
@@ -244,6 +282,9 @@ export default {
 		},
 		newColumns() {
 			this.checkSort();
+		},
+		currentPage(value) {
+			this.newCurrentPage = value;
 		}
 	},
 	methods: {
@@ -312,7 +353,7 @@ export default {
 		},
 		checkAll() {
 			const allChecked = this.isAllChecked;
-			this.newData.forEach((current) => {
+			this.visibleData.forEach((current) => {
 				this.removeCheckedRow(current);
 				if (!allChecked) {
 					if (this.isRowCheckable(current)) {
@@ -391,10 +432,17 @@ export default {
 				}
 			});
 		},
-		mounted() {
-			this.checkPredefinedDetailedRows();
-			this.checkSort();
+		changePage(page) {
+			this.newCurrentPage = page > 0 ? page : 1;
+			// emit pageChange
+			this.$emit('page-change', this.newCurrentPage);
+			// update current-page.sync
+			this.$emit('update:currentPage', this.newCurrentPage);
 		}
+	},
+	mounted() {
+		this.checkPredefinedDetailedRows();
+		this.checkSort();
 	}
 };
 </script>

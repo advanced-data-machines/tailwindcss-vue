@@ -22,6 +22,7 @@
 				<strong>Department:</strong> {{ detail.row.department }}
 			</div>
 		</tv-table>
+		<tv-pagination :total="pageing.total" :current="pageing.current" :per-page="pageing.perPage" />
 		<p>Checked Rows:</p>
 		<code>{{ checkedRows }}</code>
 	</section>
@@ -43,6 +44,11 @@ export default {
 				{ label: 'Name', field: 'name', sortable: true },
 				{ label: 'Department', field: 'department', sortable: true }
 			],
+			pageing: {
+				current: 1,
+				perPage: 1,
+				total: 4
+			},
 			checkedRows: [],
 			loading: true
 		};
