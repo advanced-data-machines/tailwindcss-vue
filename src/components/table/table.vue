@@ -64,18 +64,45 @@
 				</tr>
 			</tbody>
 		</table>
+		<tv-pagination
+			v-if="paginated"
+			:total="newDataTotal"
+			:current.sync="newCurrentPage"
+			:per-page="perPage"
+			:button-size="buttonSize"
+			:button-variant="buttonVariant"
+			:button-outline="buttonOutline"
+			:button-square="buttonSquare"
+			:button-rounded="buttonRounded"
+			@change="changePage"
+		>
+			<template slot="first">
+				<slot name="first" />
+			</template>
+			<template slot="previous">
+				<slot name="previous" />
+			</template>
+			<template slot="next">
+				<slot name="next" />
+			</template>
+			<template slot="last">
+				<slot name="last" />
+			</template>
+		</tv-pagination>
 	</div>
 </template>
 <script>
 import { getValueByPath, indexOf } from '../../utils/utils.js';
+import TvPagination from '../pagination/pagination.vue';
 import ThemeMixin from '../../mixins/theme.js';
 import TvTableArrow from './table-arrow.vue';
 import TvCheckbox from '../checkbox/checkbox.vue';
 export default {
 	name: 'TvTable',
 	components: {
-		'tv-table-arrow': TvTableArrow,
-		'tv-checkbox': TvCheckbox
+		'tv-checkbox': TvCheckbox,
+		'tv-pagination': TvPagination,
+		'tv-table-arrow': TvTableArrow
 	},
 	provide() {
 		return {
@@ -175,6 +202,28 @@ export default {
 		currentPage: {
 			type: [Number, String],
 			default: 1
+		},
+		buttonVariant: {
+			type: String,
+			default: 'default',
+			validator: (value) => ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) > -1
+		},
+		buttonSize: {
+			type: String,
+			default: 'default',
+			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) > -1
+		},
+		buttonOutline: {
+			type: Boolean,
+			default: false
+		},
+		buttonSquare: {
+			type: Boolean,
+			default: false
+		},
+		buttonRounded: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -266,9 +315,10 @@ export default {
 			if (!this.backendSorting) {
 				this.sort(this.currentSortColumn, true);
 			}
-
-			if (!this.backendPaginated) {
+			if (!this.backendPaginated || value.length === 0) {
 				this.newDataTotal = value.length;
+			} else {
+				this.newDataTotal = this.total;
 			}
 		},
 		columns(value) {
@@ -285,6 +335,11 @@ export default {
 		},
 		currentPage(value) {
 			this.newCurrentPage = value;
+		},
+		total(value) {
+			if (this.backendPaginated) {
+				this.newDataTotal = value;
+			}
 		}
 	},
 	methods: {
@@ -328,7 +383,7 @@ export default {
 			return this.detailed && this.isVisibleDetail(obj);
 		},
 		checkPredefinedDetailedRows() {
-			const defaultExpandedRowsDefined = this.openedDetailed.length > 0;
+			const defaultExpandedRowsDefined = this.openedDetails.length > 0;
 			if (defaultExpandedRowsDefined && !this.detailKey.length) {
 				console.warn('If you set a predefined opened-detailed, you must provide a unique key using the prop "detail-key"');
 			}
@@ -434,10 +489,10 @@ export default {
 		},
 		changePage(page) {
 			this.newCurrentPage = page > 0 ? page : 1;
-			// emit pageChange
-			this.$emit('page-change', this.newCurrentPage);
 			// update current-page.sync
 			this.$emit('update:currentPage', this.newCurrentPage);
+			// emit pageChange
+			this.$emit('page-change', this.newCurrentPage);
 		}
 	},
 	mounted() {

@@ -1,4 +1,4 @@
-import TvPagination from './pagination-button.vue';
+import TvPagination from './pagination.vue';
 import { installComponents } from '../../utils/plugins.js';
 
 TvPagination.install = function(Vue, args = {}) {

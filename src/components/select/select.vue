@@ -8,6 +8,7 @@
 			:class="[currentClass, customInputClass]"
 			@blur="handleBlur"
 			@focus="handleFocus"
+			@change="$emit('change')"
 		>
 			<template v-if="placeholder">
 				<option

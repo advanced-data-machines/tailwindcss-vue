@@ -1,5 +1,5 @@
 <template>
-	<button :class="currentClass" @click="changePage()">
+	<button :class="currentClass" @click="handleClick">
 		<slot />
 	</button>
 </template>
@@ -52,6 +52,11 @@ export default {
 				theme.size[square][this.size],
 				`${theme[disabled][this.variant][style]}`
 			];
+		}
+	},
+	methods: {
+		handleClick() {
+			this.$emit('click');
 		}
 	}
 };

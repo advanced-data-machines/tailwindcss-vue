@@ -69,7 +69,7 @@ export default {
 		},
 		square: {
 			type: Boolean,
-			default: null
+			default: false
 		},
 		rounded: {
 			type: Boolean,
