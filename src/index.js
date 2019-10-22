@@ -11,6 +11,7 @@ import Icon from './components/icon/index.js';
 import Input from './components/input/index.js';
 import Label from './components/label/index.js';
 import Modal, { ModalProgrammatic } from './components/modal/index.js';
+import Pagination from './components/pagination/index.js';
 import ProgressBar from './components/progress/index.js';
 import Radio from './components/radio/index.js';
 import RadioButton from './components/radio-button/index.js';
@@ -38,6 +39,7 @@ const components = [
 	Input,
 	Label,
 	Modal,
+	Pagination,
 	ProgressBar,
 	Radio,
 	RadioButton,
@@ -78,6 +80,7 @@ export default {
 	Label,
 	Modal,
 	ModalProgrammatic,
+	Pagination,
 	ProgressBar,
 	Radio,
 	RadioButton,

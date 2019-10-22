@@ -6,7 +6,18 @@
 				{{ props.column.field }} {{ props.index }}
 			</template>
 		</tv-table>
-		<tv-table :data="data2" :columns="columns" :loading="loading" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox>
+		<tv-table :data="data2"
+			:columns="columns"
+			:loading="loading"
+			detailed
+			:checked-rows.sync="checkedRows"
+			show-checkbox
+			show-header-checkbox
+			paginated
+			:per-page="paging.perPage"
+			backend-paginated
+			:current-page="paging.current"
+		>
 			<template slot-scope="props">
 				<td :class="props.tdClass">
 					{{ props.row.name }}
@@ -21,6 +32,12 @@
 			<div slot="detail" class="p-5 border-b border-gray-300" slot-scope="detail">
 				<strong>Department:</strong> {{ detail.row.department }}
 			</div>
+			<template slot="previous">
+				<tv-icon icon="chevron-left" />
+			</template>
+			<template slot="next">
+				<tv-icon icon="chevron-right" />
+			</template>
 		</tv-table>
 		<p>Checked Rows:</p>
 		<code>{{ checkedRows }}</code>
@@ -43,6 +60,11 @@ export default {
 				{ label: 'Name', field: 'name', sortable: true },
 				{ label: 'Department', field: 'department', sortable: true }
 			],
+			paging: {
+				current: 1,
+				perPage: 2,
+				total: 5
+			},
 			checkedRows: [],
 			loading: true
 		};
@@ -55,12 +77,6 @@ export default {
 	},
 	created() {
 		setTimeout(() => {
-			this.data2 = [
-				{ name: 'Joe', department: 'HR', email: 'joe@tailwind-vue.com' },
-				{ name: 'Andrew', department: 'Marketing', email: 'andrew@tailwind-vue.com' },
-				{ name: 'Britany', department: 'Accounting', email: 'Britany@tailwind-vue.com' },
-				{ name: 'Lisa', department: 'Sales', email: 'lisa@tailwind-vue.com' }
-			];
 			this.loading = false;
 		}, 300);
 	}

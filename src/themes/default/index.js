@@ -11,6 +11,8 @@ import TvIcon from './icon.js';
 import TvInput from './input.js';
 import TvLabel from './label.js';
 import TvModal from './modal.js';
+import TvPagination from './pagination.js';
+import TvPaginationButton from './pagination-button.js';
 import TvProgressBar from './progress.js';
 import TvRadio from './radio.js';
 import TvRadioButton from './radio-button.js';
@@ -37,6 +39,8 @@ export default {
 	TvInput,
 	TvLabel,
 	TvModal,
+	TvPagination,
+	TvPaginationButton,
 	TvProgressBar,
 	TvRadio,
 	TvRadioButton,

@@ -11,7 +11,7 @@
 	</component>
 </template>
 <script>
-import ThemeMixin from '../../mixins/theme.js';
+import ThemeMixin from '@/mixins/theme.js';
 export default {
 	name: 'TvButton',
 	mixins: [ThemeMixin],
@@ -52,12 +52,12 @@ export default {
 		variant: {
 			type: String,
 			default: 'default',
-			validator: (value) => ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) !== -1
+			validator: (value) => ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) > -1
 		},
 		size: {
 			type: String,
 			default: 'default',
-			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) >= 0
+			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) > -1
 		},
 		disabled: {
 			type: Boolean,
@@ -69,7 +69,7 @@ export default {
 		},
 		square: {
 			type: Boolean,
-			default: null
+			default: false
 		},
 		rounded: {
 			type: Boolean,

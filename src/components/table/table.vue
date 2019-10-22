@@ -1,81 +1,113 @@
 <template>
-	<div :class="{ 'overflow-x-auto': responsive }">
-		<table :class="currentClass">
-			<thead>
-				<tr>
-					<th v-if="detailed" :class="[thClass, 'w-1']"><span :class="detailToggleHrClass" /></th>
-					<th v-for="(column, index) in newColumns" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
-						<div class="flex items-center">
-							<template v-if="$scopedSlots['header']">
-								<slot name="header" :column="column" :index="index" />
-							</template>
-							<template v-else>{{ column.label }}</template>
-							<span :class="currentSortColumn === column ? 'visible': 'invisible'">
-								<slot name="direction" :is-asc="isAsc">
-									<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-										<path v-if="isAsc" d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
-										<path v-else d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-									</svg>
-								</slot>
-							</span>
-						</div>
-					</th>
-					<th v-if="showCheckbox" :column="{ label: '' }" :class="[thClass, 'w-1']">
-						<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
-					</th>
-				</tr>
-			</thead>
-			<tbody v-if="newData.length > 0">
-				<template v-for="(row, index) in newData">
-					<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
-						<td v-if="detailed" :class="tdClass">
-							<slot name="arrow" :opened="isDetailActive">
-								<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
-							</slot>
-						</td>
-						<slot v-if="$scopedSlots['default']" :row="row" :index="index" :td-class="tdClass" />
-						<template v-else>
-							<td v-for="column in newColumns" :key="column.field" :class="tdClass">
-								<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
-								<template v-else>
-									{{ getValueByPath(row, column.field) }}
+	<div class="w-full">
+		<div :class="{ 'overflow-x-auto': responsive }">
+			<table :class="currentClass">
+				<thead>
+					<tr>
+						<th v-if="detailed" :class="[thClass, 'w-1']"><span :class="detailToggleHrClass" /></th>
+						<th v-for="(column, index) in newColumns" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
+							<div class="flex items-center">
+								<template v-if="$scopedSlots['header']">
+									<slot name="header" :column="column" :index="index" />
 								</template>
+								<template v-else>{{ column.label }}</template>
+								<span :class="currentSortColumn === column ? 'visible': 'invisible'">
+									<slot name="direction" :is-asc="isAsc">
+										<svg class="fill-current text-gray-500 h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+											<path v-if="isAsc" d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
+											<path v-else d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+										</svg>
+									</slot>
+								</span>
+							</div>
+						</th>
+						<th v-if="showCheckbox" :column="{ label: '' }" :class="[thClass, 'w-1']">
+							<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
+						</th>
+					</tr>
+				</thead>
+				<tbody v-if="visibleData.length > 0">
+					<template v-for="(row, index) in visibleData">
+						<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
+							<td v-if="detailed" :class="tdClass">
+								<slot name="arrow" :opened="isDetailActive">
+									<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
+								</slot>
 							</td>
-						</template>
-						<td v-if="showCheckbox" :class="tdClass">
-							<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
-						</td>
+							<slot v-if="$scopedSlots['default']" :row="row" :index="index" :td-class="tdClass" />
+							<template v-else>
+								<td v-for="column in newColumns" :key="column.field" :class="tdClass">
+									<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
+									<template v-else>
+										{{ getValueByPath(row, column.field) }}
+									</template>
+								</td>
+							</template>
+							<td v-if="showCheckbox" :class="tdClass">
+								<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
+							</td>
+						</tr>
+						<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
+							<td colspan="100">
+								<slot name="detail" :row="row" :index="index" />
+							</td>
+						</tr>
+					</template>
+				</tbody>
+				<tbody v-else>
+					<tr :class="trClass">
+						<slot name="no-data" :data="visibleData" :td-class="tdClass" :loading="loading">
+							<td :class="tdClass" colspan="100">
+								<span v-if="loading">Loading...</span>
+								<span v-else>No Matching Results</span>
+							</td>
+						</slot>
 					</tr>
-					<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
-						<td colspan="100">
-							<slot name="detail" :row="row" :index="index" />
-						</td>
-					</tr>
-				</template>
-			</tbody>
-			<tbody v-else>
-				<tr :class="trClass">
-					<slot name="no-data" :data="newData" :td-class="tdClass" :loading="loading">
-						<td :class="tdClass" colspan="100">
-							<span v-if="loading">Loading</span>
-							<span v-else>No Matching Results</span>
-						</td>
-					</slot>
-				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
+		<tv-pagination
+			v-if="paginated"
+			:total="newDataTotal"
+			:current.sync="newCurrentPage"
+			:searching="search !== ''"
+			:filtered-total="searchResults.length"
+			:per-page="perPage"
+			:disabled="search !== '' && backendPaginated"
+			:button-size="buttonSize"
+			:button-variant="buttonVariant"
+			:button-outline="buttonOutline"
+			:button-square="buttonSquare"
+			:button-rounded="buttonRounded"
+			@change="changePage"
+		>
+			<template slot="first">
+				<slot name="first" />
+			</template>
+			<template slot="previous">
+				<slot name="previous" />
+			</template>
+			<template slot="next">
+				<slot name="next" />
+			</template>
+			<template slot="last">
+				<slot name="last" />
+			</template>
+		</tv-pagination>
 	</div>
 </template>
 <script>
-import { getValueByPath, indexOf } from '../../utils/utils.js';
-import ThemeMixin from '../../mixins/theme.js';
+import { getValueByPath, indexOf, hasOwn } from '@/utils/utils.js';
+import TvPagination from '../pagination/pagination.vue';
+import ThemeMixin from '@/mixins/theme.js';
 import TvTableArrow from './table-arrow.vue';
 import TvCheckbox from '../checkbox/checkbox.vue';
 export default {
 	name: 'TvTable',
 	components: {
-		'tv-table-arrow': TvTableArrow,
-		'tv-checkbox': TvCheckbox
+		'tv-checkbox': TvCheckbox,
+		'tv-pagination': TvPagination,
+		'tv-table-arrow': TvTableArrow
 	},
 	provide() {
 		return {
@@ -155,6 +187,56 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false
+		},
+		paginated: {
+			type: Boolean,
+			default: false
+		},
+		backendPaginated: {
+			type: Boolean,
+			default: false
+		},
+		total: {
+			type: [Number, String],
+			default: 0
+		},
+		perPage: {
+			type: [Number, String],
+			default: 25
+		},
+		currentPage: {
+			type: [Number, String],
+			default: 1
+		},
+		buttonVariant: {
+			type: String,
+			default: 'default',
+			validator: (value) => ['default', 'primary', 'info', 'success', 'danger', 'warning'].indexOf(value) > -1
+		},
+		buttonSize: {
+			type: String,
+			default: 'default',
+			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) > -1
+		},
+		buttonOutline: {
+			type: Boolean,
+			default: false
+		},
+		buttonSquare: {
+			type: Boolean,
+			default: false
+		},
+		buttonRounded: {
+			type: Boolean,
+			default: false
+		},
+		search: {
+			type: String,
+			default: ''
+		},
+		customSearch: {
+			type: Function,
+			default: undefined
 		}
 	},
 	data() {
@@ -165,7 +247,9 @@ export default {
 			visibleDetails: [],
 			currentSortColumn: {},
 			isAsc: true,
-			firstTimeSort: true
+			firstTimeSort: true,
+			newCurrentPage: this.currentPage,
+			newDataTotal: this.backendPaginated ? this.total : this.data.length
 		};
 	},
 	computed: {
@@ -202,7 +286,7 @@ export default {
 			];
 		},
 		isAllChecked() {
-			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.visibleData.filter((row) => this.isRowCheckable(row));
 			if (checkableRows.length === 0) return false;
 			const unchecked = checkableRows.some((current) => {
 				return indexOf(this.newCheckedRows, current, this.customIsChecked) < 0;
@@ -210,11 +294,47 @@ export default {
 			return !unchecked;
 		},
 		isAllUncheckable() {
-			const checkableRows = this.newData.filter((row) => this.isRowCheckable(row));
+			const checkableRows = this.visibleData.filter((row) => this.isRowCheckable(row));
 			return checkableRows.length === 0;
 		},
 		isIndeterminate() {
-			return this.newCheckedRows.length > 0 && this.newData.length > this.newCheckedRows.length;
+			return this.newCheckedRows.length > 0 && this.visibleData.length > this.newCheckedRows.length;
+		},
+		searchResults() {
+			const data = this.newData;
+			if (this.search === '') {
+				return data;
+			}
+			if (typeof this.customSearch === 'function') {
+				return this.customSearch.apply(null, data);
+			}
+			const srch = this.search.toLowerCase();
+			return data.filter((p) => {
+				for (let prop in p) {
+					if (hasOwn(p, prop)) {
+						let compare = p[prop];
+						if (typeof compare === 'number') compare = compare.toString();
+
+						if (typeof compare === 'string') {
+							if (compare.toLowerCase().indexOf(srch) !== -1) return true;
+						}
+					}
+				}
+				return false;
+			});
+		},
+		visibleData() {
+			const results = this.searchResults;
+			if (!this.paginated) return results;
+			const currentPage = this.newCurrentPage;
+			const perPage = this.perPage;
+			if (results.length <= perPage) {
+				return results;
+			} else {
+				const start = (currentPage - 1) * perPage;
+				const end = parseInt(start, 10) + parseInt(perPage, 10);
+				return results.slice(start, end);
+			}
 		}
 	},
 	watch: {
@@ -232,6 +352,9 @@ export default {
 			if (!this.backendSorting) {
 				this.sort(this.currentSortColumn, true);
 			}
+			if (!this.backendPaginated) {
+				this.newDataTotal = value.length;
+			}
 		},
 		columns(value) {
 			this.newColumns = [...value];
@@ -244,6 +367,17 @@ export default {
 		},
 		newColumns() {
 			this.checkSort();
+		},
+		currentPage(value) {
+			this.newCurrentPage = value;
+		},
+		perPage() {
+			this.changePage(1);
+		},
+		total(value) {
+			if (this.backendPaginated) {
+				this.newDataTotal = value;
+			}
 		}
 	},
 	methods: {
@@ -287,7 +421,7 @@ export default {
 			return this.detailed && this.isVisibleDetail(obj);
 		},
 		checkPredefinedDetailedRows() {
-			const defaultExpandedRowsDefined = this.openedDetailed.length > 0;
+			const defaultExpandedRowsDefined = this.openedDetails.length > 0;
 			if (defaultExpandedRowsDefined && !this.detailKey.length) {
 				console.warn('If you set a predefined opened-detailed, you must provide a unique key using the prop "detail-key"');
 			}
@@ -312,7 +446,7 @@ export default {
 		},
 		checkAll() {
 			const allChecked = this.isAllChecked;
-			this.newData.forEach((current) => {
+			this.visibleData.forEach((current) => {
 				this.removeCheckedRow(current);
 				if (!allChecked) {
 					if (this.isRowCheckable(current)) {
@@ -391,10 +525,17 @@ export default {
 				}
 			});
 		},
-		mounted() {
-			this.checkPredefinedDetailedRows();
-			this.checkSort();
+		changePage(page) {
+			this.newCurrentPage = page > 0 ? page : 1;
+			// update current-page.sync
+			this.$emit('update:currentPage', this.newCurrentPage);
+			// emit pageChange
+			this.$emit('page-change', this.newCurrentPage);
 		}
+	},
+	mounted() {
+		this.checkPredefinedDetailedRows();
+		this.checkSort();
 	}
 };
 </script>
