@@ -1,21 +1,21 @@
 <template>
 	<div :class="currentClass">
 		<span :class="textClass">
-			<template v-if="total === 0">
+			<template v-if="total === 0 || filteredTotal === 0 && searching">
 				<slot name="pagation-no-result">
 					No Results
 				</slot>
 			</template>
-			<template v-if="perPage == 1">
+			<template v-else-if="perPage == 1">
 				{{ firstItem }} / {{ total }}
 			</template>
 			<template v-else>
-				{{ firstItem }}-{{ Math.min(current * perPage, total) }} / {{ total }}
+				{{ firstItem }}-{{ Math.min(current * perPage, this.newTotal) }} / {{ total }} - page {{ current }} / {{ pageCount }}
 			</template>
 		</span>
 		<nav :class="buttonGroupClass">
 			<tv-pagination-button
-				:disabled="current === 1"
+				:disabled="!hasFirst"
 				:size="buttonSize"
 				:variant="buttonVariant"
 				:outline="buttonOutline"
@@ -57,7 +57,7 @@
 				</slot>
 			</tv-pagination-button>
 			<tv-pagination-button
-				:disabled="current === pageCount || pageCount === 0"
+				:disabled="!hasLast"
 				:size="buttonSize"
 				:variant="buttonVariant"
 				:outline="buttonOutline"
@@ -94,6 +94,18 @@ export default {
 		current: {
 			type: [Number, String],
 			default: 1
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		filteredTotal: {
+			type: [Number, String],
+			default: 0
+		},
+		searching: {
+			type: Boolean,
+			default: false
 		},
 		buttonVariant: {
 			type: String,
@@ -144,17 +156,27 @@ export default {
 			];
 		},
 		firstItem() {
+			if (this.total === 0) return 0;
 			const firstItem = this.current * this.perPage - this.perPage + 1;
 			return firstItem >= 0 ? firstItem : 0;
 		},
 		pageCount() {
-			return Math.ceil(this.total / this.perPage);
+			return Math.ceil(this.newTotal / this.perPage);
+		},
+		hasFirst() {
+			return !this.disabled && this.current > 1;
 		},
 		hasPrevious() {
-			return this.current > 1;
+			return !this.disabled && this.current > 1;
 		},
 		hasNext() {
-			return this.current < this.pageCount;
+			return !this.disabled && this.current < this.pageCount;
+		},
+		hasLast() {
+			return !this.disabled && (this.current < this.pageCount && this.pageCount !== 0);
+		},
+		newTotal() {
+			return this.searching ? this.filteredTotal : this.total;
 		}
 	},
 	watch: {

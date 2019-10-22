@@ -6,7 +6,18 @@
 				{{ props.column.field }} {{ props.index }}
 			</template>
 		</tv-table>
-		<tv-table :data="data2" :columns="columns" :loading="loading" detailed :checked-rows.sync="checkedRows" show-checkbox show-header-checkbox paginated :per-page="paging.perPage" :current-page="paging.current">
+		<tv-table :data="data2"
+			:columns="columns"
+			:loading="loading"
+			detailed
+			:checked-rows.sync="checkedRows"
+			show-checkbox
+			show-header-checkbox
+			paginated
+			:per-page="paging.perPage"
+			backend-paginated
+			:current-page="paging.current"
+		>
 			<template slot-scope="props">
 				<td :class="props.tdClass">
 					{{ props.row.name }}
@@ -51,7 +62,8 @@ export default {
 			],
 			paging: {
 				current: 1,
-				perPage: 2
+				perPage: 2,
+				total: 5
 			},
 			checkedRows: [],
 			loading: true
@@ -65,12 +77,6 @@ export default {
 	},
 	created() {
 		setTimeout(() => {
-			this.data2 = [
-				{ name: 'Joe', department: 'HR', email: 'joe@tailwind-vue.com' },
-				{ name: 'Andrew', department: 'Marketing', email: 'andrew@tailwind-vue.com' },
-				{ name: 'Britany', department: 'Accounting', email: 'Britany@tailwind-vue.com' },
-				{ name: 'Lisa', department: 'Sales', email: 'lisa@tailwind-vue.com' }
-			];
 			this.loading = false;
 		}, 300);
 	}
