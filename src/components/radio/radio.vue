@@ -1,19 +1,25 @@
 <template>
-	<label role="checkbox"
+	<label role="radio"
 		:class="currentClass"
 		ref="label"
 		@click="focus"
 		@keydown.prevent.enter="$refs.label.click()"
 	>
-		<input
-			ref="input"
-			type="radio"
-			:name="name"
-			@click.stop
-			v-model="computedValue"
-			:disabled="isDisabled"
-			:value="nativeValue"
-		>
+		<div :class="['radio', checkboxClass]">
+			<input
+				ref="input"
+				type="radio"
+				:name="name"
+				@click.stop
+				v-model="computedValue"
+				:disabled="isDisabled"
+				:value="nativeValue"
+				class="absolute left-0 opacity-0"
+			>
+			<svg :class="svgClass" viewBox="0 0 20 20">
+				<circle cx="10" cy="10" r="5" />
+			</svg>
+		</div>
 		<slot />
 	</label>
 </template>
@@ -25,6 +31,9 @@ export default {
 	mixins: [Emitter, ThemeMixin],
 	inject: {
 		rootForm: {
+			default: ''
+		},
+		formGroup: {
 			default: ''
 		}
 	},
@@ -44,6 +53,10 @@ export default {
 		disabled: {
 			type: Boolean,
 			default: false
+		},
+		showSuccessState: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -61,15 +74,45 @@ export default {
 				this.$emit('input', value);
 			}
 		},
+		validateState() {
+			let state = this.formGroup ? this.formGroup.validateState : '';
+			if (state === 'success' && !this.showSuccessState) state = 'default';
+			return state;
+		},
 		isDisabled() {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
+			const theme = this.currentTheme.label;
+			const state = this.validateState || 'default';
 			return [
 				tag,
-				theme.base
+				theme.base,
+				this.isDisabled
+					? `${tag}-state-disabled ${theme.state.disabled}`
+					: `${tag}-state-${state} ${theme.state[state]}`
+			];
+		},
+		checkboxClass() {
+			const tag = `${this.$options._componentTag}-radio`;
+			const theme = this.currentTheme.radio;
+
+			const state = this.validateState || 'default';
+			return [
+				tag,
+				theme.base,
+				this.isDisabled
+					? `${tag}-state-disabled ${theme.state.disabled}`
+					: `${tag}-state-${state} ${theme.state[state]}`
+			];
+		},
+		svgClass() {
+			const tag = `${this.$options._componentTag}-svg`;
+			const theme = this.currentTheme.svg;
+			return [
+				tag,
+				theme
 			];
 		}
 	},
@@ -87,3 +130,11 @@ export default {
 	}
 };
 </script>
+<style>
+input[type=radio] + svg {
+	transition: opacity .3s ease-in-out;
+}
+input[type=radio]:checked + svg {
+	opacity: 1;
+}
+</style>

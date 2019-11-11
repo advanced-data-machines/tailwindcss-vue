@@ -77,6 +77,12 @@ export default {
 	},
 	created() {
 		setTimeout(() => {
+			this.data2 = [
+				{ name: 'Joe', department: 'HR', email: 'joe@tailwind-vue.com' },
+				{ name: 'Andrew', department: 'Marketing', email: 'andrew@tailwind-vue.com' },
+				{ name: 'Britany', department: 'Accounting', email: 'Britany@tailwind-vue.com' },
+				{ name: 'Lisa', department: 'Sales', email: 'lisa@tailwind-vue.com' }
+			];
 			this.loading = false;
 		}, 300);
 	}

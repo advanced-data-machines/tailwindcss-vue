@@ -6,21 +6,26 @@
 		@click="focus"
 		@keydown.prevent.enter="$refs.label.click()"
 	>
-		<input
-			ref="input"
-			type="checkbox"
-			:name="name"
-			@click.stop
-			:indeterminate.prop="indeterminate"
-			v-model="computedValue"
-			:disabled="isDisabled"
-			:value="nativeValue"
-			:true-value="trueValue"
-			:false-value="falseValue"
-		>
-		<span>
-			<slot />
-		</span>
+		<div :class="['checkbox', checkboxClass]">
+			<input
+				ref="input"
+				type="checkbox"
+				:name="name"
+				@click.stop
+				:indeterminate.prop="indeterminate"
+				v-model="computedValue"
+				:disabled="isDisabled"
+				:value="nativeValue"
+				:true-value="trueValue"
+				:false-value="falseValue"
+				class="absolute left-0 opacity-0"
+			>
+			<svg :class="svgClass" viewBox="0 0 20 20">
+				<path v-if="indeterminate" d="M0,9h20v2H0V9z" />
+				<path v-else d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+			</svg>
+		</div>
+		<slot />
 	</label>
 </template>
 <script>
@@ -31,6 +36,9 @@ export default {
 	mixins: [Emitter, ThemeMixin],
 	inject: {
 		rootForm: {
+			default: ''
+		},
+		formGroup: {
 			default: ''
 		}
 	},
@@ -62,6 +70,10 @@ export default {
 		falseValue: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: false
+		},
+		showSuccessState: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -79,18 +91,46 @@ export default {
 				this.$emit('input', value);
 			}
 		},
+		validateState() {
+			let state = this.formGroup ? this.formGroup.validateState : '';
+			if (state === 'success' && !this.showSuccessState) state = 'default';
+			return state;
+		},
 		isDisabled() {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
 			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
-			// add tags first
-			let classes = [
+			const theme = this.currentTheme.label;
+			const state = this.validateState || 'default';
+			return [
 				tag,
-				theme.base
+				theme.base,
+				this.isDisabled
+					? `${tag}-state-disabled ${theme.state.disabled}`
+					: `${tag}-state-${state} ${theme.state[state]}`
 			];
-			return classes;
+		},
+		checkboxClass() {
+			const tag = `${this.$options._componentTag}-checkbox`;
+			const theme = this.currentTheme.checkbox;
+
+			const state = this.validateState || 'default';
+			return [
+				tag,
+				theme.base,
+				this.isDisabled
+					? `${tag}-state-disabled ${theme.state.disabled}`
+					: `${tag}-state-${state} ${theme.state[state]}`
+			];
+		},
+		svgClass() {
+			const tag = `${this.$options._componentTag}-svg`;
+			const theme = this.currentTheme.svg;
+			return [
+				tag,
+				theme
+			];
 		}
 	},
 	watch: {
@@ -107,3 +147,11 @@ export default {
 	}
 };
 </script>
+<style>
+input[type=checkbox] + svg {
+	transition: opacity .3s ease-in-out;
+}
+input[type=checkbox]:checked + svg, input[type="checkbox"]:indeterminate + svg {
+	opacity: 1;
+}
+</style>

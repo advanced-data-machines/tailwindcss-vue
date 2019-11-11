@@ -6,6 +6,7 @@
 				Default <tv-icon icon="menu-down" />
 			</tv-button>
 			<tv-dropdown-item value="test" aria-role="listItem" disabled>Option</tv-dropdown-item>
+			<tv-dropdown-item separator />
 			<tv-dropdown-item value="test2" aria-role="listItem">Option 2</tv-dropdown-item>
 			<tv-dropdown-item value="test3" aria-role="listItem">Option 3</tv-dropdown-item>
 		</tv-dropdown>

@@ -1,6 +1,6 @@
 <template>
 	<div v-if="separator" :class="separatorClass" />
-	<div v-else-if="custom" @click="selectItem" :role="itemAriaRole" :tabindex="focusable ? 0 : null">
+	<div v-else-if="custom" :role="itemAriaRole" :tabindex="focusable ? 0 : null">
 		<slot />
 	</div>
 	<div v-else :class="currentClass" @click="selectItem" :role="itemAriaRole" :tabindex="focusable ? 0 : null">
@@ -33,6 +33,10 @@ export default {
 			type: String,
 			default: null
 		},
+		excludePadding: {
+			type: Boolean,
+			default: false
+		},
 		custom: {
 			type: Boolean,
 			default: false
@@ -47,7 +51,7 @@ export default {
 			return [
 				tag,
 				`${tag}-${state}-${active}`,
-				theme.base,
+				!this.excludePadding ? theme.padding : '',
 				theme[state][active]
 			];
 		},
@@ -56,7 +60,7 @@ export default {
 			const theme = this.currentTheme;
 			return [
 				tag,
-				theme.base
+				theme.separator
 			];
 		},
 		itemAriaRole() {

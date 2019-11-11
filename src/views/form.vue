@@ -38,10 +38,15 @@
 					</option>
 				</tv-select>
 			</tv-form-group>
-			<tv-form-group>
-				<tv-checkbox v-for="city in cities" :key="city + 'check'" v-model="test.checked" :native-value="city">
+			<tv-form-group prop="checked">
+				<tv-checkbox v-for="city in cities" :key="city + 'check'" disabled v-model="test.checked" :native-value="city">
 					{{ city }}
 				</tv-checkbox>
+			</tv-form-group>
+			<tv-form-group prop="city">
+				<tv-radio v-for="city in cities" :key="city + 'radio'" v-model="test.city" :native-value="city">
+					{{ city }}
+				</tv-radio>
 			</tv-form-group>
 			<tv-form-group>
 				<p>
@@ -61,7 +66,7 @@
 				</p>
 			</tv-form-group>
 			<tv-form-group>
-				<tv-switch v-for="city in cities" :key="city + 'switch'" v-model="test.checked" :native-value="city" class="">
+				<tv-switch v-for="city in cities" :key="city + 'switch'" v-model="test.checked" :native-value="city">
 					<span class="ml-3">{{ city }}</span>
 				</tv-switch>
 			</tv-form-group>
@@ -101,6 +106,9 @@ export default {
 					{ whitespace: true, type: 'string', message: 'Please insert name', trigger: 'change' }
 				],
 				city: [
+					{ required: true, message: 'Please select a city', trigger: 'change' }
+				],
+				checked: [
 					{ required: true, message: 'Please select a city', trigger: 'change' }
 				]
 			},
