@@ -9,7 +9,7 @@ export default {
 		}
 	},
 	checkbox: {
-		base: 'relative w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 shadow-inner border',
+		base: 'relative w-4 h-4 flex flex-shrink-0 justify-center items-center shadow-inner border',
 		state: {
 			default: 'bg-gray-100 text-gray-700 border-gray-300 focus:border-teal-400',
 			disabled: 'bg-gray-200 text-gray-700 border-gray-300',
@@ -17,5 +17,6 @@ export default {
 			error: 'bg-gray-100 text-gray-700 border-red-300 focus:border-red-400'
 		}
 	},
+	text: 'ml-2',
 	svg: 'fill-current opacity-0 w-3 h-3 pointer-events-none'
 };

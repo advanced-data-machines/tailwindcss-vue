@@ -39,7 +39,7 @@
 				</tv-select>
 			</tv-form-group>
 			<tv-form-group prop="checked">
-				<tv-checkbox v-for="city in cities" :key="city + 'check'" disabled v-model="test.checked" :native-value="city">
+				<tv-checkbox v-for="city in cities" :key="city + 'check'" v-model="test.checked" :native-value="city">
 					{{ city }}
 				</tv-checkbox>
 			</tv-form-group>

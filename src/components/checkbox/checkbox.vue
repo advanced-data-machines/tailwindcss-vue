@@ -25,7 +25,9 @@
 				<path v-else d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
 			</svg>
 		</div>
-		<slot />
+		<span v-if="$scopedSlots['default']" :class="textClass">
+			<slot />
+		</span>
 	</label>
 </template>
 <script>
@@ -127,6 +129,14 @@ export default {
 		svgClass() {
 			const tag = `${this.$options._componentTag}-svg`;
 			const theme = this.currentTheme.svg;
+			return [
+				tag,
+				theme
+			];
+		},
+		textClass() {
+			const tag = `${this.$options._componentTag}-text`;
+			const theme = this.currentTheme.text;
 			return [
 				tag,
 				theme
