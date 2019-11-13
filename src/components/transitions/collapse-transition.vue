@@ -92,4 +92,5 @@ export default {
 .collapse-move {
 	transition: transform .3s ease-in-out;
 }
+/*! purgecss end ignore */
 </style>

@@ -158,6 +158,7 @@ export default {
 };
 </script>
 <style>
+/*! purgecss start ignore */
 input[type=checkbox] + svg {
 	transition: opacity .3s ease-in-out;
 }
