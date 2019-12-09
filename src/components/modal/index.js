@@ -11,8 +11,7 @@ const ModalProgrammatic = function(params) {
 		parent = params.parent;
 		delete params.parent;
 	}
-
-	const propsData = Object.assign({ content }, typeof params === 'string' ? {} : params, { programmatic: true });
+	const propsData = Object.assign(typeof params === 'string' ? { content } : params, { programmatic: true });
 	const vm = typeof window !== 'undefined' && window.Vue ? window.Vue : Vue;
 	const ModelComponent = vm.extend(TvModel);
 	return new ModelComponent({

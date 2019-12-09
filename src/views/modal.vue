@@ -36,8 +36,9 @@ export default {
 			this.$tailwindVue.modal({
 				parent: this,
 				component: ModalConfirm,
+				canCancel: false,
 				props: {
-					content: 'Testing'
+					content: 'Testing!'
 				},
 				onConfirm: (args) => {
 					console.log(args);

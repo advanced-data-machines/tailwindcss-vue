@@ -29,9 +29,6 @@ export default {
 		handleCancel() {
 			this.cancelModal('button');
 		}
-	},
-	mounted() {
-		console.log(this);
 	}
 };
 </script>
