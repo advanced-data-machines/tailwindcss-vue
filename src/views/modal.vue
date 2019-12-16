@@ -36,7 +36,7 @@ export default {
 			this.$tailwindVue.modal({
 				parent: this,
 				component: ModalConfirm,
-				canCancel: false,
+				canCancel: true,
 				props: {
 					content: 'Testing!'
 				},

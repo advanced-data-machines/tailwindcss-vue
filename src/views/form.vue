@@ -44,9 +44,9 @@
 				</tv-checkbox>
 			</tv-form-group>
 			<tv-form-group prop="city">
-				<tv-radio v-for="city in cities" :key="city + 'radio'" v-model="test.city" :native-value="city">
+				<tv-radio-button size="sm" v-for="city in cities" :key="city + 'radio'" v-model="test.city" :native-value="city">
 					{{ city }}
-				</tv-radio>
+				</tv-radio-button>
 			</tv-form-group>
 			<tv-form-group>
 				<p>
@@ -118,7 +118,7 @@ export default {
 	},
 	methods: {
 		validate() {
-			this.$refs['form'].validate().then(() => {}, (error) => console.log(error));
+			this.$refs.form.validate().then(() => {}, (error) => console.log(error));
 		},
 		notify() {
 			this.$tailwindVue.notify({

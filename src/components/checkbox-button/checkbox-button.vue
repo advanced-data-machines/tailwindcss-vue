@@ -49,6 +49,11 @@ export default {
 			default: null,
 			validator: (value) => value == null || ['primary', 'info', 'success', 'danger', 'warning'].indexOf(value) !== -1
 		},
+		size: {
+			type: String,
+			default: 'default',
+			validator: (value) => ['default', 'sm', 'lg'].indexOf(value) > -1
+		},
 		name: {
 			type: String,
 			default: ''

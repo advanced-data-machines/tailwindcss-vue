@@ -1,5 +1,5 @@
 export default {
-	base: 'whitespace-no-wrap inline-flex border first:rounded-l last:rounded-r cursor-pointer leading-tight',
+	base: 'whitespace-no-wrap inline-block border first:rounded-l last:rounded-r cursor-pointer align-baseline leading-tight',
 	normal: {
 		default: {
 			unchecked: 'text-white bg-gray-600 hover:bg-gray-700 focus:bg-gray-700 border-gray-600 hover:border-gray-700 focus:border-gray-700',
@@ -53,8 +53,8 @@ export default {
 		}
 	},
 	size: {
-		default: 'text-base py-2 px-4',
-		sm: 'text-sm py-1 px-3',
-		lg: 'text-lg py-3 px-5'
+		default: 'py-2 px-4',
+		sm: 'py-1 px-3',
+		lg: 'py-3 px-5'
 	}
 };
