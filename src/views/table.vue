@@ -15,7 +15,6 @@
 			show-header-checkbox
 			paginated
 			:per-page="paging.perPage"
-			backend-paginated
 			:current-page="paging.current"
 		>
 			<template slot-scope="props">
@@ -62,8 +61,7 @@ export default {
 			],
 			paging: {
 				current: 1,
-				perPage: 2,
-				total: 5
+				perPage: 2
 			},
 			checkedRows: [],
 			loading: true

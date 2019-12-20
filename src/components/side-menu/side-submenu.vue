@@ -8,7 +8,7 @@
 				</span>
 			</transition>
 			<slot name="arrow" :collapse="menuCollapsed" :opened="opened">
-				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" />
+				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" :menu-arrow-class="menuArrowClass" />
 			</slot>
 		</div>
 		<transition type="custom" v-if="menuCollapsed" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
@@ -48,6 +48,10 @@ export default {
 		popupWidth: {
 			type: String,
 			default: '200px'
+		},
+		menuArrowClass: {
+			type: String,
+			default: 'pl-1 pr-4'
 		}
 	},
 	data() {

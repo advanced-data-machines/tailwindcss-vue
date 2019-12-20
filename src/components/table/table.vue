@@ -298,7 +298,14 @@ export default {
 			return checkableRows.length === 0;
 		},
 		isIndeterminate() {
-			return this.newCheckedRows.length > 0 && this.visibleData.length > this.newCheckedRows.length;
+			if (this.visibleData.length === 0 || this.newCheckedRows.length === 0) return false;
+			let visibleChecked = 0;
+			const checked = this.newCheckedRows.map((r) => JSON.stringify(r));
+			for (let i = 0; i < this.visibleData.length; i++) {
+				const inx = checked.indexOf(JSON.stringify(this.visibleData[i]));
+				if (inx > -1) visibleChecked++;
+			}
+			return visibleChecked > 0 && this.visibleData.length > visibleChecked;
 		},
 		searchResults() {
 			const data = this.newData;
@@ -482,22 +489,19 @@ export default {
 		},
 		sort(column, updatingData = false) {
 			if (!column || !column.sortable) return;
-			const isCurrent = column === this.currentSortColumn;
 			if (!updatingData) {
-				this.isAsc = isCurrent ? !this.isAsc : true;
+				this.isAsc = column === this.currentSortColumn ? !this.isAsc : true;
 			}
 			if (!this.firstTimeSort) {
 				this.$emit('sort', column.field, this.isAsc ? 'asc' : 'desc');
 			}
 			if (!this.backendSorting) {
-				this.newData = !isCurrent
-					? this.sortBy(
-						this.newData,
-						column.field,
-						column.customSort,
-						this.isAsc
-					)
-					: [...this.newData].reverse();
+				this.newData = this.sortBy(
+					this.newData,
+					column.field,
+					column.customSort,
+					this.isAsc
+				);
 			}
 			this.currentSortColumn = column;
 		},
