@@ -15,6 +15,9 @@ const custom = {
 		},
 		TvFormGroup: {
 			base: 'w-full mb-8'
+		},
+		TvPaginationButton: {
+			base: 'appearance-none whitespace-no-wrap inline-block rounded text-center shadow focus:outline-none border align-baseline leading-tight mr-1 last:mr-0'
 		}
 	}
 };
