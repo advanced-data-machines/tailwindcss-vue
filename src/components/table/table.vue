@@ -48,7 +48,7 @@
 							</td>
 						</tr>
 						<tr :key="(customRowKey ? row[customRowKey] : index) + '-detail'" v-if="isDetailActive(row)">
-							<td colspan="100">
+							<td colspan="100" class="p-0">
 								<slot name="detail" :row="row" :index="index" />
 							</td>
 						</tr>
