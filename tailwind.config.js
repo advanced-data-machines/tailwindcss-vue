@@ -28,7 +28,7 @@ module.exports = {
 		}
 	},
 	variants: {
-		borderColor: ['responsive', 'hover', 'focus', 'first', 'last'],
+		borderColor: ['responsive', 'hover', 'focus', 'first', 'last', 'after'],
 		borderRadius: ['responsive', 'first', 'last'],
 		borderWidth: ['responsive', 'first', 'last'],
 		margin: ['responsive', 'before', 'first', 'last'],
@@ -39,6 +39,13 @@ module.exports = {
 			addVariant('before', ({ modifySelectors, separator }) => {
 				modifySelectors(({ className }) => {
 					return `.${e(`before${separator}${className}`)}:before`;
+				});
+			});
+		},
+		function({ addVariant, e }) {
+			addVariant('after', ({ modifySelectors, separator }) => {
+				modifySelectors(({ className }) => {
+					return `.${e(`after${separator}${className}`)}:after`;
 				});
 			});
 		}

@@ -10,6 +10,7 @@ import TvFormGroup from './form-group.js';
 import TvIcon from './icon.js';
 import TvInput from './input.js';
 import TvLabel from './label.js';
+import TvLoading from './loading.js';
 import TvModal from './modal.js';
 import TvPagination from './pagination.js';
 import TvPaginationButton from './pagination-button.js';
@@ -38,6 +39,7 @@ export default {
 	TvIcon,
 	TvInput,
 	TvLabel,
+	TvLoading,
 	TvModal,
 	TvPagination,
 	TvPaginationButton,
