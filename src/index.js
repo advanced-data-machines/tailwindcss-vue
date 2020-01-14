@@ -10,6 +10,7 @@ import FormGroup from './components/form-group/index.js';
 import Icon from './components/icon/index.js';
 import Input from './components/input/index.js';
 import Label from './components/label/index.js';
+import Loading from './components/loading/index.js';
 import Modal, { ModalProgrammatic } from './components/modal/index.js';
 import Pagination from './components/pagination/index.js';
 import PaginationButton from './components/pagination-button/index.js';
@@ -39,6 +40,7 @@ const components = [
 	Icon,
 	Input,
 	Label,
+	Loading,
 	Modal,
 	Pagination,
 	PaginationButton,
@@ -80,6 +82,7 @@ export default {
 	Icon,
 	Input,
 	Label,
+	Loading,
 	Modal,
 	ModalProgrammatic,
 	Pagination,
