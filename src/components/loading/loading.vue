@@ -1,8 +1,9 @@
 <template>
 	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
-		<div v-if="isActive">
+		<div v-if="isActive" :class="wrapperClass">
+			<div :class="backDropClass" @click="cancel" />
 			<slot>
-				<tv-icon icon="loading" />
+				<div :class="['loading-icon relative', spinnerClass]" />
 			</slot>
 		</div>
 	</transition>
@@ -10,8 +11,10 @@
 <script>
 import { HTMLElement } from '@/utils/ssr.js';
 import { removeElement } from '@/utils/dom.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvLoading',
+	mixins: [ThemeMixin],
 	props: {
 		active: {
 			type: Boolean,
@@ -36,6 +39,33 @@ export default {
 		onCancel: {
 			type: Function,
 			default: () => {}
+		}
+	},
+	computed: {
+		wrapperClass() {
+			const tag = this.$options._componentTag;
+			const theme = this.currentTheme;
+			const visibility = this.isActive ? 'active' : 'default';
+			const state = this.isFullpage ? 'fullPage' : 'default';
+			return [
+				tag,
+				`${tag}-${visibility}`,
+				theme.wrapper.base,
+				theme.wrapper.state[state],
+				theme.wrapper.visibility[visibility]
+			];
+		},
+		backDropClass() {
+			return [
+				`${this.$options._componentTag}-backdrop`,
+				this.currentTheme.backdrop
+			];
+		},
+		spinnerClass() {
+			return [
+				`${this.$options._componentTag}-spinner`,
+				this.currentTheme.spinner
+			];
 		}
 	},
 	data() {
@@ -109,3 +139,19 @@ export default {
 	}
 };
 </script>
+<style>
+	.loading-icon:after {
+		animation: spin .5s infinite linear;
+		border-width: .25rem;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-radius: 9999px;
+		position: absolute;
+		top: calc(50% - 1.5em);
+		left: calc(50% - 1.5em);
+		width: 3em;
+		height: 3em;
+		content: "";
+		display: block;
+	}
+</style>

@@ -7,6 +7,7 @@ import Table from './views/table.vue';
 import Progress from './views/progress.vue';
 import Modal from './views/modal.vue';
 import Dropdown from './views/dropdown.vue';
+import Loading from './views/loading.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -88,6 +89,15 @@ export default new Router({
 					meta: {
 						index: 'C-5',
 						title: 'Dropdown'
+					}
+				},
+				{
+					path: 'Loading',
+					name: 'loading',
+					component: Loading,
+					meta: {
+						index: 'C-6',
+						title: 'Loading'
 					}
 				}
 			]
