@@ -1,7 +1,7 @@
 <template>
 	<div :class="[wrapperClass, 'dropdown', {'hoverable': isHoverable}]">
 		<div role="button" ref="trigger" @click="toggle" aria-haspopup="true">
-			<slot name="trigger" />
+			<slot name="trigger" :disabled="disabled" />
 		</div>
 		<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
 			<div
