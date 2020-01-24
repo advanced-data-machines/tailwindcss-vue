@@ -140,7 +140,6 @@ export default {
 		isChild(key, target) {
 			if (this.$refs[key] !== undefined) {
 				const children = this.$refs[key].querySelectorAll('*');
-				// eslint-disable-next-line no-unused-vars
 				for (const child of children) {
 					if (target === child) return true;
 				}
@@ -149,7 +148,6 @@ export default {
 		},
 		isInWhiteList(target) {
 			const whitelist = ['trigger', 'dropdownMenu'];
-			// eslint-disable-next-line no-unused-vars
 			for (const elem of whitelist) {
 				if (target === this.$refs[elem] || this.isChild(elem, target)) return true;
 			}

@@ -18,6 +18,7 @@
     "dist/*"
   ],
   "dependencies": {
+    "@popperjs/core": "^2.0.0-rc.3",
     "async-validator": "^3.2.3"
   },
   "devDependencies": {
@@ -28,7 +29,7 @@
     "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^4.1.2",
     "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.30",
+    "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.3",
     "core-js": "^3.6.4",
     "eslint": "^6.8.0",

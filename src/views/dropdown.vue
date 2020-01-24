@@ -33,6 +33,8 @@
 		<code>
 			{{ value }}
 		</code>
+
+		<p>This is a test <tv-tooltip label="I am a label">tooltip</tv-tooltip></p>
 	</section>
 </template>
 <script>

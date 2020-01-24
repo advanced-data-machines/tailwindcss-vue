@@ -23,7 +23,7 @@ import SideMenuItem from './components/side-menu-item/index.js';
 import SideSubmenu from './components/side-submenu/index.js';
 import Switch from './components/switch/index.js';
 import Table from './components/table/index.js';
-
+import Tooltip from './components/tooltip/index.js';
 import Theme from './utils/theme.js';
 
 // components to be used
@@ -52,7 +52,8 @@ const components = [
 	SideMenuItem,
 	SideSubmenu,
 	Switch,
-	Table
+	Table,
+	Tooltip
 ];
 
 // use components
@@ -96,5 +97,6 @@ export default {
 	SideSubmenu,
 	Switch,
 	Table,
-	Theme
+	Theme,
+	Tooltip
 };

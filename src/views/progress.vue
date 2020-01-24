@@ -26,17 +26,17 @@ export default {
 			if (val < 20) {
 				return 'bg-red-800';
 			} else if (val < 40) {
-				return 'bg-red-600';
+				return 'bg-red-700';
 			} else if (val < 60) {
-				return 'bg-yellow-600';
+				return 'bg-red-600';
 			} else if (val < 80) {
-				return 'bg-yellow-400';
+				return 'bg-orange-600';
 			} else if (val < 90) {
-				return 'bg-green-400';
+				return 'bg-orange-500';
 			} else if (val < 100) {
-				return 'bg-green-600';
+				return 'bg-orange-400';
 			} else {
-				return 'bg-green-800';
+				return 'bg-green-400';
 			}
 		}
 	}
