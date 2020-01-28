@@ -32,7 +32,9 @@ module.exports = {
 		borderRadius: ['responsive', 'first', 'last'],
 		borderWidth: ['responsive', 'first', 'last'],
 		margin: ['responsive', 'before', 'first', 'last'],
-		textColor: ['responsive', 'hover', 'focus', 'before']
+		textColor: ['responsive', 'hover', 'focus', 'before'],
+		backgroundColor: ['responsive', 'hover', 'focus', 'before', 'after'],
+		boxShadow: ['responsive', 'hover', 'focus', 'before', 'after']
 	},
 	plugins: [
 		function({ addVariant, e }) {

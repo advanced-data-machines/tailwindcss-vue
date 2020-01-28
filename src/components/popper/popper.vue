@@ -1,14 +1,21 @@
 <template>
 	<component :is="tag">
-		<span ref="popper" v-show="showPopper">
-			<slot>{{ content }}</slot>
-		</span>
+		<transition
+			:name="transition"
+			:enter-active-class="enterActiveClass"
+			:leave-active-class="leaveActiveClass"
+			@afer-leave="handleDestroy"
+		>
+			<span v-show="!disabled && showPopper">
+				<slot>{{ content }}</slot>
+			</span>
+		</transition>
 		<slot name="reference" />
 	</component>
 </template>
 <script>
 import { createPopper } from '@popperjs/core';
-import { objectAssign } from '@/utils/utils.js';
+import { objectAssign } from '../../utils/utils.js';
 function on(element, event, handler) {
 	if (element && event && handler) {
 		document.addEventListener ? element.addEventListener(event, handler, false) : element.attachEvent('on' + event, handler);
@@ -64,7 +71,11 @@ export default {
 		},
 		hasArrow: {
 			type: Boolean,
-			default: true
+			default: false
+		},
+		arrowClass: {
+			type: String,
+			default: 'bg-gray-100'
 		},
 		placement: {
 			type: String,
@@ -84,9 +95,25 @@ export default {
 				'bottom-end'
 			].indexOf(n) > -1
 		},
+		customOffset: {
+			type: [Function, Array],
+			default: () => [0, 5]
+		},
 		appendToBody: {
 			type: Boolean,
 			default: false
+		},
+		transition: {
+			type: String,
+			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		}
 	},
 	computed: {
@@ -114,7 +141,6 @@ export default {
 				this.updatePopper();
 			} else {
 				this.$emit('hide');
-				this.handleDestroy();
 			}
 		},
 		disabled(value) {
@@ -129,6 +155,8 @@ export default {
 		},
 		createPopper() {
 			this.$nextTick(() => {
+				if (this.disabled) return;
+				console.log(this.hasArrow);
 				if (this.hasArrow && !this.appendedArrow) {
 					this.appendArrow(this.popper);
 				}
@@ -141,8 +169,25 @@ export default {
 				if (this.popperJs && this.popperJs.destroy) {
 					this.popperJs.destroy();
 				}
-				this.popperJs = createPopper(this.referenceElm, this.popper, objectAssign({}, this.options, { placement: this.placement }));
+				const options = objectAssign({}, this.options, { placement: this.placement,
+					modifiers: [
+						{
+							name: 'offset',
+							options: {
+								offset: ({ placement, reference, popper }) => this.handleOffset(placement, reference, popper)
+							}
+						}
+					]
+				});
+				this.popperJs = createPopper(this.referenceElm, this.popper, options);
 			});
+		},
+		handleOffset(placement, reference, popper) {
+			if (typeof this.customOffset === 'function') {
+				return this.customOffset.apply(null, [placement, reference, popper]);
+			}
+			console.log(this.customOffset);
+			return this.customOffset;
 		},
 		appendArrow(element) {
 			if (this.appendedArrow) return;
@@ -150,7 +195,7 @@ export default {
 			this.appendedArrow = true;
 			const arrow = document.createElement('div');
 			arrow.setAttribute('data-popper-arrow', '');
-			arrow.className = 'popper-arrow';
+			arrow.className = `tv-popper-arrow ${this.arrowClass}`;
 			element.appendChild(arrow);
 		},
 		toggle() {
@@ -164,12 +209,14 @@ export default {
 			this.showPopper = false;
 		},
 		onMouseOver() {
+			if (this.disabled) return;
 			clearTimeout(this.timer);
 			this.timer = setTimeout(() => {
 				this.showPopper = true;
 			}, this.delayOnMouseOver);
 		},
 		onMouseOut() {
+			if (this.disabled) return;
 			clearTimeout(this.timer);
 			this.timer = setTimeout(() => {
 				this.showPopper = false;
@@ -244,3 +291,32 @@ export default {
 	}
 };
 </script>
+<style lang="postcss">
+	[data-popper-placement^="top"] > [data-popper-arrow] {
+		bottom: -5px;
+	}
+
+	[data-popper-placement^="bottom"] > [data-popper-arrow] {
+		top: -5px;
+	}
+
+	[data-popper-placement^="right"] > [data-popper-arrow] {
+		left: -5px;
+	}
+
+	[data-popper-placement^="left"] > [data-popper-arrow] {
+		right: -5px;
+	}
+
+	[data-popper-arrow], [data-popper-arrow]::before {
+		width: 10px;
+		height: 10px;
+		z-index: -1;
+		position: absolute;
+	}
+
+	[data-popper-arrow]::before {
+		content: "";
+		transform: rotate(45deg);
+	}
+</style>

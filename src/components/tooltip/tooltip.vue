@@ -1,25 +1,132 @@
 <template>
-	<tv-popper :trigger="trigger" append-to-body>
-		<span>{{ label }}</span>
-		<span slot="reference"><slot /></span>
+	<tv-popper
+		:tag="tag"
+		:trigger="trigger"
+		:placement="placement"
+		:can-close="canClose"
+		:disabled="disabled"
+		:options="options"
+		:force-show="forceShow"
+		:delay-on-mouse-over="delayOnMouseOver"
+		:delay-on-mouse-out="delayOnMouseOut"
+		:custom-offset="customOffset"
+		:append-to-body="appendToBody"
+	>
+		<span :class="popperClass" role="tooltip">
+			{{ content }}
+			<div data-popper-arrow :class="arrowClass" />
+		</span>
+		<span slot="reference" :class="referenceClass">
+			<slot />
+		</span>
 	</tv-popper>
 </template>
 <script>
 import TvPopper from '../popper/popper.vue';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvTooltip',
+	mixins: [ThemeMixin],
 	components: {
 		'tv-popper': TvPopper
 	},
 	props: {
-		label: {
+		tag: {
 			type: String,
-			default: null
+			default: 'span'
 		},
 		trigger: {
 			type: String,
 			default: 'click',
 			validator: (n) => ['click', 'hover'].indexOf(n) > -1
+		},
+		placement: {
+			type: String,
+			default: 'top',
+			validator: (n) => [
+				'top',
+				'top-start',
+				'top-end',
+				'left',
+				'left-start',
+				'left-end',
+				'right',
+				'right-start',
+				'right-end',
+				'bottom',
+				'bottom-start',
+				'bottom-end'
+			].indexOf(n) > -1
+		},
+		canClose: {
+			type: [Array, Boolean],
+			default: true
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		options: {
+			type: Object,
+			default: () => {}
+		},
+		content: {
+			type: String,
+			default: null
+		},
+		forceShow: {
+			type: Boolean,
+			default: false
+		},
+		delayOnMouseOver: {
+			type: Number,
+			default: 0
+		},
+		delayOnMouseOut: {
+			type: Number,
+			default: 0
+		},
+		hasArrow: {
+			type: Boolean,
+			default: true
+		},
+		customOffset: {
+			type: [Function, Array],
+			default: () => [0, 5]
+		},
+		appendToBody: {
+			type: Boolean,
+			default: false
+		}
+	},
+	computed: {
+		popperClass() {
+			const tag = `${this.$options._componentTag}-popper`;
+			const theme = this.currentTheme;
+			return [
+				tag,
+				`${tag}-${this.placement}`,
+				theme.popper
+			];
+		},
+		referenceClass() {
+			const tag = `${this.$options._componentTag}-reference`;
+			const theme = this.currentTheme.reference;
+			const state = this.disabled ? 'disabled' : 'default';
+			return [
+				tag,
+				tag.base,
+				`${tag}-${state}`,
+				theme.state[state]
+			];
+		},
+		arrowClass() {
+			const tag = `${this.$options._componentTag}-arrow`;
+			const theme = this.currentTheme.arrow;
+			return [
+				tag,
+				theme
+			];
 		}
 	}
 };

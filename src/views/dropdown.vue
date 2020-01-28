@@ -34,7 +34,7 @@
 			{{ value }}
 		</code>
 
-		<p>This is a test <tv-tooltip label="I am a label">tooltip</tv-tooltip></p>
+		<p>This is a test <tv-tooltip content="Hello!" class="underline">tooltip</tv-tooltip></p>
 	</section>
 </template>
 <script>

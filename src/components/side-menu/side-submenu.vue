@@ -24,9 +24,9 @@
 	</li>
 </template>
 <script>
-import CollapseTransition from '@/components/transitions/collapse-transition.vue';
+import CollapseTransition from '../../components/transitions/collapse-transition.vue';
 import MenuArrow from './menu-arrow.vue';
-import Emitter from '@/mixins/emitter.js';
+import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideSubmenu',

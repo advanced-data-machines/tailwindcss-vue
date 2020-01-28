@@ -18,11 +18,11 @@
     "dist/*"
   ],
   "dependencies": {
-    "@popperjs/core": "^2.0.0-rc.3",
+    "@popperjs/core": "^2.0.2",
     "async-validator": "^3.2.3"
   },
   "devDependencies": {
-    "@mdi/font": "^4.7.95",
+    "@mdi/font": "^4.8.95",
     "@vue/cli-plugin-babel": "^4.1.2",
     "@vue/cli-plugin-eslint": "^4.1.2",
     "@vue/cli-plugin-router": "^4.1.2",

@@ -8,7 +8,7 @@
 	</div>
 </template>
 <script>
-import ThemeMixin from '@/mixins/theme.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvDropdownItem',
 	mixins: [ThemeMixin],

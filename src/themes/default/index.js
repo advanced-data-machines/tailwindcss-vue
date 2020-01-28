@@ -23,7 +23,7 @@ import TvSideMenuItem from './side-menu-item.js';
 import TvSideSubmenu from './side-submenu.js';
 import TvSwitch from './switch.js';
 import TvTable from './table.js';
-import TvToolTip from './tooltip.js';
+import TvTooltip from './tooltip.js';
 
 export default {
 	TvAlert,
@@ -51,5 +51,5 @@ export default {
 	TvSideSubmenu,
 	TvSwitch,
 	TvTable,
-	TvToolTip
+	TvTooltip
 };

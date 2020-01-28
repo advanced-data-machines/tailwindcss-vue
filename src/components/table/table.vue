@@ -97,9 +97,9 @@
 	</div>
 </template>
 <script>
-import { getValueByPath, indexOf, hasOwn } from '@/utils/utils.js';
+import { getValueByPath, indexOf, hasOwn } from '../../utils/utils.js';
 import TvPagination from '../pagination/pagination.vue';
-import ThemeMixin from '@/mixins/theme.js';
+import ThemeMixin from '../../mixins/theme.js';
 import TvTableArrow from './table-arrow.vue';
 import TvCheckbox from '../checkbox/checkbox.vue';
 export default {
