@@ -6,7 +6,7 @@
 			:leave-active-class="leaveActiveClass"
 			@afer-leave="handleDestroy"
 		>
-			<span v-show="!disabled && showPopper">
+			<span v-show="!disabled && showPopper" :aria-hidden="!showPopper">
 				<slot>{{ content }}</slot>
 			</span>
 		</transition>
@@ -210,15 +210,17 @@ export default {
 		},
 		onMouseOver() {
 			if (this.disabled) return;
-			clearTimeout(this.timer);
-			this.timer = setTimeout(() => {
+			clearTimeout(this.timerOver);
+			clearTimeout(this.timerOut);
+			this.timerOver = setTimeout(() => {
 				this.showPopper = true;
 			}, this.delayOnMouseOver);
 		},
-		onMouseOut() {
+		onMouseOut(e) {
 			if (this.disabled) return;
-			clearTimeout(this.timer);
-			this.timer = setTimeout(() => {
+			clearTimeout(this.timerOut);
+			clearTimeout(this.timerOver);
+			this.timerOut = setTimeout(() => {
 				this.showPopper = false;
 			}, this.delayOnMouseOut);
 		},
@@ -235,8 +237,8 @@ export default {
 		destroyPopper() {
 			off(this.referenceElm, 'click', this.toggle);
 			off(document, 'click', this.clickOutside);
-			off(this.referenceElm, 'mounseover', this.onMouseOver);
-			off(this.referenceElm, 'mouseout', this.onMouseOut);
+			off(this.$el, 'mounseover', this.onMouseOver);
+			off(this.$el, 'mouseout', this.onMouseOut);
 			off(document, 'keyup', this.keyPress);
 			this.showPopper = false;
 			this.handleDestroy();
@@ -276,8 +278,8 @@ export default {
 
 		switch (this.trigger) {
 		case 'hover':
-			on(this.referenceElm, 'mouseover', this.onMouseOver);
-			on(this.referenceElm, 'mouseout', this.onMouseOut);
+			on(this.$el, 'mouseover', this.onMouseOver);
+			on(this.$el, 'mouseout', this.onMouseOut);
 			break;
 		default:
 			on(this.referenceElm, 'click', this.toggle);

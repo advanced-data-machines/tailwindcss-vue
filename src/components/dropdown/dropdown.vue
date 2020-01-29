@@ -1,28 +1,44 @@
 <template>
-	<div :class="[wrapperClass, 'dropdown', {'hoverable': isHoverable}]">
-		<div role="button" ref="trigger" @click="toggle" aria-haspopup="true">
+	<tv-popper
+		ref="popper"
+		:tag="tag"
+		:trigger="trigger"
+		:placement="placement"
+		:can-close="canClose"
+		:disabled="disabled"
+		:options="options"
+		:force-show="forceShow"
+		:delay-on-mouse-over="delayOnMouseOver"
+		:delay-on-mouse-out="delayOnMouseOut"
+		:custom-offset="customOffset"
+		:append-to-body="appendToBody"
+		:class="wrapperClass"
+	>
+		<div :class="[currentClass]">
+			<div :class="contentClass" :role="menuAriaRole">
+				<slot />
+			</div>
+		</div>
+		<div data-popper-arrow />
+		<div slot="reference" role="button" aria-haspopup="true">
 			<slot name="trigger" :disabled="disabled" />
 		</div>
-		<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
-			<div
-				v-show="(!disabled && (isActive || isHoverable))"
-				:class="[currentClass, 'dropdown-menu']"
-				ref="dropdownMenu"
-				:aria-hidden="!isActive"
-			>
-				<div :class="contentClass" :role="menuAriaRole">
-					<slot />
-				</div>
-			</div>
-		</transition>
-	</div>
+	</tv-popper>
 </template>
 <script>
+import TvPopper from '../popper/popper.vue';
 import ThemeMixin from '@/mixins/theme.js';
 export default {
 	name: 'TvDropdown',
 	mixins: [ThemeMixin],
+	components: {
+		'tv-popper': TvPopper
+	},
 	props: {
+		tag: {
+			type: String,
+			default: 'span'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: null
@@ -31,11 +47,30 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		disabled: {
-			type: Boolean,
-			default: false
+		trigger: {
+			type: String,
+			default: 'click',
+			validator: (n) => ['click', 'hover'].indexOf(n) > -1
 		},
-		hoverable: {
+		placement: {
+			type: String,
+			default: 'bottom-start',
+			validator: (n) => [
+				'top',
+				'top-start',
+				'top-end',
+				'left',
+				'left-start',
+				'left-end',
+				'right',
+				'right-start',
+				'right-end',
+				'bottom',
+				'bottom-start',
+				'bottom-end'
+			].indexOf(n) > -1
+		},
+		disabled: {
 			type: Boolean,
 			default: false
 		},
@@ -47,10 +82,37 @@ export default {
 			type: [Array, Boolean],
 			default: true
 		},
-		position: {
+		options: {
+			type: Object,
+			default: () => {}
+		},
+		content: {
 			type: String,
-			default: 'bottom-left',
-			validate: (value) => ['bottom-left', 'bottom-right', 'top-left', 'top-right'].indexOf(value) > -1
+			default: null
+		},
+		forceShow: {
+			type: Boolean,
+			default: false
+		},
+		delayOnMouseOver: {
+			type: Number,
+			default: 0
+		},
+		delayOnMouseOut: {
+			type: Number,
+			default: 300
+		},
+		hasArrow: {
+			type: Boolean,
+			default: true
+		},
+		customOffset: {
+			type: [Function, Array],
+			default: () => [0, 10]
+		},
+		appendToBody: {
+			type: Boolean,
+			default: false
 		},
 		ariaRole: {
 			type: String,
@@ -59,9 +121,7 @@ export default {
 	},
 	data() {
 		return {
-			selected: this.value,
-			isActive: false,
-			isHoverable: this.hoverable
+			selected: this.value
 		};
 	},
 	computed: {
@@ -84,23 +144,13 @@ export default {
 		currentClass() {
 			const tag = `${this.$options._componentTag}-menu`;
 			const theme = this.currentTheme;
-			const position = this.position;
-			const state = this.isHoverable ? 'hoverable' : 'default';
 			return [
 				tag,
-				`${tag}-${position}`,
-				this.isActive ? `${tag}-active` : '',
-				theme.base,
-				theme.state[state],
-				theme.position[position.replace(/(-\w)/g, (k) => k[1].toUpperCase())]
+				theme.base
 			];
 		},
-		cancelOptions() {
-			return typeof this.canClose === 'boolean'
-				? this.canClose
-					? ['escape', 'outside']
-					: []
-				: this.canClose;
+		isHoverable() {
+			return this.trigger === 'hover';
 		},
 		menuAriaRole() {
 			return (this.ariaRole === 'menu' || this.ariaRole === 'list') ? this.ariaRole : null;
@@ -128,66 +178,17 @@ export default {
 			}
 			this.$emit('input', this.selected);
 			if (!this.multiple) {
-				this.isActive = !this.closeOnClick;
-				if (this.hoverable && this.closeOnClick) {
-					this.isHoverable = false;
-					setTimeout(() => {
-						this.isHoverable = true;
-					}, 250);
+				if (this.isHoverable && this.closeOnClick) {
+					console.log('close');
+					this.$refs['popper'].handleClose();
 				}
 			}
-		},
-		isChild(key, target) {
-			if (this.$refs[key] !== undefined) {
-				const children = this.$refs[key].querySelectorAll('*');
-				for (const child of children) {
-					if (target === child) return true;
-				}
-			}
-			return false;
-		},
-		isInWhiteList(target) {
-			const whitelist = ['trigger', 'dropdownMenu'];
-			for (const elem of whitelist) {
-				if (target === this.$refs[elem] || this.isChild(elem, target)) return true;
-			}
-			return false;
-		},
-		toggle() {
-			if (this.disabled) return;
-			this.isActive = !this.isActive;
-		},
-		clickOutside(event) {
-			if (this.isActive && this.cancelOptions.indexOf('outside') > -1 && !this.isInWhiteList(event.target)) this.isActive = false;
-		},
-		keyPress(event) {
-			if (this.isActive && event.keyCode === 27 && this.cancelOptions.indexOf('escape') > -1) this.isActive = false;
 		}
 	},
 	watch: {
 		value(value) {
 			this.selected = value;
-		},
-		isActive(value) {
-			this.$emit('active-change', value);
-		}
-	},
-	created() {
-		if (typeof window !== 'undefined') {
-			document.addEventListener('click', this.clickOutside);
-			document.addEventListener('keyup', this.keyPress);
-		}
-	},
-	beforeDestroy() {
-		if (typeof window !== 'undefined') {
-			document.removeEventListener('click', this.clickOutside);
-			document.removeEventListener('keyup', this.keyPress);
 		}
 	}
 };
 </script>
-<style>
-	.dropdown.hoverable:hover .dropdown-menu {
-		display: block;
-	}
-</style>

@@ -1,5 +1,5 @@
 export default {
-	wrapper: 'relative inline-flex',
+	wrapper: 'relative inline-block',
 	base: 'z-30 absolute min-w-48',
 	content: 'rounded bg-white shadow border border-gray-300 overflow-hidden',
 	state: {
