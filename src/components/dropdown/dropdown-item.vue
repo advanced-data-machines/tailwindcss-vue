@@ -8,7 +8,7 @@
 	</div>
 </template>
 <script>
-import ThemeMixin from '@/mixins/theme.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvDropdownItem',
 	mixins: [ThemeMixin],
@@ -67,12 +67,12 @@ export default {
 			return (this.ariaRole === 'menuitem' || this.ariaRole === 'listitem') ? this.ariaRole : null;
 		},
 		isClickable() {
-			return !this.$parent.disabled && !this.disabled && !this.separator && !this.custom;
+			return !this.dropdown.disabled && !this.disabled && !this.separator && !this.custom;
 		},
 		isActive() {
-			if (this.$parent.selected === null) return false;
-			if (this.$parent.multiple) return this.$parent.selected.indexOf(this.value) > -1;
-			return this.value === this.$parent.selected;
+			if (this.dropdown.selected === null) return false;
+			if (this.dropdown.multiple) return this.dropdown.selected.indexOf(this.value) > -1;
+			return this.value === this.dropdown.selected;
 		},
 		dropdown() {
 			let parent = this.$parent;
@@ -87,14 +87,8 @@ export default {
 	methods: {
 		selectItem() {
 			if (!this.isClickable) return;
-			this.$parent.selectItem(this.value);
+			this.dropdown.selectItem(this.value);
 			this.$emit('click');
-		}
-	},
-	created() {
-		if (this.$parent.$options.name !== 'TvDropdown') {
-			console.warn('(TV Warn[Dropdown]) - dropdown-items should have a perent of dropdown"');
-			this.$destroy();
 		}
 	}
 };

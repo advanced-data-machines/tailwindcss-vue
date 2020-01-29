@@ -9,8 +9,8 @@
 	</transition>
 </template>
 <script>
-import { HTMLElement } from '@/utils/ssr.js';
-import { removeElement } from '@/utils/dom.js';
+import { HTMLElement } from '../../utils/ssr.js';
+import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvLoading',

@@ -74,7 +74,7 @@
 	</div>
 </template>
 <script>
-import ThemeMixin from '@/mixins/theme.js';
+import ThemeMixin from '../../mixins/theme.js';
 import TvPaginationButton from './pagination-button.vue';
 export default {
 	name: 'TvPagination',

@@ -1,6 +1,5 @@
 <template>
 	<tv-popper
-		ref="popper"
 		:tag="tag"
 		:trigger="trigger"
 		:placement="placement"
@@ -12,47 +11,38 @@
 		:delay-on-mouse-out="delayOnMouseOut"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
-		:class="wrapperClass"
 	>
-		<div :class="popperClass" :role="menuAriaRole">
-			<slot />
+		<span :class="popperClass" role="tooltip">
+			{{ content }}
 			<div data-popper-arrow :class="arrowClass" />
-		</div>
-		<div slot="reference" :class="referenceClass" role="button" aria-haspopup="true">
-			<slot name="trigger" :disabled="disabled" />
-		</div>
+		</span>
+		<span slot="reference" :class="referenceClass">
+			<slot />
+		</span>
 	</tv-popper>
 </template>
 <script>
 import TvPopper from '../popper/popper.vue';
 import ThemeMixin from '../../mixins/theme.js';
 export default {
-	name: 'TvDropdown',
+	name: 'TvTooltip',
 	mixins: [ThemeMixin],
 	components: {
 		'tv-popper': TvPopper
 	},
 	props: {
-		value: {
-			type: [Object, String, Boolean, Array, Number, Function],
-			default: null
-		},
-		multiple: {
-			type: Boolean,
-			default: false
-		},
 		tag: {
 			type: String,
 			default: 'span'
 		},
 		trigger: {
 			type: String,
-			default: 'click',
+			default: 'hover',
 			validator: (n) => ['click', 'hover'].indexOf(n) > -1
 		},
 		placement: {
 			type: String,
-			default: 'bottom-start',
+			default: 'top',
 			validator: (n) => [
 				'top',
 				'top-start',
@@ -70,10 +60,6 @@ export default {
 		},
 		canClose: {
 			type: [Array, Boolean],
-			default: true
-		},
-		closeOnClick: {
-			type: Boolean,
 			default: true
 		},
 		disabled: {
@@ -98,7 +84,7 @@ export default {
 		},
 		delayOnMouseOut: {
 			type: Number,
-			default: 300
+			default: 0
 		},
 		hasArrow: {
 			type: Boolean,
@@ -106,31 +92,14 @@ export default {
 		},
 		customOffset: {
 			type: [Function, Array],
-			default: () => [0, 10]
+			default: () => [0, 5]
 		},
 		appendToBody: {
 			type: Boolean,
 			default: false
-		},
-		ariaRole: {
-			type: String,
-			default: null
 		}
 	},
-	data() {
-		return {
-			selected: this.value
-		};
-	},
 	computed: {
-		wrapperClass() {
-			const tag = `${this.$options._componentTag}-wrapper`;
-			const theme = this.currentTheme;
-			return [
-				tag,
-				theme.wrapper
-			];
-		},
 		popperClass() {
 			const tag = `${this.$options._componentTag}-popper`;
 			const theme = this.currentTheme;
@@ -158,42 +127,6 @@ export default {
 				tag,
 				theme
 			];
-		},
-		menuAriaRole() {
-			return (this.ariaRole === 'menu' || this.ariaRole === 'list') ? this.ariaRole : null;
-		}
-	},
-	methods: {
-		selectItem(value) {
-			if (this.multiple) {
-				if (this.selected && Array.isArray(this.selected)) {
-					const index = this.selected.indexOf(value);
-					if (index === -1) {
-						this.selected.push(value);
-					} else {
-						this.selected.splice(index, 1);
-					}
-				} else {
-					this.selected = [value];
-				}
-				this.$emit('change', this.selected);
-			} else {
-				if (this.selected !== value) {
-					this.selected = value;
-					this.$emit('change', this.selected);
-				}
-			}
-			this.$emit('input', this.selected);
-			if (!this.multiple) {
-				if (this.closeOnClick) {
-					this.$refs['popper'].handleClose();
-				}
-			}
-		}
-	},
-	watch: {
-		value(value) {
-			this.selected = value;
 		}
 	}
 };

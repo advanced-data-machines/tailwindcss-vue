@@ -1,15 +1,12 @@
 export default {
-	wrapper: 'relative inline-flex',
-	base: 'z-30 absolute min-w-48',
-	content: 'rounded bg-white shadow border border-gray-300 overflow-hidden',
-	state: {
-		default: 'block',
-		hoverable: 'hidden'
+	popper: 'absolute block bg-gray-100 rounded w-auto min-w-48 shadow z-50',
+	reference: {
+		base: '',
+		state: {
+			default: 'cursor-pointer',
+			disabled: 'cursor-not-allowed'
+		}
 	},
-	position: {
-		bottomLeft: 'top-full left-0 pt-1',
-		bottomRight: 'top-full left-auto right-0 pt-1',
-		topLeft: 'bottom-full left-0 pb-1',
-		topRight: 'bottom-full left-auto right-0 pb-1'
-	}
+	arrow: 'before:bg-gray-100',
+	wrapper: 'relative inline-block'
 };
