@@ -1,11 +1,11 @@
 export default {
-	popper: 'absolute inline-block bg-gray-900 text-white p-2 rounded text-xs leading-none w-auto shadow z-10',
+	popper: 'absolute block bg-gray-800 text-white p-2 rounded text-xs leading-none w-auto shadow z-50',
 	reference: {
-		base: '',
+		base: 'inline-block',
 		state: {
 			default: 'cursor-pointer',
 			disabled: 'cursor-not-allowed'
 		}
 	},
-	arrow: 'before:bg-gray-900'
+	arrow: 'before:bg-gray-800'
 };

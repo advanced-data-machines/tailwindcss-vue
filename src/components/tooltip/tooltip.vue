@@ -37,7 +37,7 @@ export default {
 		},
 		trigger: {
 			type: String,
-			default: 'click',
+			default: 'hover',
 			validator: (n) => ['click', 'hover'].indexOf(n) > -1
 		},
 		placement: {
@@ -115,7 +115,7 @@ export default {
 			const state = this.disabled ? 'disabled' : 'default';
 			return [
 				tag,
-				tag.base,
+				theme.base,
 				`${tag}-${state}`,
 				theme.state[state]
 			];

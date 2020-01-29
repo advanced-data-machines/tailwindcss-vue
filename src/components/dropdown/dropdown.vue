@@ -14,20 +14,18 @@
 		:append-to-body="appendToBody"
 		:class="wrapperClass"
 	>
-		<div :class="[currentClass]">
-			<div :class="contentClass" :role="menuAriaRole">
-				<slot />
-			</div>
+		<div :class="popperClass" :role="menuAriaRole">
+			<slot />
+			<div data-popper-arrow :class="arrowClass" />
 		</div>
-		<div data-popper-arrow />
-		<div slot="reference" role="button" aria-haspopup="true">
+		<div slot="reference" :class="referenceClass" role="button" aria-haspopup="true">
 			<slot name="trigger" :disabled="disabled" />
 		</div>
 	</tv-popper>
 </template>
 <script>
 import TvPopper from '../popper/popper.vue';
-import ThemeMixin from '@/mixins/theme.js';
+import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvDropdown',
 	mixins: [ThemeMixin],
@@ -35,10 +33,6 @@ export default {
 		'tv-popper': TvPopper
 	},
 	props: {
-		tag: {
-			type: String,
-			default: 'span'
-		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: null
@@ -46,6 +40,10 @@ export default {
 		multiple: {
 			type: Boolean,
 			default: false
+		},
+		tag: {
+			type: String,
+			default: 'span'
 		},
 		trigger: {
 			type: String,
@@ -70,17 +68,17 @@ export default {
 				'bottom-end'
 			].indexOf(n) > -1
 		},
-		disabled: {
-			type: Boolean,
-			default: false
+		canClose: {
+			type: [Array, Boolean],
+			default: true
 		},
 		closeOnClick: {
 			type: Boolean,
 			default: true
 		},
-		canClose: {
-			type: [Array, Boolean],
-			default: true
+		disabled: {
+			type: Boolean,
+			default: false
 		},
 		options: {
 			type: Object,
@@ -133,24 +131,33 @@ export default {
 				theme.wrapper
 			];
 		},
-		contentClass() {
-			const tag = `${this.$options._componentTag}-content`;
+		popperClass() {
+			const tag = `${this.$options._componentTag}-popper`;
 			const theme = this.currentTheme;
 			return [
 				tag,
-				theme.content
+				`${tag}-${this.placement}`,
+				theme.popper
 			];
 		},
-		currentClass() {
-			const tag = `${this.$options._componentTag}-menu`;
-			const theme = this.currentTheme;
+		referenceClass() {
+			const tag = `${this.$options._componentTag}-reference`;
+			const theme = this.currentTheme.reference;
+			const state = this.disabled ? 'disabled' : 'default';
 			return [
 				tag,
-				theme.base
+				theme.base,
+				`${tag}-${state}`,
+				theme.state[state]
 			];
 		},
-		isHoverable() {
-			return this.trigger === 'hover';
+		arrowClass() {
+			const tag = `${this.$options._componentTag}-arrow`;
+			const theme = this.currentTheme.arrow;
+			return [
+				tag,
+				theme
+			];
 		},
 		menuAriaRole() {
 			return (this.ariaRole === 'menu' || this.ariaRole === 'list') ? this.ariaRole : null;
@@ -178,8 +185,7 @@ export default {
 			}
 			this.$emit('input', this.selected);
 			if (!this.multiple) {
-				if (this.isHoverable && this.closeOnClick) {
-					console.log('close');
+				if (this.closeOnClick) {
 					this.$refs['popper'].handleClose();
 				}
 			}

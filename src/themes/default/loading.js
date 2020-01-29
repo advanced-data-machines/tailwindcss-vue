@@ -3,11 +3,11 @@ export default {
 		base: 'inset-0 justify-center items-center overflow-hidden',
 		state: {
 			default: 'absolute',
-			fullPage: 'z-40 fixed'
+			fullPage: 'fixed'
 		},
 		visibility: {
 			default: 'hidden',
-			active: 'flex'
+			active: 'z-30 flex'
 		}
 	},
 	spinner: 'after:border-gray-400',

@@ -77,7 +77,8 @@ module.exports = {
 		borderRadius: ['responsive', 'first', 'last'],
 		borderWidth: ['responsive', 'first', 'last'],
 		margin: ['responsive', 'before', 'first', 'last'],
-		textColor: ['responsive', 'hover', 'focus', 'before']
+		textColor: ['responsive', 'hover', 'focus', 'before'],
+		backgroundColor: ['responsive', 'hover', 'focus', 'before']
 	},
 	plugins: [
 		function({ addVariant, e }) {

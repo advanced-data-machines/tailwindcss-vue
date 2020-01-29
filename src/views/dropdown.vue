@@ -1,5 +1,5 @@
 <template>
-	<section class="px-4 w-full">
+	<section class="px-4">
 		<h1 class="text-3xl text-teal-300">Dropdown</h1>
 		<tv-dropdown v-model="value" multiple aria-role="list">
 			<tv-button slot="trigger" slot-scope="props" :disabled="props.disabled">
@@ -16,13 +16,13 @@
 			</tv-button>
 			<tv-dropdown-item value="test" aria-role="listItem">Option</tv-dropdown-item>
 		</tv-dropdown>
-		<tv-dropdown placement="top-start">
+		<tv-dropdown placement="top-start" append-to-body>
 			<tv-button slot="trigger">
 				Top Left <tv-icon icon="menu-down" />
 			</tv-button>
 			<tv-dropdown-item value="test" aria-role="listItem">Option</tv-dropdown-item>
 		</tv-dropdown>
-		<tv-dropdown placement="top-end">
+		<tv-dropdown placement="top-end" append-to-body>
 			<tv-button slot="trigger">
 				Top Right <tv-icon icon="menu-down" />
 			</tv-button>
@@ -34,7 +34,7 @@
 			{{ value }}
 		</code>
 
-		<p>This is a test <tv-tooltip content="Hello!" class="underline">tooltip</tv-tooltip></p>
+		<p>This is a test <tv-tooltip content="Hello!" class="underline" placement="right">tooltip</tv-tooltip></p>
 	</section>
 </template>
 <script>

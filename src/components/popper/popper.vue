@@ -131,7 +131,8 @@ export default {
 			referenceElm: null,
 			popper: null,
 			showPopper: false,
-			timer: null
+			timerOver: null,
+			timerOut: null
 		};
 	},
 	watch: {
@@ -150,13 +151,12 @@ export default {
 		}
 	},
 	methods: {
-		updatePopper() {
-			if (!this.popperJs) this.createPopper();
+		async updatePopper() {
+			!this.popperJs ? this.createPopper() : this.popperJs.update();
 		},
 		createPopper() {
 			this.$nextTick(() => {
 				if (this.disabled) return;
-				console.log(this.hasArrow);
 				if (this.hasArrow && !this.appendedArrow) {
 					this.appendArrow(this.popper);
 				}
@@ -186,7 +186,6 @@ export default {
 			if (typeof this.customOffset === 'function') {
 				return this.customOffset.apply(null, [placement, reference, popper]);
 			}
-			console.log(this.customOffset);
 			return this.customOffset;
 		},
 		appendArrow(element) {
