@@ -17,7 +17,7 @@
 // from https://github.com/BinarCode/vue2-transitions - repo does not look maintained
 import Transition from './transition-mixin.js';
 export default {
-	name: 'CollapseTransition',
+	name: 'TvCollapseTransition',
 	mixins: [Transition],
 	methods: {
 		transitionStyle(duration = 300) {

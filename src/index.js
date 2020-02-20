@@ -56,20 +56,20 @@ const components = [
 	Tooltip
 ];
 
-// use components
-const install = function(Vue, args = {}) {
-	if (this.installed) {
-		throw new Error('(TV Warn[Install]) - install is being called more then again');
+export default {
+	install(Vue, args = {}) {
+		if (this.installed) {
+			return;
+		}
+		this.installed = true;
+		const componentList = (args.components && Array.isArray(args.components)) || components;
+		componentList.forEach(component => {
+			Vue.use(component, args);
+		});
 	}
-	this.installed = true;
-	const componentList = (args.components && Array.isArray(args.components)) || components;
-	componentList.forEach(component => {
-		Vue.use(component, args);
-	});
 };
 
-export default {
-	install,
+export {
 	Alert,
 	AlertNotice,
 	NotifyProgrammatic,

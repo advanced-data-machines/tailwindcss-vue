@@ -13,6 +13,10 @@ export const installComponents = function(Vue, args, components) {
 	});
 };
 
+export const useComponent = function(Vue, component) {
+	Vue.component(component.name, component);
+};
+
 export const registerComponentProgrammatic = (Vue, property, component) => {
 	if (!Vue.prototype.$tailwindVue) Vue.prototype.$tailwindVue = {};
 	Vue.prototype.$tailwindVue[property] = component;
