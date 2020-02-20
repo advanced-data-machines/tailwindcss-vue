@@ -5,7 +5,7 @@ module.exports = {
 	},
 	'extends': [
 		'plugin:vue/strongly-recommended',
-		'@vue/standard'
+		'eslint:recommended'
 	],
 	rules: {
 		'no-var': 2,

@@ -16,6 +16,7 @@
 			paginated
 			:per-page="paging.perPage"
 			:current-page="paging.current"
+			pagination-location="both"
 		>
 			<template slot-scope="props">
 				<td :class="props.tdClass">
