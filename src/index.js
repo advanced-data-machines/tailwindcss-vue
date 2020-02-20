@@ -59,7 +59,7 @@ const components = [
 // use components
 const install = function(Vue, args = {}) {
 	if (this.installed) {
-		throw new Error('(TV Warn[Install]) - install is being called more then again');
+		return;
 	}
 	this.installed = true;
 	const componentList = (args.components && Array.isArray(args.components)) || components;
