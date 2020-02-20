@@ -292,32 +292,3 @@ export default {
 	}
 };
 </script>
-<style lang="postcss">
-	[data-popper-placement^="top"] > [data-popper-arrow] {
-		bottom: -5px;
-	}
-
-	[data-popper-placement^="bottom"] > [data-popper-arrow] {
-		top: -5px;
-	}
-
-	[data-popper-placement^="right"] > [data-popper-arrow] {
-		left: -5px;
-	}
-
-	[data-popper-placement^="left"] > [data-popper-arrow] {
-		right: -5px;
-	}
-
-	[data-popper-arrow], [data-popper-arrow]::before {
-		width: 10px;
-		height: 10px;
-		z-index: -1;
-		position: absolute;
-	}
-
-	[data-popper-arrow]::before {
-		content: "";
-		transform: rotate(45deg);
-	}
-</style>

@@ -139,19 +139,3 @@ export default {
 	}
 };
 </script>
-<style>
-	.loading-icon:after {
-		animation: spin .5s infinite linear;
-		border-width: .25rem;
-		border-right-color: transparent !important;
-		border-top-color: transparent !important;
-		border-radius: 9999px;
-		position: absolute;
-		top: calc(50% - 1.5em);
-		left: calc(50% - 1.5em);
-		width: 3em;
-		height: 3em;
-		content: "";
-		display: block;
-	}
-</style>
