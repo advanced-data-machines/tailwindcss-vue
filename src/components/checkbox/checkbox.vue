@@ -157,12 +157,3 @@ export default {
 	}
 };
 </script>
-<style>
-/*! purgecss start ignore */
-input[type=checkbox] + svg {
-	transition: opacity .3s ease-in-out;
-}
-input[type=checkbox]:checked + svg, input[type="checkbox"]:indeterminate + svg {
-	opacity: 1;
-}
-</style>

@@ -1,0 +1,3 @@
+.collapse-move {
+	transition: transform .3s ease-in-out;
+}

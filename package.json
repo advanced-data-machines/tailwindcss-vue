@@ -1,69 +1,80 @@
 {
-  "name": "@advanced-data-machines/tailwindcss-vue",
-  "version": "0.1.0-alpha.22",
-  "description": "Tailwindcss-Vue is a library of UI components for Vue.js built using the Tailwind CSS utility-first CSS framework.",
-  "author": "Advanced Data Machines",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "build:bundle": "vue-cli-service build --target lib --name tailwindcss-vue ./src/index.js",
-    "docs:build": "vuepress build docs",
-    "docs:dev": "vuepress dev docs",
-    "update-packages": "npx npm-check -u"
-  },
-  "main": "./dist/tailwindcss-vue.common.js",
-  "files": [
-    "dist/*"
-  ],
-  "dependencies": {
-    "@popperjs/core": "^2.0.2",
-    "async-validator": "^3.2.3"
-  },
-  "devDependencies": {
-    "@mdi/font": "^4.9.95",
-    "@vue/cli-plugin-babel": "^4.2.2",
-    "@vue/cli-plugin-eslint": "^4.2.2",
-    "@vue/cli-plugin-router": "^4.2.2",
-    "@vue/cli-plugin-unit-jest": "^4.2.2",
-    "@vue/cli-service": "^4.2.2",
-    "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.31",
-    "babel-eslint": "^10.0.3",
-    "core-js": "^3.6.4",
-    "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^6.2.1",
-    "postcss-import": "^12.0.1",
-    "tailwindcss": "^1.2.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.5",
-    "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.3.0"
-  },
-  "peerDependencies": {
-    "tailwindcss": "^1.1.0",
-    "vue": "^2.6.0"
-  },
-  "bugs": {
-    "url": "https://github.com/advanced-data-machines/tailwindcss-vue/issues"
-  },
-  "directories": {
-    "docs": "docs"
-  },
-  "homepage": "https://github.com/advanced-data-machines/tailwindcss-vue#readme",
-  "keywords": [
-    "tailwind css",
-    "postcss",
-    "vue",
-    "vue.js",
-    "ui",
-    "components",
-    "library"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/advanced-data-machines/tailwindcss-vue.git"
-  }
+	"name": "@advanced-data-machines/tailwindcss-vue",
+	"version": "0.1.0-alpha.22",
+	"description": "Tailwindcss-Vue is a library of UI components for Vue.js built using the Tailwind CSS utility-first CSS framework.",
+	"author": "Advanced Data Machines",
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"test:unit": "vue-cli-service test:unit",
+		"lint": "vue-cli-service lint",
+		"build:bundle": "vue-cli-service build --target lib --name tailwindcss-vue ./src/index.js",
+		"docs:build": "vuepress build docs",
+		"docs:dev": "vuepress dev docs",
+		"update-packages": "npx npm-check -u",
+		"rollup": "rollup -c && rollup -c --environment MINIFY"
+	},
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"unpkg": "dist/tailwindcss-vue.min.js",
+	"files": [
+		"dist/*"
+	],
+	"dependencies": {
+		"@popperjs/core": "^2.0.2",
+		"async-validator": "^3.2.3",
+		"rollup-plugin-css-only": "^2.0.0",
+		"rollup-plugin-postcss": "^2.0.6"
+	},
+	"devDependencies": {
+		"@mdi/font": "^4.9.95",
+		"@rollup/plugin-commonjs": "^11.0.2",
+		"@rollup/plugin-node-resolve": "^7.1.1",
+		"@vue/cli-plugin-babel": "^4.2.2",
+		"@vue/cli-plugin-eslint": "^4.2.2",
+		"@vue/cli-plugin-router": "^4.2.2",
+		"@vue/cli-service": "^4.2.2",
+		"@vue/eslint-config-standard": "^4.0.0",
+		"@vue/test-utils": "1.0.0-beta.31",
+		"babel-eslint": "^10.0.3",
+		"core-js": "^3.6.4",
+		"eslint": "^6.8.0",
+		"eslint-plugin-vue": "^6.2.1",
+		"postcss-import": "^12.0.1",
+		"rollup": "^1.31.1",
+		"rollup-plugin-babel": "^4.3.3",
+		"rollup-plugin-delete": "^1.2.0",
+		"rollup-plugin-terser": "^5.2.0",
+		"rollup-plugin-vue": "^5.1.6",
+		"tailwindcss": "^1.2.0",
+		"vue": "^2.6.11",
+		"vue-router": "^3.1.5",
+		"vue-template-compiler": "^2.6.11",
+		"vuepress": "^1.3.0"
+	},
+	"peerDependencies": {
+		"tailwindcss": "^1.1.0",
+		"vue": "^2.6.0"
+	},
+	"bugs": {
+		"url": "https://github.com/advanced-data-machines/tailwindcss-vue/issues"
+	},
+	"directories": {
+		"docs": "docs"
+	},
+	"homepage": "https://github.com/advanced-data-machines/tailwindcss-vue#readme",
+	"keywords": [
+		"tailwind css",
+		"postcss",
+		"vue",
+		"vue.js",
+		"ui",
+		"components",
+		"library"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/advanced-data-machines/tailwindcss-vue.git"
+	}
 }

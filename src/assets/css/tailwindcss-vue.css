@@ -1,0 +1,12 @@
+/*! purgecss start ignore */
+@import './animate.css';
+
+/* components */
+@import './components/checkbox.css';
+@import './components/collapse-transition.css';
+@import './components/label.css';
+@import './components/loading.css';
+@import './components/popper.css';
+@import './components/radio.css';
+
+/*! purgecss end ignore */
