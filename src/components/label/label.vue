@@ -46,8 +46,3 @@ export default {
 	}
 };
 </script>
-<style>
-	label.asterisk:before {
-		content: '*'
-	}
-</style>

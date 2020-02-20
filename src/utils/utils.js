@@ -22,7 +22,7 @@ export const isEmpty = function(val) {
 	case '[object Array]':
 		return !val.length;
 
-		// Map or Set or File
+	// Map or Set or File
 	case '[object File]':
 	case '[object Map]':
 	case '[object Set]': {

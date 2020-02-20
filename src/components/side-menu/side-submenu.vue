@@ -16,15 +16,15 @@
 				<slot />
 			</ul>
 		</transition>
-		<collapse-transition v-else>
+		<tv-collapse-transition v-else>
 			<ul v-show="opened" class="children">
 				<slot />
 			</ul>
-		</collapse-transition>
+		</tv-collapse-transition>
 	</li>
 </template>
 <script>
-import CollapseTransition from '../../components/transitions/collapse-transition.vue';
+import TvCollapseTransition from '../../components/collapse-transition/collapse-transition.vue';
 import MenuArrow from './menu-arrow.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
@@ -32,7 +32,7 @@ export default {
 	name: 'TvSideSubmenu',
 	mixins: [Emitter, Menu],
 	components: {
-		'collapse-transition': CollapseTransition,
+		'tv-collapse-transition': TvCollapseTransition,
 		'tv-menu-arrow': MenuArrow
 	},
 	props: {

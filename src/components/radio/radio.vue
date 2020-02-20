@@ -140,11 +140,3 @@ export default {
 	}
 };
 </script>
-<style>
-input[type=radio] + svg {
-	transition: opacity .3s ease-in-out;
-}
-input[type=radio]:checked + svg {
-	opacity: 1;
-}
-</style>
