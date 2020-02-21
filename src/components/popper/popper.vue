@@ -215,7 +215,7 @@ export default {
 				this.showPopper = true;
 			}, this.delayOnMouseOver);
 		},
-		onMouseOut(e) {
+		onMouseOut() {
 			if (this.disabled) return;
 			clearTimeout(this.timerOut);
 			clearTimeout(this.timerOver);

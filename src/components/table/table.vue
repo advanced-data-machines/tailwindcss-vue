@@ -1,5 +1,33 @@
 <template>
 	<div class="w-full">
+		<tv-pagination
+			v-if="paginated && handlePaginationLocation('top')"
+			:total="newDataTotal"
+			:current.sync="newCurrentPage"
+			:searching="search !== ''"
+			:filtered-total="searchResults.length"
+			:per-page="perPage"
+			:disabled="search !== '' && backendPaginated"
+			:button-size="buttonSize"
+			:button-variant="buttonVariant"
+			:button-outline="buttonOutline"
+			:button-square="buttonSquare"
+			:button-rounded="buttonRounded"
+			@change="changePage"
+		>
+			<template slot="first">
+				<slot name="first" />
+			</template>
+			<template slot="previous">
+				<slot name="previous" />
+			</template>
+			<template slot="next">
+				<slot name="next" />
+			</template>
+			<template slot="last">
+				<slot name="last" />
+			</template>
+		</tv-pagination>
 		<div :class="{ 'overflow-x-auto': responsive }">
 			<table :class="currentClass">
 				<thead>
@@ -67,7 +95,7 @@
 			</table>
 		</div>
 		<tv-pagination
-			v-if="paginated"
+			v-if="paginated && handlePaginationLocation('bottom')"
 			:total="newDataTotal"
 			:current.sync="newCurrentPage"
 			:searching="search !== ''"
@@ -237,6 +265,11 @@ export default {
 		customSearch: {
 			type: Function,
 			default: undefined
+		},
+		paginationLocation: {
+			type: String,
+			default: 'bottom',
+			validate: (x) => ['top', 'bottom', 'both'].indexOf(x) > -1
 		}
 	},
 	data() {
@@ -535,6 +568,9 @@ export default {
 			this.$emit('update:currentPage', this.newCurrentPage);
 			// emit pageChange
 			this.$emit('page-change', this.newCurrentPage);
+		},
+		handlePaginationLocation(location) {
+			return (this.paginationLocation === 'both' || location === this.paginationLocation);
 		}
 	},
 	mounted() {

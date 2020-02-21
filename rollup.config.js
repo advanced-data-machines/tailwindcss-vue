@@ -32,7 +32,6 @@ const components = fs
 	);
 
 const cssComponents = fs.readdirSync(baseFolder + cssAssetsFolder + componentsFolder);
-console.log(cssComponents);
 
 const entries = {
 	'index': './src/index.js',
@@ -223,5 +222,4 @@ export default () => {
 		});
 	}
 	return config;
-}
-;
+};
