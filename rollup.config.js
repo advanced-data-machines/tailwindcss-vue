@@ -68,7 +68,10 @@ export default () => {
 					}),
 					vue({
 						template: {
-							isProduction: true
+							isProduction: true,
+							compilerOptions: {
+								preserveWhitespace: false
+							}
 						}
 					}),
 					babel(babelConfig),
@@ -131,7 +134,10 @@ export default () => {
 				}),
 				vue({
 					template: {
-						isProduction: true
+						isProduction: true,
+						compilerOptions: {
+							preserveWhitespace: false
+						}
 					}
 				}),
 				babel(babelConfig),
@@ -152,7 +158,10 @@ export default () => {
 				}),
 				vue({
 					template: {
-						isProduction: true
+						isProduction: true,
+						compilerOptions: {
+							preserveWhitespace: false
+						}
 					}
 				}),
 				babel(babelConfig),
@@ -178,7 +187,10 @@ export default () => {
 				}),
 				vue({
 					template: {
-						isProduction: true
+						isProduction: true,
+						compilerOptions: {
+							preserveWhitespace: false
+						}
 					}
 				}),
 				babel(babelConfig),
@@ -199,7 +211,10 @@ export default () => {
 				}),
 				vue({
 					template: {
-						isProduction: true
+						isProduction: true,
+						compilerOptions: {
+							preserveWhitespace: false
+						}
 					}
 				}),
 				babel(babelConfig),
