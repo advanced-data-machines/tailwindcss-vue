@@ -11,6 +11,7 @@
 		:delay-on-mouse-out="delayOnMouseOut"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
+		:prevent-mobile="preventMobile"
 	>
 		<span :class="popperClass" role="tooltip">
 			{{ content }}
@@ -97,6 +98,10 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
+		},
+		preventMobile: {
+			type: Boolean,
+			default: true
 		}
 	},
 	computed: {
