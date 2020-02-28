@@ -13,6 +13,7 @@
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:class="wrapperClass"
+		:prevent-mobile="preventMobile"
 	>
 		<div :class="popperClass" :role="menuAriaRole">
 			<slot />
@@ -115,6 +116,10 @@ export default {
 		ariaRole: {
 			type: String,
 			default: null
+		},
+		preventMobile: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {

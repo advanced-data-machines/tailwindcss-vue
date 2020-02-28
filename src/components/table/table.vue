@@ -57,21 +57,21 @@
 				<tbody v-if="visibleData.length > 0">
 					<template v-for="(row, index) in visibleData">
 						<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
-							<td v-if="detailed" :class="tdClass">
+							<td v-if="detailed" :class="tdClass" data-label="Detail">
 								<slot name="arrow" :opened="isDetailActive">
 									<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
 								</slot>
 							</td>
 							<slot v-if="$scopedSlots['default']" :row="row" :index="index" :td-class="tdClass" />
 							<template v-else>
-								<td v-for="column in newColumns" :key="column.field" :class="tdClass">
+								<td v-for="column in newColumns" :key="column.field" :class="tdClass" :data-label="column.label">
 									<span v-if="column.renderHtml" v-html="getValueByPath(row, column.field)" />
 									<template v-else>
 										{{ getValueByPath(row, column.field) }}
 									</template>
 								</td>
 							</template>
-							<td v-if="showCheckbox" :class="tdClass">
+							<td v-if="showCheckbox" :class="tdClass" data-label="Select">
 								<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
 							</td>
 						</tr>

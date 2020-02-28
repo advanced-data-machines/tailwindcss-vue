@@ -6,7 +6,7 @@
 			:leave-active-class="leaveActiveClass"
 			@afer-leave="handleDestroy"
 		>
-			<span v-show="!disabled && showPopper" :aria-hidden="!showPopper">
+			<span v-show="!isDisabled && showPopper" :aria-hidden="!showPopper">
 				<slot>{{ content }}</slot>
 			</span>
 		</transition>
@@ -114,6 +114,10 @@ export default {
 		leaveActiveClass: {
 			type: String,
 			default: 'animated fadeOut faster'
+		},
+		preventMobile: {
+			type: Boolean,
+			default: true
 		}
 	},
 	computed: {
@@ -123,6 +127,9 @@ export default {
 					? ['escape', 'outside']
 					: []
 				: this.canClose;
+		},
+		isDisabled() {
+			return this.disabled || (this.preventMobile && typeof window !== 'undefined' && /(iphone|ipod|ipad|android|iemobile|blackberry|bada)/.test(window.navigator.userAgent.toLowerCase()));
 		}
 	},
 	data() {
@@ -156,7 +163,7 @@ export default {
 		},
 		createPopper() {
 			this.$nextTick(() => {
-				if (this.disabled) return;
+				if (this.isDisabled) return;
 				if (this.hasArrow && !this.appendedArrow) {
 					this.appendArrow(this.popper);
 				}
@@ -190,7 +197,6 @@ export default {
 		},
 		appendArrow(element) {
 			if (this.appendedArrow) return;
-
 			this.appendedArrow = true;
 			const arrow = document.createElement('div');
 			arrow.setAttribute('data-popper-arrow', '');
@@ -198,7 +204,7 @@ export default {
 			element.appendChild(arrow);
 		},
 		toggle() {
-			if (this.disabled) return;
+			if (this.isDisabled) return;
 			this.showPopper = !this.showPopper;
 		},
 		handleShow() {
@@ -208,7 +214,7 @@ export default {
 			this.showPopper = false;
 		},
 		onMouseOver() {
-			if (this.disabled) return;
+			if (this.isDisabled || this.isTouch) return;
 			clearTimeout(this.timerOver);
 			clearTimeout(this.timerOut);
 			this.timerOver = setTimeout(() => {
@@ -216,7 +222,7 @@ export default {
 			}, this.delayOnMouseOver);
 		},
 		onMouseOut() {
-			if (this.disabled) return;
+			if (this.isDisabled) return;
 			clearTimeout(this.timerOut);
 			clearTimeout(this.timerOver);
 			this.timerOut = setTimeout(() => {
