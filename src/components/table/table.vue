@@ -54,7 +54,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody v-if="visibleData.length > 0">
+				<tbody v-if="visibleData.length > 0" data-tbody="results">
 					<template v-for="(row, index) in visibleData">
 						<tr :class="[trClass, handleCustomRowClass(row, index)]" :key="customRowKey ? row[customRowKey] : index">
 							<td v-if="detailed" :class="tdClass" data-label="Detail">
@@ -82,7 +82,7 @@
 						</tr>
 					</template>
 				</tbody>
-				<tbody v-else>
+				<tbody v-else data-tbody="no-data">
 					<tr :class="trClass">
 						<slot name="no-data" :data="visibleData" :td-class="tdClass" :loading="loading">
 							<td :class="tdClass" colspan="100">
