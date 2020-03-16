@@ -1,5 +1,6 @@
 import Alert from './components/alert';
 import AlertNotice, { NotifyProgrammatic } from './components/alert-notice';
+import Autocomplete from './components/autocomplete';
 import Button from './components/button';
 import Checkbox from './components/checkbox';
 import CheckboxButton from './components/checkbox-button';
@@ -32,6 +33,7 @@ import Theme from './utils/theme.js';
 const components = [
 	Alert,
 	AlertNotice,
+	Autocomplete,
 	Button,
 	Checkbox,
 	CheckboxButton,
@@ -74,6 +76,7 @@ export default {
 export {
 	Alert,
 	AlertNotice,
+	Autocomplete,
 	NotifyProgrammatic,
 	Button,
 	Checkbox,

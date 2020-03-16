@@ -153,7 +153,7 @@ export default {
 		},
 		forceShow: {
 			handler(value) {
-				this[value ? 'handleShow' : 'handleClose'];
+				this[value ? 'handleShow' : 'handleClose']();
 			},
 			immediate: true
 		},

@@ -78,7 +78,8 @@ export default {
 	},
 	data() {
 		return {
-			newValue: this.value
+			newValue: this.value,
+			isFocused: false
 		};
 	},
 	computed: {
@@ -125,6 +126,7 @@ export default {
 	},
 	watch: {
 		value(value) {
+			console.log(value);
 			this.newValue = value;
 			if (this.validateEvent) {
 				this.dispatch('TvFormGroup', 'form.change', [value]);
@@ -140,7 +142,7 @@ export default {
 			});
 		},
 		handleBlur(event) {
-			this.focused = false;
+			this.isFocused = false;
 			this.$emit('blur', event);
 			if (this.validateEvent) {
 				this.dispatch('TvFormGroup', 'form.blur', [this.value]);
@@ -150,17 +152,15 @@ export default {
 			this.$emit('change', event.target.value);
 		},
 		handleFocus(event) {
-			this.focused = true;
+			this.isFocused = true;
 			this.$emit('focus', event);
-		},
-		select() {
-			this.$refs.input.select();
 		},
 		focus() {
 			this.$refs.input.focus();
 		},
-		blur() {
+		onBlur() {
 			this.$refs.input.blur();
+
 		}
 	}
 };

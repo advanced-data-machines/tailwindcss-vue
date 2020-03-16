@@ -14,6 +14,10 @@
 				<tv-label>Name</tv-label>
 				<tv-input name="test" size="lg" class="resize-none" v-model="test.name" />
 			</tv-form-group>
+			<tv-form-group prop="city" :theme-override="custom">
+				<tv-label>Autocomplete</tv-label>
+				<tv-autocomplete v-model="test.city" :data="cities" class="w-full" />
+			</tv-form-group>
 			<tv-form-group prop="city">
 				<tv-label>City</tv-label>
 				<tv-select v-model="test.city" placeholder="Select a City" size="sm">
@@ -95,6 +99,7 @@ export default {
 				city: '',
 				checked: []
 			},
+			seleced: '',
 			active: true,
 			custom: {
 				base: 'w-full mb-3'
