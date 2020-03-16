@@ -151,6 +151,12 @@ export default {
 				this.$emit('hide');
 			}
 		},
+		forceShow: {
+			handler(value) {
+				this[value ? 'handleShow' : 'handleClose'];
+			},
+			immediate: true
+		},
 		disabled(value) {
 			if (!value) {
 				this.showPopper = false;

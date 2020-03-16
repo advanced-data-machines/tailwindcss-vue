@@ -1,5 +1,6 @@
 import TvAlert from './alert.js';
 import TvAlertNotice from './alert-notice.js';
+import TvAutocomplete from './autocomplete.js';
 import TvButton from './button.js';
 import TvCheckbox from './checkbox.js';
 import TvCheckboxButton from './checkbox-button.js';
@@ -28,6 +29,7 @@ import TvTooltip from './tooltip.js';
 export default {
 	TvAlert,
 	TvAlertNotice,
+	TvAutocomplete,
 	TvButton,
 	TvCheckbox,
 	TvCheckboxButton,
