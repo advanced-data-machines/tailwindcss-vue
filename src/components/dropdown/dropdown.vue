@@ -12,8 +12,11 @@
 		:delay-on-mouse-out="delayOnMouseOut"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
-		:class="wrapperClass"
+		:transition="transition"
+		:enter-active-class="enterActiveClass"
+		:leave-active-class="leaveActiveClass"
 		:prevent-mobile="preventMobile"
+		:class="wrapperClass"
 	>
 		<div :class="popperClass" :role="menuAriaRole">
 			<slot />
@@ -113,13 +116,25 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		ariaRole: {
+		transition: {
 			type: String,
 			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,
 			default: false
+		},
+		ariaRole: {
+			type: String,
+			default: null
 		}
 	},
 	data() {

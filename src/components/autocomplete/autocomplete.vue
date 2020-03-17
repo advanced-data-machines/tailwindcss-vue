@@ -1,6 +1,7 @@
 <template>
 	<tv-popper
 		:tag="tag"
+		:trigger="null"
 		:placement="placement"
 		:disabled="disabled"
 		:options="options"
@@ -9,30 +10,44 @@
 		:delay-on-mouse-out="delayOnMouseOut"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
+		:transition="transition"
+		:enter-active-class="enterActiveClass"
+		:leave-active-class="leaveActiveClass"
 		:class="wrapperClass"
 	>
-		<span :class="popperClass" role="tooltip">
-			<div ref="dropdown">
-				<a
+		<div ref="popper" :class="popperClass">
+			<div class="overflow-y-auto" ref="popper-content" :style="contentStyle">
+				<tv-autocomplete-item
 					v-for="(option, index) in data"
 					:key="index"
 					@click="setSelected(option)"
-					class="block min-w-md"
+					:active="hovered == option"
 				>
-					<slot v-if="$scopedSlots['default']" />
-					<span v-else>
+					<slot 
+						v-if="$scopedSlots['default']"
+						:option="option"
+						:index="index"
+					/>
+					<template v-else>
 						{{ getValue(option, true) }}
-					</span>
-				</a>
+					</template>
+				</tv-autocomplete-item>
+				<div v-if="data.length === 0 && !!this.$scopedSlots.default">
+					<slot name="empty" />
+				</div>
 			</div>
 			<div data-popper-arrow :class="arrowClass" />
-		</span>
+		</div>
 		<span slot="reference" :class="referenceClass">
 			<tv-input
 				ref="input"
 				v-model="newValue"
 				type="text"
+				:disabled="disabled"
+				:readonly="readonly"
 				:size="size"
+				:validate-event="validateEvent"
+				:autocomplete="this.autocompleate"
 				@input="onInput"
 				@focus="onFocus"
 				@blur="onBlur"
@@ -46,37 +61,20 @@
 	</tv-popper>
 </template>
 <script>
-import Emitter from '../../mixins/emitter.js';
 import ThemeMixin from '../../mixins/theme.js';
+import TvAutocompleteItem from './autocomplete-item.vue';
 import TvPopper from '../popper/popper.vue';
 import TvInput from '../input/input.vue';
-import { getValueByPath } from '@/utils/utils.js';
+import { getValueByPath } from '../../utils/utils.js';
 export default {
 	name: 'TvAutocomplete',
-	mixins: [Emitter, ThemeMixin],
+	mixins: [ThemeMixin],
 	components: {
+		'tv-autocomplete-item': TvAutocompleteItem,
 		'tv-input': TvInput,
 		'tv-popper': TvPopper
 	},
 	props: {
-		placement: {
-			type: String,
-			default: 'bottom',
-			validator: (n) => [
-				'top',
-				'top-start',
-				'top-end',
-				'left',
-				'left-start',
-				'left-end',
-				'right',
-				'right-start',
-				'right-end',
-				'bottom',
-				'bottom-start',
-				'bottom-end'
-			].indexOf(n) > -1
-		},
 		value: {
 			type: [String, Number],
 			default: null
@@ -89,13 +87,17 @@ export default {
 			type: String,
 			default: 'value'
 		},
-		openOnSelect: {
+		openOnFocus: {
 			type: Boolean,
-			default: true,
+			default: false,
 		},
 		keepFirst: {
 			type: Boolean,
-			default: true
+			default: false
+		},
+		customFormatter: {
+			type: Function,
+			default: undefined
 		},
 		validateEvent: {
 			type: Boolean,
@@ -113,6 +115,14 @@ export default {
 			type: String,
 			default: null,
 			validator: (value) => value == null || ['sm', 'lg'].indexOf(value) !== -1
+		},
+		autocompleate: {
+			type: String,
+			default: 'off'
+		},
+		maxHeight: {
+			type: [String,Number],
+			default: undefined
 		},
 		tag: {
 			type: String,
@@ -134,6 +144,24 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		placement: {
+			type: String,
+			default: 'bottom',
+			validator: (n) => [
+				'top',
+				'top-start',
+				'top-end',
+				'left',
+				'left-start',
+				'left-end',
+				'right',
+				'right-start',
+				'right-end',
+				'bottom',
+				'bottom-start',
+				'bottom-end'
+			].indexOf(n) > -1
+		},
 		customOffset: {
 			type: [Function, Array],
 			default: () => [0, 5]
@@ -141,6 +169,18 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
+		},
+		transition: {
+			type: String,
+			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		}
 	},
 	data() {
@@ -153,19 +193,6 @@ export default {
 		};
 	},
 	computed: {
-		whiteList() {
-			const whiteList = [];
-			whiteList.push(this.$refs.input.$el.querySelector('input'));
-			whiteList.push(this.$refs.dropdown);
-			// Add all chidren from dropdown
-			if (this.$refs.dropdown !== undefined) {
-				const children = this.$refs.dropdown.querySelectorAll('*');
-				for (const child of children) {
-					whiteList.push(child);
-				}
-			}
-			return whiteList;
-		},
 		wrapperClass() {
 			const tag = `${this.$options._componentTag}-wrapper`;
 			const theme = this.currentTheme;
@@ -186,12 +213,9 @@ export default {
 		referenceClass() {
 			const tag = `${this.$options._componentTag}-reference`;
 			const theme = this.currentTheme.reference;
-			const state = this.disabled ? 'disabled' : 'default';
 			return [
 				tag,
-				theme.base,
-				`${tag}-${state}`,
-				theme.state[state]
+				theme
 			];
 		},
 		arrowClass() {
@@ -202,20 +226,32 @@ export default {
 				theme
 			];
 		},
-		optionsClass() {
-			const tag = `${this.$options._componentTag}-option`;
-			const theme = this.currentTheme.option;
-			const state = this.isClickable ? 'normal' : 'disabled';
-			const active = this.isActive ? 'active' : 'default';
-			return [
-				tag,
-				`${tag}-${state}-${active}`,
-				theme.padding,
-				theme[state][active]
-			];
+		whiteList() {
+			const whiteList = [];
+			whiteList.push(this.$refs.input);
+			whiteList.push(this.$refs.dropdown);
+			// Add all chidren from dropdown
+			if (this.$refs.dropdown !== undefined) {
+				const children = this.$refs.dropdown.querySelectorAll('*');
+				for (const child of children) {
+					whiteList.push(child);
+				}
+			}
+			return whiteList;
 		},
+		contentStyle() {
+			return {
+				maxHeight: this.maxHeight === undefined
+					? null : (isNaN(this.maxHeight) ? this.maxHeight : this.maxHeight + 'px')
+			};
+		}
 	},
 	watch: {
+		isActive(value) {
+			if (!value) {
+				this.$nextTick(() => this.setHovered(null));
+			}
+		},
 		value(value) {
 			this.newValue = value;
 		},
@@ -227,7 +263,7 @@ export default {
 				this.setSelected(null, false);
 			}
 			// Close dropdown if input is clear or else open it
-			if (this.hasFocus && (!this.openOnFocus || value)) {
+			if (this.isFocused && (!this.openOnFocus || value)) {
 				this.isActive = !!value;
 			}
 		},
@@ -250,7 +286,6 @@ export default {
 			if (this.selected !== null) {
 				this.newValue = this.clearOnSelect ? '' : this.getValue(this.selected);
 			}
-			console.log(closeDropdown);
 			closeDropdown && this.$nextTick(() => { this.isActive = false; });
 		},
 		selectFirstOption(options) {
@@ -264,6 +299,9 @@ export default {
 					this.setHovered(null);
 				}
 			});
+		},
+		clickedOutside(event) {
+			if (this.whiteList.indexOf(event.target) < 0) this.isActive = false;
 		},
 		getValue(option) {
 			if (option === null) return;
@@ -285,9 +323,6 @@ export default {
 			}
 			this.setSelected(this.hovered, !this.keepOpen);
 		},
-		clickedOutside(event) {
-			if (this.whiteList.indexOf(event.target) < 0) this.isActive = false;
-		},
 		keyArrows(direction) {
 			const sum = direction === 'down' ? 1 : -1;
 			if (this.isActive) {
@@ -295,6 +330,21 @@ export default {
 				index = index > this.data.length - 1 ? this.data.length : index;
 				index = index < 0 ? 0 : index;
 				this.setHovered(this.data[index]);
+
+				const list = this.$refs['popper-content'];
+				const element = list.querySelectorAll('.tv-autocomplete-item')[index];
+				if (!element) return;
+				const visMin = list.scrollTop;
+				const visMax = list.scrollTop + list.clientHeight - element.clientHeight;
+				if (element.offsetTop < visMin) {
+					list.scrollTop = element.offsetTop;
+				} else if (element.offsetTop >= visMax) {
+					list.scrollTop = (
+						element.offsetTop -
+                        list.clientHeight +
+                        element.clientHeight
+					);
+				}
 			} else {
 				this.isActive = true;
 			}
@@ -309,7 +359,7 @@ export default {
 					this.selectFirstOption(this.data);
 				}
 			}
-			this.hasFocus = true;
+			this.isFocused = true;
 			this.$emit('focus', event);
 		},
 		onInput() {
@@ -320,6 +370,15 @@ export default {
 		onBlur(event) {
 			this.isFocused = false;
 			this.$emit('blur', event);
+		}
+	},
+	created() {
+		if (typeof window !== 'undefined') {
+			document.addEventListener('click', this.clickedOutside);		}
+	},
+	beforeDestroy() {
+		if (typeof window !== 'undefined') {
+			document.removeEventListener('click', this.clickedOutside);
 		}
 	}
 };

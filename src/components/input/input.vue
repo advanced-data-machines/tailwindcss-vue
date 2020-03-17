@@ -72,8 +72,8 @@ export default {
 			validator: (value) => value == null || ['sm', 'lg'].indexOf(value) !== -1
 		},
 		autocompleate: {
-			type: Boolean,
-			default: false
+			type: String,
+			default: 'off'
 		}
 	},
 	data() {
@@ -126,7 +126,6 @@ export default {
 	},
 	watch: {
 		value(value) {
-			console.log(value);
 			this.newValue = value;
 			if (this.validateEvent) {
 				this.dispatch('TvFormGroup', 'form.change', [value]);

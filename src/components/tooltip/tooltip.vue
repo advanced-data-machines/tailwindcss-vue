@@ -11,6 +11,9 @@
 		:delay-on-mouse-out="delayOnMouseOut"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
+		:transition="transition"
+		:enter-active-class="enterActiveClass"
+		:leave-active-class="leaveActiveClass"
 		:prevent-mobile="preventMobile"
 	>
 		<span :class="popperClass" role="tooltip">
@@ -98,6 +101,18 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
+		},
+		transition: {
+			type: String,
+			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,

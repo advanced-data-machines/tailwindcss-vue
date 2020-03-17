@@ -1,6 +1,7 @@
 import Alert from './components/alert';
 import AlertNotice, { NotifyProgrammatic } from './components/alert-notice';
 import Autocomplete from './components/autocomplete';
+import AutocompleteItem from './components/autocomplete-item';
 import Button from './components/button';
 import Checkbox from './components/checkbox';
 import CheckboxButton from './components/checkbox-button';
@@ -34,6 +35,7 @@ const components = [
 	Alert,
 	AlertNotice,
 	Autocomplete,
+	AutocompleteItem,
 	Button,
 	Checkbox,
 	CheckboxButton,
@@ -77,6 +79,7 @@ export {
 	Alert,
 	AlertNotice,
 	Autocomplete,
+	AutocompleteItem,
 	NotifyProgrammatic,
 	Button,
 	Checkbox,

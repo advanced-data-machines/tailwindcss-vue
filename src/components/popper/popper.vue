@@ -292,7 +292,7 @@ export default {
 			on(this.$el, 'mouseover', this.onMouseOver);
 			on(this.$el, 'mouseout', this.onMouseOut);
 			break;
-		default:
+		case 'click':
 			on(this.referenceElm, 'click', this.toggle);
 			on(document, 'click', this.clickOutside);
 			break;
