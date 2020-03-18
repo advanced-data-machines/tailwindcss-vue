@@ -5,7 +5,7 @@
 		:placement="placement"
 		:disabled="disabled"
 		:options="options"
-		:force-show="isActive"
+		:force-show="isActive && (data.length > 0 || hasEmptySlot)"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
 		:modifiers="newModifiers"
@@ -33,11 +33,11 @@
 						{{ getValue(option, true) }}
 					</template>
 				</tv-autocomplete-item>
-				<div v-if="data.length === 0 && !!this.$scopedSlots.default">
+				<div v-if="data.length === 0 && hasEmptySlot">
 					<slot name="empty" />
 				</div>
 			</div>
-			<div data-popper-arrow :class="arrowClass" />
+			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</div>
 		<span slot="reference" :class="referenceClass">
 			<tv-input
@@ -67,7 +67,7 @@ import ThemeMixin from '../../mixins/theme.js';
 import TvAutocompleteItem from './autocomplete-item.vue';
 import TvPopper from '../popper/popper.vue';
 import TvInput from '../input/input.vue';
-import { getValueByPath } from '../../utils/utils.js';
+import { getValueByPath, isEmpty } from '../../utils/utils.js';
 
 const setWidth = {
 	name: 'sameWidth',
@@ -143,6 +143,10 @@ export default {
 			type: [String,Number],
 			default: undefined
 		},
+		selectOnBlur: {
+			type: Boolean,
+			default: false 
+		},
 		tag: {
 			type: String,
 			default: 'div'
@@ -204,7 +208,7 @@ export default {
 		leaveActiveClass: {
 			type: String,
 			default: 'animated fadeOut faster'
-		}
+		},
 	},
 	data() {
 		return {
@@ -261,6 +265,9 @@ export default {
 				}
 			}
 			return whiteList;
+		},
+		hasEmptySlot() {
+			return !!this.$scopedSlots.empty;
 		},
 		contentStyle() {
 			return {
@@ -389,10 +396,26 @@ export default {
 			const currentValue = this.getValue(this.selected);
 			if (currentValue && currentValue === this.newValue) return;
 			this.$emit('typing', this.newValue);
+			if (!this.keepFirst && !this.selected && this.newValue) {
+				const match = this.data.find((option) => {
+					const item = typeof option === 'object'
+						? getValueByPath(option, this.field)
+						: option;
+					return item.toString().toLowerCase() === this.newValue.toLowerCase();
+				});
+				if (!isEmpty(match)) {
+					this.setHovered(match);
+				} else {
+					this.setHovered(null);
+				}
+			}
 		},
 		onBlur(event) {
 			this.isFocused = false;
 			this.$emit('blur', event);
+			if (this.selectOnBlur && !this.selected && this.hovered && this.whiteList.indexOf(event.target) < 0) {
+				this.setSelected(this.hovered);
+			}
 		}
 	},
 	created() {

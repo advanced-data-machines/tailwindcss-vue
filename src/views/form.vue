@@ -16,7 +16,9 @@
 			</tv-form-group>
 			<tv-form-group prop="myCity" :theme-override="custom">
 				<tv-label>Autocomplete</tv-label>
-				<tv-autocomplete v-model="test.myCity" :data="filteredDataArray" :max-height="55" />
+				<tv-autocomplete v-model="test.myCity" :data="filteredDataArray" :max-height="55" @blur="handleBlur" select-on-blur>
+					<div slot="empty">No Matching Results</div>
+				</tv-autocomplete>
 			</tv-form-group>
 			<tv-form-group prop="city">
 				<tv-label>City</tv-label>
@@ -104,7 +106,7 @@ export default {
 	},
 	data() {
 		return {
-			cities: ['Denver', 'Parker', 'Franktown'],
+			cities: ['Denver', 'Parker', 'Franktown', 'New York', 'New Jersey'],
 			test: {
 				name: '',
 				city: '',
@@ -146,6 +148,9 @@ export default {
 		},
 		handleChange() {
 			alert('Switched clicked');
+		},
+		handleBlur() {
+			console.log('blur');
 		}
 	}
 };
