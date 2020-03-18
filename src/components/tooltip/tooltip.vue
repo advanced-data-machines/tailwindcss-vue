@@ -9,13 +9,17 @@
 		:force-show="forceShow"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
+		:modifiers="modifiers"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
+		:transition="transition"
+		:enter-active-class="enterActiveClass"
+		:leave-active-class="leaveActiveClass"
 		:prevent-mobile="preventMobile"
 	>
 		<span :class="popperClass" role="tooltip">
 			{{ content }}
-			<div data-popper-arrow :class="arrowClass" />
+			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</span>
 		<span slot="reference" :class="referenceClass">
 			<slot />
@@ -91,6 +95,10 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		modifiers: {
+			type: Array,
+			default: () => []
+		},
 		customOffset: {
 			type: [Function, Array],
 			default: () => [0, 5]
@@ -98,6 +106,18 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
+		},
+		transition: {
+			type: String,
+			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,

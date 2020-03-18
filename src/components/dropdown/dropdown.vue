@@ -10,14 +10,18 @@
 		:force-show="forceShow"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
+		:modifiers="modifiers"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
-		:class="wrapperClass"
+		:transition="transition"
+		:enter-active-class="enterActiveClass"
+		:leave-active-class="leaveActiveClass"
 		:prevent-mobile="preventMobile"
+		:class="wrapperClass"
 	>
 		<div :class="popperClass" :role="menuAriaRole">
 			<slot />
-			<div data-popper-arrow :class="arrowClass" />
+			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</div>
 		<div slot="reference" :class="referenceClass" role="button" aria-haspopup="true">
 			<slot name="trigger" :disabled="disabled" />
@@ -105,6 +109,10 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		modifiers: {
+			type: Array,
+			default: () => []
+		},
 		customOffset: {
 			type: [Function, Array],
 			default: () => [0, 10]
@@ -113,13 +121,25 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		ariaRole: {
+		transition: {
 			type: String,
 			default: null
+		},
+		enterActiveClass: {
+			type: String,
+			default: 'animated fadeIn faster'
+		},
+		leaveActiveClass: {
+			type: String,
+			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,
 			default: false
+		},
+		ariaRole: {
+			type: String,
+			default: null
 		}
 	},
 	data() {

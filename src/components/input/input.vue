@@ -72,13 +72,14 @@ export default {
 			validator: (value) => value == null || ['sm', 'lg'].indexOf(value) !== -1
 		},
 		autocompleate: {
-			type: Boolean,
-			default: false
+			type: String,
+			default: 'off'
 		}
 	},
 	data() {
 		return {
-			newValue: this.value
+			newValue: this.value,
+			isFocused: false
 		};
 	},
 	computed: {
@@ -140,7 +141,7 @@ export default {
 			});
 		},
 		handleBlur(event) {
-			this.focused = false;
+			this.isFocused = false;
 			this.$emit('blur', event);
 			if (this.validateEvent) {
 				this.dispatch('TvFormGroup', 'form.blur', [this.value]);
@@ -150,17 +151,15 @@ export default {
 			this.$emit('change', event.target.value);
 		},
 		handleFocus(event) {
-			this.focused = true;
+			this.isFocused = true;
 			this.$emit('focus', event);
-		},
-		select() {
-			this.$refs.input.select();
 		},
 		focus() {
 			this.$refs.input.focus();
 		},
-		blur() {
+		onBlur() {
 			this.$refs.input.blur();
+
 		}
 	}
 };

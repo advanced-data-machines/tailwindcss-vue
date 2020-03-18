@@ -14,6 +14,10 @@
 				<tv-label>Name</tv-label>
 				<tv-input name="test" size="lg" class="resize-none" v-model="test.name" />
 			</tv-form-group>
+			<tv-form-group prop="myCity" :theme-override="custom">
+				<tv-label>Autocomplete</tv-label>
+				<tv-autocomplete v-model="test.myCity" :data="filteredDataArray" :max-height="55" />
+			</tv-form-group>
 			<tv-form-group prop="city">
 				<tv-label>City</tv-label>
 				<tv-select v-model="test.city" placeholder="Select a City" size="sm">
@@ -85,16 +89,29 @@
 	</section>
 </template>
 <script>
+import { isEmpty } from '../utils/utils';
+// import { isEmpty } from '../utils/utils';
 export default {
 	name: 'Form',
+	computed: {
+		filteredDataArray() {
+			const test = this.test.myCity;
+			return this.cities.filter((option) => {
+				if (isEmpty(test)) return false;
+				return option.toString().toLowerCase().indexOf(test.toLowerCase()) >= 0;
+			});
+		}
+	},
 	data() {
 		return {
 			cities: ['Denver', 'Parker', 'Franktown'],
 			test: {
 				name: '',
 				city: '',
+				myCity: '',
 				checked: []
 			},
+			seleced: '',
 			active: true,
 			custom: {
 				base: 'w-full mb-3'

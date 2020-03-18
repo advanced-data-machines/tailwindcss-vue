@@ -69,14 +69,6 @@ export default {
 			type: Number,
 			default: 0
 		},
-		hasArrow: {
-			type: Boolean,
-			default: false
-		},
-		arrowClass: {
-			type: String,
-			default: 'bg-gray-100'
-		},
 		placement: {
 			type: String,
 			default: 'bottom',
@@ -94,6 +86,10 @@ export default {
 				'bottom-start',
 				'bottom-end'
 			].indexOf(n) > -1
+		},
+		modifiers: {
+			type: Array,
+			default: () => []
 		},
 		customOffset: {
 			type: [Function, Array],
@@ -151,6 +147,12 @@ export default {
 				this.$emit('hide');
 			}
 		},
+		forceShow: {
+			handler(value) {
+				this[value ? 'handleShow' : 'handleClose']();
+			},
+			immediate: true
+		},
 		disabled(value) {
 			if (!value) {
 				this.showPopper = false;
@@ -159,14 +161,12 @@ export default {
 	},
 	methods: {
 		async updatePopper() {
-			!this.popperJs ? this.createPopper() : this.popperJs.update();
+			//!this.popperJs ? this.createPopper() : this.popperJs.update();
+			this.createPopper();
 		},
 		createPopper() {
 			this.$nextTick(() => {
 				if (this.isDisabled) return;
-				if (this.hasArrow && !this.appendedArrow) {
-					this.appendArrow(this.popper);
-				}
 
 				if (this.appendToBody && !this.appendedToBody) {
 					this.appendedToBody = true;
@@ -175,16 +175,19 @@ export default {
 
 				if (this.popperJs && this.popperJs.destroy) {
 					this.popperJs.destroy();
+					this.popperJs = null;
 				}
-				const options = objectAssign({}, this.options, { placement: this.placement,
-					modifiers: [
-						{
-							name: 'offset',
-							options: {
-								offset: ({ placement, reference, popper }) => this.handleOffset(placement, reference, popper)
-							}
+
+				const modifiers  = [
+					{
+						name: 'offset',
+						options: {
+							offset: ({ placement, reference, popper }) => this.handleOffset(placement, reference, popper)
 						}
-					]
+					}
+				].concat(this.modifiers);
+				const options = objectAssign({}, this.options, { placement: this.placement,
+					modifiers
 				});
 				this.popperJs = createPopper(this.referenceElm, this.popper, options);
 			});
@@ -194,14 +197,6 @@ export default {
 				return this.customOffset.apply(null, [placement, reference, popper]);
 			}
 			return this.customOffset;
-		},
-		appendArrow(element) {
-			if (this.appendedArrow) return;
-			this.appendedArrow = true;
-			const arrow = document.createElement('div');
-			arrow.setAttribute('data-popper-arrow', '');
-			arrow.className = `tv-popper-arrow ${this.arrowClass}`;
-			element.appendChild(arrow);
 		},
 		toggle() {
 			if (this.isDisabled) return;
@@ -230,7 +225,7 @@ export default {
 			}, this.delayOnMouseOut);
 		},
 		handleDestroy() {
-			if (this.popperJs) {
+			if (this.popperJs && this.popperJs.destroy) {
 				this.popperJs.destroy();
 				this.popperJs = null;
 			}
@@ -274,7 +269,6 @@ export default {
 		}
 	},
 	created() {
-		this.appendedArrow = false;
 		this.appendedToBody = false;
 	},
 	mounted() {
@@ -286,7 +280,7 @@ export default {
 			on(this.$el, 'mouseover', this.onMouseOver);
 			on(this.$el, 'mouseout', this.onMouseOut);
 			break;
-		default:
+		case 'click':
 			on(this.referenceElm, 'click', this.toggle);
 			on(document, 'click', this.clickOutside);
 			break;
