@@ -9,6 +9,7 @@
 		:force-show="forceShow"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
+		:modifiers="modifiers"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:transition="transition"
@@ -18,7 +19,7 @@
 	>
 		<span :class="popperClass" role="tooltip">
 			{{ content }}
-			<div data-popper-arrow :class="arrowClass" />
+			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</span>
 		<span slot="reference" :class="referenceClass">
 			<slot />
@@ -93,6 +94,10 @@ export default {
 		hasArrow: {
 			type: Boolean,
 			default: true
+		},
+		modifiers: {
+			type: Array,
+			default: () => []
 		},
 		customOffset: {
 			type: [Function, Array],

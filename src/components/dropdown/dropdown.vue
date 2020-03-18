@@ -10,6 +10,7 @@
 		:force-show="forceShow"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
+		:modifiers="modifiers"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:transition="transition"
@@ -20,7 +21,7 @@
 	>
 		<div :class="popperClass" :role="menuAriaRole">
 			<slot />
-			<div data-popper-arrow :class="arrowClass" />
+			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</div>
 		<div slot="reference" :class="referenceClass" role="button" aria-haspopup="true">
 			<slot name="trigger" :disabled="disabled" />
@@ -107,6 +108,10 @@ export default {
 		hasArrow: {
 			type: Boolean,
 			default: true
+		},
+		modifiers: {
+			type: Array,
+			default: () => []
 		},
 		customOffset: {
 			type: [Function, Array],

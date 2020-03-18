@@ -8,6 +8,7 @@
 		:force-show="isActive"
 		:delay-on-mouse-over="delayOnMouseOver"
 		:delay-on-mouse-out="delayOnMouseOut"
+		:modifiers="newModifiers"
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:transition="transition"
@@ -41,6 +42,7 @@
 		<span slot="reference" :class="referenceClass">
 			<tv-input
 				ref="input"
+				v-bind="$attrs"
 				v-model="newValue"
 				type="text"
 				:disabled="disabled"
@@ -66,6 +68,22 @@ import TvAutocompleteItem from './autocomplete-item.vue';
 import TvPopper from '../popper/popper.vue';
 import TvInput from '../input/input.vue';
 import { getValueByPath } from '../../utils/utils.js';
+
+const setWidth = {
+	name: 'sameWidth',
+	enabled: true,
+	fn: ({ state }) => {
+		state.styles.popper.width = `${state.rects.reference.width}px`;
+	},
+	phase: 'beforeWrite',
+	requires: ['computeStyles'],
+	effect: ({ state }) => {
+		state.elements.popper.style.width = `${
+			state.elements.reference.clientWidth
+		}px`;
+	}
+};
+
 export default {
 	name: 'TvAutocomplete',
 	mixins: [ThemeMixin],
@@ -74,6 +92,7 @@ export default {
 		'tv-input': TvInput,
 		'tv-popper': TvPopper
 	},
+	inheritAttrs: false,
 	props: {
 		value: {
 			type: [String, Number],
@@ -143,6 +162,10 @@ export default {
 		hasArrow: {
 			type: Boolean,
 			default: false
+		},
+		modifiers: {
+			type: Array,
+			default: () => [setWidth]
 		},
 		placement: {
 			type: String,
@@ -374,7 +397,9 @@ export default {
 	},
 	created() {
 		if (typeof window !== 'undefined') {
-			document.addEventListener('click', this.clickedOutside);		}
+			document.addEventListener('click', this.clickedOutside);
+		}
+		this.newModifiers = [setWidth].concat(this.modifiers);
 	},
 	beforeDestroy() {
 		if (typeof window !== 'undefined') {
