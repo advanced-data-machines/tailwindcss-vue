@@ -16,7 +16,7 @@
 			</tv-form-group>
 			<tv-form-group prop="myCity" :theme-override="custom">
 				<tv-label>Autocomplete</tv-label>
-				<tv-autocomplete v-model="test.myCity" :data="filteredDataArray" :max-height="55" @blur="handleBlur" select-on-blur>
+				<tv-autocomplete v-model="test.myCity" :data="filteredDataArray" :max-height="55" @blur="handleBlur" select-on-click-out open-on-focus>
 					<div slot="empty">No Matching Results</div>
 				</tv-autocomplete>
 			</tv-form-group>
@@ -99,7 +99,7 @@ export default {
 		filteredDataArray() {
 			const test = this.test.myCity;
 			return this.cities.filter((option) => {
-				if (isEmpty(test)) return false;
+				if (isEmpty(test)) return true;
 				return option.toString().toLowerCase().indexOf(test.toLowerCase()) >= 0;
 			});
 		}

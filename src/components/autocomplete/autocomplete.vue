@@ -39,7 +39,7 @@
 			</div>
 			<div data-popper-arrow :class="arrowClass" v-if="hasArrow" />
 		</div>
-		<span slot="reference" :class="referenceClass">
+		<span ref="reference" slot="reference" :class="referenceClass">
 			<tv-input
 				ref="input"
 				v-bind="$attrs"
@@ -143,7 +143,7 @@ export default {
 			type: [String,Number],
 			default: undefined
 		},
-		selectOnBlur: {
+		selectOnClickOut: {
 			type: Boolean,
 			default: false 
 		},
@@ -253,19 +253,6 @@ export default {
 				theme
 			];
 		},
-		whiteList() {
-			const whiteList = [];
-			whiteList.push(this.$refs.input);
-			whiteList.push(this.$refs.dropdown);
-			// Add all chidren from dropdown
-			if (this.$refs.dropdown !== undefined) {
-				const children = this.$refs.dropdown.querySelectorAll('*');
-				for (const child of children) {
-					whiteList.push(child);
-				}
-			}
-			return whiteList;
-		},
 		hasEmptySlot() {
 			return !!this.$scopedSlots.empty;
 		},
@@ -330,8 +317,34 @@ export default {
 				}
 			});
 		},
-		clickedOutside(event) {
-			if (this.whiteList.indexOf(event.target) < 0) this.isActive = false;
+		clickedOutside(e) {
+			if (!this.checkWhiteList(e)) {
+				if (this.selectOnClickOut && isEmpty(this.selected) && this.hovered) {
+					this.setSelected(this.hovered);
+				}	
+				this.isActive = false;
+			}
+		},
+		checkWhiteList(e) {
+			return (
+				this.elementContains(this.$el, e.target) ||
+				this.elementContains(this.$refs.popper, e.target) ||
+				this.elementContains(this.$refs.reference, e.target)
+			);
+		},
+		elementContains(elm, otherElm) {
+			if (typeof elm.contains === 'function') {
+				return elm.contains(otherElm);
+			}
+			return false;
+		},
+		findMatch(value) {
+			return this.data.find((option) => {
+				const item = typeof option === 'object'
+					? getValueByPath(option, this.field)
+					: option;
+				return item.toString().toLowerCase() === value.toLowerCase();
+			});
 		},
 		getValue(option) {
 			if (option === null) return;
@@ -380,13 +393,19 @@ export default {
 			}
 		},
 		onFocus(event) {
-			if (this.getValue(this.selected) === this.newValue) {
+			const currentValue = this.getValue(this.selected);
+			if (currentValue === this.newValue) {
 				this.$el.querySelector('input').select();
 			}
 			if (this.openOnFocus) {
 				this.isActive = true;
 				if (this.keepFirst) {
 					this.selectFirstOption(this.data);
+				} else if (currentValue === this.newValue) {
+					const match = this.findMatch(this.newValue);
+					if (!isEmpty(match)) {
+						this.setHovered(match);
+					}
 				}
 			}
 			this.isFocused = true;
@@ -397,12 +416,7 @@ export default {
 			if (currentValue && currentValue === this.newValue) return;
 			this.$emit('typing', this.newValue);
 			if (!this.keepFirst && !this.selected && this.newValue) {
-				const match = this.data.find((option) => {
-					const item = typeof option === 'object'
-						? getValueByPath(option, this.field)
-						: option;
-					return item.toString().toLowerCase() === this.newValue.toLowerCase();
-				});
+				const match = this.findMatch(this.newValue);
 				if (!isEmpty(match)) {
 					this.setHovered(match);
 				} else {
@@ -413,9 +427,6 @@ export default {
 		onBlur(event) {
 			this.isFocused = false;
 			this.$emit('blur', event);
-			if (this.selectOnBlur && !this.selected && this.hovered && this.whiteList.indexOf(event.target) < 0) {
-				this.setSelected(this.hovered);
-			}
 		}
 	},
 	created() {
