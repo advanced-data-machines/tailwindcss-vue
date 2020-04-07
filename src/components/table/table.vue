@@ -33,6 +33,9 @@
 				<thead>
 					<tr>
 						<th v-if="detailed" :class="[thClass, 'w-1']"><span :class="detailToggleHrClass" /></th>
+						<th v-if="showCheckbox && checkboxPosition == 'left'" :column="{ label: '' }" :class="[thClass, 'w-1']">
+							<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
+						</th>
 						<th v-for="(column, index) in newColumns" :key="index" @click="sort(column)" :class="[thClass, column && column.sortable ? 'cursor-pointer' : '', column.customHeaderClass ]">
 							<div class="flex items-center">
 								<template v-if="$scopedSlots['header']">
@@ -49,7 +52,7 @@
 								</span>
 							</div>
 						</th>
-						<th v-if="showCheckbox" :column="{ label: '' }" :class="[thClass, 'w-1']">
+						<th v-if="showCheckbox && checkboxPosition == 'right'" :column="{ label: '' }" :class="[thClass, 'w-1']">
 							<tv-checkbox v-if="showHeaderCheckbox" :value="isAllChecked" :disabled="isAllUncheckable" @change.native="checkAll" :indeterminate="isIndeterminate" />
 						</th>
 					</tr>
@@ -62,6 +65,9 @@
 									<tv-table-arrow @click="toggleDetail(row)" :opened="isDetailActive(row)" />
 								</slot>
 							</td>
+							<td v-if="showCheckbox && checkboxPosition == 'left'" :class="tdClass" data-label="Select">
+								<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
+							</td>
 							<slot v-if="$scopedSlots['default']" :row="row" :index="index" :td-class="tdClass" />
 							<template v-else>
 								<td v-for="column in newColumns" :key="column.field" :class="tdClass" :data-label="column.label">
@@ -71,7 +77,7 @@
 									</template>
 								</td>
 							</template>
-							<td v-if="showCheckbox" :class="tdClass" data-label="Select">
+							<td v-if="showCheckbox && checkboxPosition == 'right'" :class="tdClass" data-label="Select">
 								<tv-checkbox :disabled="!isRowCheckable(row)" :value="isRowChecked(row)" @change.native="checkRow(row)" @click.native.stop />
 							</td>
 						</tr>
@@ -183,6 +189,10 @@ export default {
 		showHeaderCheckbox: {
 			type: Boolean,
 			default: false
+		},
+		checkboxPosition: {
+			type: String,
+			default: 'right'
 		},
 		checkedRows: {
 			type: Array,

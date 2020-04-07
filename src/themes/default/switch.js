@@ -3,8 +3,8 @@ export default {
 	line: {
 		base: 'rounded-full shadow-inner',
 		normal: {
-			unchecked: 'bg-gray-500',
-			checked: 'bg-green-400'
+			unchecked: 'bg-gray-500 cursor-pointer',
+			checked: 'bg-green-400 cursor-pointer'
 		},
 		disabled: {
 			unchecked: 'bg-gray-200 cursor-not-allowed',
@@ -19,8 +19,8 @@ export default {
 	dot: {
 		base: 'absolute rounded-full shadow bg-white',
 		normal: {
-			unchecked: '',
-			checked: ''
+			unchecked: 'cursor-pointer',
+			checked: 'cursor-pointer'
 		},
 		disabled: {
 			unchecked: 'cursor-not-allowed',

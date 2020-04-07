@@ -6,7 +6,7 @@
 		</div>
 		<tv-button @click="setLoading" :disabled="isLoading" class="mr-3">Activate</tv-button>
 		<tv-button @click="setLoadingProgrammatic" class="mr-3">
-			Programmatic Modal
+			Programmatic Loading
 		</tv-button>
 		<tv-switch v-model="isFullpage">
 			<span class="ml-3">Fullpage</span>

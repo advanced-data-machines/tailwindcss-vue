@@ -20,29 +20,30 @@
 		"dist/*"
 	],
 	"dependencies": {
-		"@popperjs/core": "^2.1.1",
+		"@popperjs/core": "^2.2.1",
 		"async-validator": "^3.2.4"
 	},
 	"devDependencies": {
 		"@mdi/font": "^5.0.45",
 		"@rollup/plugin-commonjs": "^11.0.2",
 		"@rollup/plugin-node-resolve": "^7.1.1",
-		"@vue/cli-plugin-babel": "^4.2.3",
-		"@vue/cli-plugin-eslint": "^4.2.3",
-		"@vue/cli-plugin-router": "^4.2.3",
-		"@vue/cli-service": "^4.2.3",
+		"@vue/cli-plugin-babel": "^4.3.1",
+		"@vue/cli-plugin-eslint": "^4.3.1",
+		"@vue/cli-plugin-router": "^4.3.1",
+		"@vue/cli-service": "^4.3.1",
 		"@vue/eslint-config-standard": "^5.1.2",
 		"@vue/test-utils": "1.0.0-beta.32",
 		"babel-eslint": "^10.1.0",
 		"core-js": "^3.6.4",
 		"eslint": "^6.8.0",
-		"eslint-plugin-import": "^2.20.1",
-		"eslint-plugin-node": "^11.0.0",
+		"eslint-plugin-import": "^2.20.2",
+		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^4.2.1",
 		"eslint-plugin-standard": "^4.0.1",
 		"eslint-plugin-vue": "^6.2.2",
+		"minimist": "^1.2.5",
 		"postcss-import": "^12.0.1",
-		"rollup": "^2.1.0",
+		"rollup": "^2.3.3",
 		"rollup-plugin-babel": "^4.4.0",
 		"rollup-plugin-delete": "^1.2.0",
 		"rollup-plugin-postcss": "^2.5.0",
@@ -55,7 +56,7 @@
 		"vuepress": "^1.4.0"
 	},
 	"peerDependencies": {
-		"tailwindcss": "^1.1.0",
+		"tailwindcss": "^1.2.0",
 		"vue": "^2.6.0"
 	},
 	"bugs": {
