@@ -36,6 +36,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-radio-button'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: () => {}
@@ -91,18 +95,18 @@ export default {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const variant = this.variant || 'default';
 			const size = this.size || 'default';
 			const status = (this.newValue === this.nativeValue) ? 'checked' : 'unchecked';
 			return [
 				tag,
-				`${tag}-size-${size}`,
+				`is-size-${size}`,
 				theme.base,
 				this.isDisabled
-					? `${tag}-${variant}-disabled ${theme.disabled[variant][status]}`
-					: `${tag}-${variant}-${status} ${theme.normal[variant][status]}`,
+					? `is-${variant} is-disabled ${theme.disabled[variant][status]}`
+					: `is-${variant} is-${status} ${theme.normal[variant][status]}`,
 				theme.size[size]
 			];
 		}

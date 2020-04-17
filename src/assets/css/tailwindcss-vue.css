@@ -1,4 +1,5 @@
 /*! purgecss start ignore */
+/* animate css */
 @import './animate.css';
 
 /* components */
@@ -8,5 +9,5 @@
 @import './components/loading.css';
 @import './components/popper.css';
 @import './components/radio.css';
-
+@import './components/resizable.css';
 /*! purgecss end ignore */

@@ -54,6 +54,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-select'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: null
@@ -104,36 +108,36 @@ export default {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		wrapperClass() {
-			const tag = `${this.$options._componentTag}-wrapper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-wrapper`;
+			const theme = this.currentTheme.wrapper;
 			return [
 				tag,
-				theme.wrapper
+				theme
 			];
 		},
 		arrowClass() {
-			const tag = `${this.$options._componentTag}-arrow`;
+			const tag = `${this.className}-arrow`;
 			const theme = this.currentTheme.arrow;
 			const size = this.size || 'default';
 			return [
 				tag,
-				`${tag}-size-${size}`,
+				`is-size-${size}`,
 				theme.base,
 				`${theme.size[size]}`
 			];
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
 			return [
 				tag,
-				`${tag}-size-${size}`,
+				`is-size-${size}`,
 				theme.base,
 				this.isDisabled
-					? `${tag}-state-disabled ${theme.state.disabled}`
-					: `${tag}-state-${state} ${theme.state[state]}`,
+					? `is-disabled ${theme.state.disabled}`
+					: `has-${state} ${theme.state[state]}`,
 				`${theme.size[size]}`
 			];
 		}

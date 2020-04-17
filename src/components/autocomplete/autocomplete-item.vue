@@ -9,6 +9,10 @@ export default {
 	name: 'TvAutocompleteItem',
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-autocomplete-item'
+		},
 		active: {
 			type: Boolean,
 			default: false
@@ -16,13 +20,13 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const active = this.active ? 'active' : 'default';
 			return [
 				tag,
 				theme.base,
-				`${tag}-${active}`,
+				`is-${active}`,
 				theme.normal[active]
 			];
 		}
@@ -31,6 +35,6 @@ export default {
 		handleClick() {
 			this.$emit('click');
 		}
-	}	
+	}
 };
 </script>

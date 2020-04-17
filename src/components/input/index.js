@@ -1,8 +1,10 @@
-import TvInput from './input.vue';
+import Input from './input.vue';
+import { TvInput } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvInput.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Input.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvInput);
 };
 
-export default TvInput;
+export default Input;

@@ -1,8 +1,10 @@
-import TvSelect from './select.vue';
+import Select from './select.vue';
+import { TvSelect } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvSelect.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Select.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvSelect);
 };
 
-export default TvSelect;
+export default Select;

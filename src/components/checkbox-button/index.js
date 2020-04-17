@@ -1,8 +1,9 @@
-import TvCheckboxButton from './checkbox-button.vue';
+import CheckboxButton from './checkbox-button.vue';
+import { TvCheckboxButton } from '../../themes/default';
 import { installComponents } from '../../utils/plugins.js';
 
-TvCheckboxButton.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+CheckboxButton.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvCheckboxButton);
 };
 
-export default TvCheckboxButton;
+export default CheckboxButton;

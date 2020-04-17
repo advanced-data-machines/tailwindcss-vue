@@ -57,3 +57,34 @@ export default {
 	TvTable,
 	TvTooltip
 };
+
+export {
+	TvAlert,
+	TvAlertNotice,
+	TvAutocomplete,
+	TvAutocompleteItem,
+	TvButton,
+	TvCheckbox,
+	TvCheckboxButton,
+	TvDropdown,
+	TvDropdownItem,
+	TvForm,
+	TvFormGroup,
+	TvIcon,
+	TvInput,
+	TvLabel,
+	TvLoading,
+	TvModal,
+	TvPagination,
+	TvPaginationButton,
+	TvProgressBar,
+	TvRadio,
+	TvRadioButton,
+	TvSelect,
+	TvSideMenu,
+	TvSideMenuItem,
+	TvSideSubmenu,
+	TvSwitch,
+	TvTable,
+	TvTooltip
+};

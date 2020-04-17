@@ -15,6 +15,10 @@ export default {
 		};
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-form'
+		},
 		model: {
 			default: () => {},
 			type: Object
@@ -47,11 +51,11 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
+			const tag = this.className;
+			const theme = this.currentTheme.base;
 			return [
 				tag,
-				theme.base
+				theme
 			];
 		}
 	},

@@ -28,6 +28,10 @@ export default {
 	},
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-modal'
+		},
 		active: {
 			type: Boolean,
 			default: false
@@ -99,7 +103,7 @@ export default {
 			return this.cancelOptions.indexOf('x') > -1;
 		},
 		wrapperClass() {
-			const tag = 'tv-modal-wrapper';
+			const tag = `${this.className}-wrapper`;
 			const theme = this.currentTheme.wrapper;
 			return [
 				tag,
@@ -107,7 +111,7 @@ export default {
 			];
 		},
 		backdropClass() {
-			const tag = 'tv-modal-backdrop';
+			const tag = `${this.className}-backdrop`;
 			const theme = this.currentTheme.backdrop;
 			return [
 				tag,
@@ -115,7 +119,7 @@ export default {
 			];
 		},
 		cardClass() {
-			const tag = 'tv-modal-card';
+			const tag = `${this.className}-card`;
 			const theme = this.currentTheme.card;
 			return [
 				tag,

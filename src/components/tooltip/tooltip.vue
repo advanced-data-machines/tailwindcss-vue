@@ -36,6 +36,10 @@ export default {
 		'tv-popper': TvPopper
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-tooltip'
+		},
 		tag: {
 			type: String,
 			default: 'span'
@@ -126,27 +130,27 @@ export default {
 	},
 	computed: {
 		popperClass() {
-			const tag = `${this.$options._componentTag}-popper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-popper`;
+			const theme = this.currentTheme.popper;
 			return [
 				tag,
 				`${tag}-${this.placement}`,
-				theme.popper
+				theme
 			];
 		},
 		referenceClass() {
-			const tag = `${this.$options._componentTag}-reference`;
+			const tag = `${this.className}-reference`;
 			const theme = this.currentTheme.reference;
 			const state = this.disabled ? 'disabled' : 'default';
 			return [
 				tag,
 				theme.base,
-				`${tag}-${state}`,
+				`is-${state}`,
 				theme.state[state]
 			];
 		},
 		arrowClass() {
-			const tag = `${this.$options._componentTag}-arrow`;
+			const tag = `${this.className}-arrow`;
 			const theme = this.currentTheme.arrow;
 			return [
 				tag,

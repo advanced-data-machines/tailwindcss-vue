@@ -21,6 +21,7 @@ import Popper from './components/popper';
 import ProgressBar from './components/progress-bar';
 import Radio from './components/radio';
 import RadioButton from './components/radio-button';
+import Resizable from './components/resizable';
 import Select from './components/select';
 import SideMenu from './components/side-menu';
 import SideMenuItem from './components/side-menu-item';
@@ -53,6 +54,7 @@ const components = [
 	ProgressBar,
 	Radio,
 	RadioButton,
+	Resizable,
 	Select,
 	SideMenu,
 	SideMenuItem,
@@ -101,6 +103,7 @@ export {
 	ProgressBar,
 	Radio,
 	RadioButton,
+	Resizable,
 	Select,
 	SideMenu,
 	SideMenuItem,

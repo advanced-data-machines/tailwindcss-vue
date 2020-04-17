@@ -5,22 +5,22 @@ module.exports = {
 	theme: {
 		extend: {
 			spacing: {
-				'9': '2.25rem',
-				'11': '2.75rem',
-				'14': '3.5rem',
-				'18': '4.5rem'
+				9: '2.25rem',
+				11: '2.75rem',
+				14: '3.5rem',
+				18: '4.5rem'
 			},
 			fontSize: {
-				'xxs': '0.625rem'
+				xxs: '0.625rem'
 			},
 			stroke: {
 				...colors
 			},
 			minWidth: {
-				'48': '12rem'
+				48: '12rem'
 			},
 			inset: {
-				'full': '100%'
+				full: '100%'
 			}
 		},
 		container: {

@@ -40,7 +40,7 @@ export const objectAssign = function(target) {
 	for (let i = 0; i < arguments.length; i++) {
 		const source = arguments[i] || {};
 		// eslint-disable-next-line no-unused-vars
-		for (let prop in source) {
+		for (const prop in source) {
 			if (hasOwn(source, prop)) {
 				const value = source[prop];
 				if (value !== undefined) {
@@ -57,11 +57,11 @@ export function getPropByPath(obj, path, strict) {
 	path = path.replace(/\[(\w+)\]/g, '.$1');
 	path = path.replace(/^\./, '');
 
-	let keyArr = path.split('.');
+	const keyArr = path.split('.');
 	let i = 0;
 	for (let len = keyArr.length; i < len - 1; ++i) {
 		if (!tempObj && !strict) break;
-		let key = keyArr[i];
+		const key = keyArr[i];
 		if (key in tempObj) {
 			tempObj = tempObj[key];
 		} else {

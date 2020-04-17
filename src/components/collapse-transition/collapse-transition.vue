@@ -27,7 +27,7 @@ export default {
 			return style;
 		},
 		beforeEnter(el) {
-			let enterDuration = this.duration.enter ? this.duration.enter : this.duration;
+			const enterDuration = this.duration.enter ? this.duration.enter : this.duration;
 			el.style.transition = this.transitionStyle(enterDuration);
 			if (!el.dataset) el.dataset = {};
 			el.dataset.oldPaddingTop = el.style.paddingTop;
@@ -66,7 +66,7 @@ export default {
 			this.setStyles(el);
 		},
 		leave(el) {
-			let leaveDuration = this.duration.leave ? this.duration.leave : this.duration;
+			const leaveDuration = this.duration.leave ? this.duration.leave : this.duration;
 			if (el.scrollHeight !== 0) {
 				// for safari: add class after set height, or it will jump to zero height suddenly, weired
 				el.style.transition = this.transitionStyle(leaveDuration);

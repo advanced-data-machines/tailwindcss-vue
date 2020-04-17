@@ -1,8 +1,9 @@
-import TvSwitch from './switch.vue';
+import Switch from './switch.vue';
+import { TvSwitch } from '../../themes/default';
 import { installComponents } from '../../utils/plugins.js';
 
-TvSwitch.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Switch.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvSwitch);
 };
 
-export default TvSwitch;
+export default Switch;

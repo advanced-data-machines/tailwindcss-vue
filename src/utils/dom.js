@@ -15,10 +15,10 @@ export function hasClass(el, cls) {
 export function addClass(el, cls) {
 	if (!el) return;
 	let curClass = el.className;
-	let classes = (cls || '').split(' ');
+	const classes = (cls || '').split(' ');
 
 	for (let i = 0; i < classes.length; i++) {
-		let clsName = classes[i];
+		const clsName = classes[i];
 		if (!clsName) continue;
 
 		if (el.classList) {
@@ -34,11 +34,11 @@ export function addClass(el, cls) {
 
 export function removeClass(el, cls) {
 	if (!el || !cls) return;
-	let classes = cls.split(' ');
+	const classes = cls.split(' ');
 	let curClass = ' ' + el.className + ' ';
 
 	for (let i = 0; i < classes.length; i++) {
-		let clsName = classes[i];
+		const clsName = classes[i];
 		if (!clsName) continue;
 
 		if (el.classList) {

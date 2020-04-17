@@ -1,8 +1,10 @@
-import TvLabel from './label.vue';
+import Label from './label.vue';
+import { TvLabel } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvLabel.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Label.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvLabel);
 };
 
-export default TvLabel;
+export default Label;

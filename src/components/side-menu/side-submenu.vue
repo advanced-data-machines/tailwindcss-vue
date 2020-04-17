@@ -36,6 +36,10 @@ export default {
 		'tv-menu-arrow': MenuArrow
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-side-submenu'
+		},
 		index: {
 			type: String,
 			default: null,

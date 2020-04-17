@@ -1,8 +1,9 @@
-import TvButton from './button.vue';
+import Button from './button.vue';
+import { TvButton } from '../../themes/default';
 import { installComponents } from '../../utils/plugins.js';
 
-TvButton.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Button.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvButton);
 };
 
-export default TvButton;
+export default Button;

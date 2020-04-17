@@ -24,7 +24,7 @@
 					@click="setSelected(option)"
 					:active="hovered == option"
 				>
-					<slot 
+					<slot
 						v-if="$scopedSlots['default']"
 						:option="option"
 						:index="index"
@@ -94,6 +94,10 @@ export default {
 	},
 	inheritAttrs: false,
 	props: {
+		className: {
+			type: String,
+			default: 'tv-autocomplete'
+		},
 		value: {
 			type: [String, Number],
 			default: null
@@ -108,7 +112,7 @@ export default {
 		},
 		openOnFocus: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
 		keepFirst: {
 			type: Boolean,
@@ -140,12 +144,12 @@ export default {
 			default: 'off'
 		},
 		maxHeight: {
-			type: [String,Number],
+			type: [String, Number],
 			default: undefined
 		},
 		selectOnClickOut: {
 			type: Boolean,
-			default: false 
+			default: false
 		},
 		tag: {
 			type: String,
@@ -208,7 +212,7 @@ export default {
 		leaveActiveClass: {
 			type: String,
 			default: 'animated fadeOut faster'
-		},
+		}
 	},
 	data() {
 		return {
@@ -221,24 +225,24 @@ export default {
 	},
 	computed: {
 		wrapperClass() {
-			const tag = `${this.$options._componentTag}-wrapper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-wrapper`;
+			const theme = this.currentTheme.wrapper;
 			return [
 				tag,
-				theme.wrapper
+				theme
 			];
 		},
 		popperClass() {
-			const tag = `${this.$options._componentTag}-popper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-popper`;
+			const theme = this.currentTheme.popper;
 			return [
 				tag,
-				`${tag}-${this.placement}`,
-				theme.popper
+				this.placement,
+				theme
 			];
 		},
 		referenceClass() {
-			const tag = `${this.$options._componentTag}-reference`;
+			const tag = `${this.className}-reference`;
 			const theme = this.currentTheme.reference;
 			return [
 				tag,
@@ -246,7 +250,7 @@ export default {
 			];
 		},
 		arrowClass() {
-			const tag = `${this.$options._componentTag}-arrow`;
+			const tag = `${this.className}-arrow`;
 			const theme = this.currentTheme.arrow;
 			return [
 				tag,
@@ -321,7 +325,7 @@ export default {
 			if (!this.checkWhiteList(e)) {
 				if (this.selectOnClickOut && isEmpty(this.selected) && this.hovered) {
 					this.setSelected(this.hovered);
-				}	
+				}
 				this.isActive = false;
 			}
 		},

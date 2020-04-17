@@ -1,8 +1,10 @@
-import TvIcon from './icon.vue';
+import Icon from './icon.vue';
+import { TvIcon } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvIcon.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Icon.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvIcon);
 };
 
-export default TvIcon;
+export default Icon;

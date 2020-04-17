@@ -24,6 +24,10 @@ export default {
 	},
 	inject: ['rootForm'],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-form-group'
+		},
 		prop: {
 			type: String,
 			default: ''
@@ -66,22 +70,21 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
+			const tag = this.className;
+			const theme = this.currentTheme.base;
 			const state = this.validateState || 'default';
 			return [
 				tag,
-				`${tag}-state-${state}`,
-				this.isRequired ? `${tag}-required` : '',
-				theme.base
+				`is-${state}`,
+				this.isRequired ? 'required' : '',
+				theme
 			];
 		},
 		errorClass() {
-			const tag = `${this.$options._componentTag}-error`;
-			const theme = this.currentTheme;
+			const theme = this.currentTheme.error;
 			return [
-				tag,
-				theme.error
+				'has-error',
+				theme
 			];
 		},
 		form() {
@@ -103,7 +106,7 @@ export default {
 			return getPropByPath(model, path, true).v;
 		},
 		isRequired() {
-			let rules = this.getRules();
+			const rules = this.getRules();
 			let isRequired = false;
 			if (rules && rules.length) {
 				rules.every(rule => {

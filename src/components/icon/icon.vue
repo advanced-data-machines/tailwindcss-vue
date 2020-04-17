@@ -10,6 +10,10 @@ export default {
 	name: 'TvIcon',
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-icon'
+		},
 		wrapIcon: {
 			type: Boolean,
 			default: false
@@ -25,7 +29,7 @@ export default {
 			return `mdi mdi-${this.icon}`;
 		},
 		currentWrapperClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme.wrapper;
 			return [
 				`${tag}-wrapper`,

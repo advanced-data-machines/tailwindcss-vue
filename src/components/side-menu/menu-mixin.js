@@ -22,7 +22,7 @@ export default {
 			return parent;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			let state = this.active ? 'active' : 'default';
 			if (this.disabled) {
@@ -30,7 +30,7 @@ export default {
 			}
 			return [
 				tag,
-				`${tag}-state-${state}`,
+				`is-${state}`,
 				theme.base,
 				theme.state[state]
 			];

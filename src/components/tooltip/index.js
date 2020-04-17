@@ -1,8 +1,10 @@
-import TvTooltip from './tooltip.vue';
+import Tooltip from './tooltip.vue';
+import { TvTooltip } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvTooltip.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Tooltip.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvTooltip);
 };
 
-export default TvTooltip;
+export default Tooltip;

@@ -16,6 +16,10 @@ export default {
 	name: 'TvLoading',
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-loading'
+		},
 		active: {
 			type: Boolean,
 			default: false
@@ -43,13 +47,13 @@ export default {
 	},
 	computed: {
 		wrapperClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const visibility = this.isActive ? 'active' : 'default';
 			const state = this.isFullpage ? 'fullPage' : 'default';
 			return [
 				tag,
-				`${tag}-${visibility}`,
+				`is-${visibility}`,
 				theme.wrapper.base,
 				theme.wrapper.state[state],
 				theme.wrapper.visibility[visibility]
@@ -57,13 +61,13 @@ export default {
 		},
 		backDropClass() {
 			return [
-				`${this.$options._componentTag}-backdrop`,
+				`${this.className}-backdrop`,
 				this.currentTheme.backdrop
 			];
 		},
 		spinnerClass() {
 			return [
-				`${this.$options._componentTag}-spinner`,
+				`${this.className}-spinner`,
 				this.currentTheme.spinner
 			];
 		}

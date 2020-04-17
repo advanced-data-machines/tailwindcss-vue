@@ -1,0 +1,41 @@
+.tv-resizable {
+	position: relative;
+}
+.tv-resizable > .resizable-r {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	touch-action: none;
+	user-select: none;
+	cursor: e-resize;
+	width: 10px;
+	right: 0;
+	top: 0;
+	height: 100%;
+}
+
+.tv-resizable > .resizable-b {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	touch-action: none;
+	user-select: none;
+	cursor: s-resize;
+	height: 10px;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+}
+
+.tv-resizable > .resizable-l {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	touch-action: none;
+	user-select: none;
+	cursor: w-resize;
+	width: 10px;
+	left: 0;
+	height: 100%;
+	top: 0;
+}

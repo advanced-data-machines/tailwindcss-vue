@@ -7,8 +7,12 @@
 import ThemeMixin from '../../mixins/theme.js';
 export default {
 	name: 'TvPaginationButton',
-	mixins: [ ThemeMixin ],
+	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-pagination-button'
+		},
 		variant: {
 			type: String,
 			default: 'default',
@@ -38,18 +42,19 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
+			const size = this.size;
 			const square = this.square ? 'square' : 'normal';
 			const style = this.outline ? 'outline' : 'solid';
 			const disabled = this.disabled ? 'disabled' : 'normal';
 			return [
 				tag,
-				`${tag}-size-${this.size}`,
-				`${tag}-${disabled}-${this.variant}-${style}`,
+				`is-size-${size}`,
+				`is-${disabled} is-${this.variant} is-${style}`,
 				theme.base,
-				this.rounded ? `${tag}-rounded ${theme.rounded}` : '',
-				theme.size[square][this.size],
+				this.rounded ? `is-rounded ${theme.rounded}` : '',
+				theme.size[square][size],
 				`${theme[disabled][this.variant][style]}`
 			];
 		}

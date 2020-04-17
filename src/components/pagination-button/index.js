@@ -1,8 +1,10 @@
-import TvPaginationButton from '../pagination/pagination-button.vue';
+import PaginationButton from '../pagination/pagination-button.vue';
+import { TvPaginationButton } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvPaginationButton.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+PaginationButton.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvPaginationButton);
 };
 
-export default TvPaginationButton;
+export default PaginationButton;

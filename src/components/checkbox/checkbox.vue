@@ -45,6 +45,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-checkbox'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: undefined
@@ -102,19 +106,19 @@ export default {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme.label;
 			const state = this.validateState || 'default';
 			return [
 				tag,
 				theme.base,
 				this.isDisabled
-					? `${tag}-state-disabled ${theme.state.disabled}`
-					: `${tag}-state-${state} ${theme.state[state]}`
+					? `disabled ${theme.state.disabled}`
+					: `has-${state} ${theme.state[state]}`
 			];
 		},
 		checkboxClass() {
-			const tag = `${this.$options._componentTag}-checkbox`;
+			const tag = `${this.className}-checkbox`;
 			const theme = this.currentTheme.checkbox;
 
 			const state = this.validateState || 'default';
@@ -122,12 +126,12 @@ export default {
 				tag,
 				theme.base,
 				this.isDisabled
-					? `${tag}-state-disabled ${theme.state.disabled}`
-					: `${tag}-state-${state} ${theme.state[state]}`
+					? `is-disabled ${theme.state.disabled}`
+					: `has-${state} ${theme.state[state]}`
 			];
 		},
 		svgClass() {
-			const tag = `${this.$options._componentTag}-svg`;
+			const tag = `${this.className}-svg`;
 			const theme = this.currentTheme.svg;
 			return [
 				tag,
@@ -135,7 +139,7 @@ export default {
 			];
 		},
 		textClass() {
-			const tag = `${this.$options._componentTag}-text`;
+			const tag = `${this.className}-text`;
 			const theme = this.currentTheme.text;
 			return [
 				tag,

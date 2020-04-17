@@ -78,11 +78,15 @@ import ThemeMixin from '../../mixins/theme.js';
 import TvPaginationButton from './pagination-button.vue';
 export default {
 	name: 'TvPagination',
-	mixins: [ ThemeMixin ],
+	mixins: [ThemeMixin],
 	components: {
 		'tv-pagination-button': TvPaginationButton
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-pagination'
+		},
 		total: {
 			type: [Number, String],
 			default: 0
@@ -132,27 +136,27 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
-			const theme = this.currentTheme;
+			const tag = this.className;
+			const theme = this.currentTheme.base;
 			return [
 				tag,
-				theme.base
+				theme
 			];
 		},
 		textClass() {
-			const tag = `${this.$options._componentTag}-text`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-text`;
+			const theme = this.currentTheme.text;
 			return [
 				tag,
-				theme.text
+				theme
 			];
 		},
 		buttonGroupClass() {
-			const tag = `${this.$options._componentTag}-button-group`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-button-group`;
+			const theme = this.currentTheme.buttonGroup;
 			return [
 				tag,
-				theme.buttonGroup
+				theme
 			];
 		},
 		firstItem() {

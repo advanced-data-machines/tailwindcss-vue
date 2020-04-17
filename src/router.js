@@ -8,6 +8,7 @@ import Progress from './views/progress.vue';
 import Modal from './views/modal.vue';
 import Dropdown from './views/dropdown.vue';
 import Loading from './views/loading.vue';
+import Resizable from './views/resizable.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -98,6 +99,15 @@ export default new Router({
 					meta: {
 						index: 'C-6',
 						title: 'Loading'
+					}
+				},
+				{
+					path: 'Resizable',
+					name: 'resizable',
+					component: Resizable,
+					meta: {
+						index: 'C-7',
+						title: 'Resizable'
 					}
 				}
 			]

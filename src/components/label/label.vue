@@ -16,6 +16,12 @@ export default {
 			default: ''
 		}
 	},
+	props: {
+		className: {
+			type: String,
+			default: 'tv-label'
+		}
+	},
 	computed: {
 		validateState() {
 			let state = this.formGroup ? this.formGroup.validateState : '';
@@ -32,13 +38,13 @@ export default {
 			return (this.formGroup || {}).isRequired;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			return [
 				tag,
-				`${tag}-state-${state}`,
-				this.isRequired ? `${tag}-required` : '',
+				`has-${state}`,
+				this.isRequired ? 'required' : '',
 				theme.base,
 				`${theme.state[state]}`
 			];

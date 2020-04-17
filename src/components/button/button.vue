@@ -21,6 +21,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-button'
+		},
 		tagName: {
 			type: String,
 			default: 'button'
@@ -81,18 +85,19 @@ export default {
 			return this.disabled || (this.rootFrom || {}).disabled;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
+			const size = this.size;
 			const square = this.square ? 'square' : 'normal';
 			const style = this.outline ? 'outline' : 'solid';
 			const disabled = this.isDisabled ? 'disabled' : 'normal';
 			return [
 				tag,
-				`${tag}-size-${this.size}`,
-				`${tag}-${disabled}-${this.variant}-${style}`,
+				`is-size-${size}`,
+				`is-${disabled} is-${this.variant} is-${style}`,
 				theme.base,
-				this.rounded ? `${tag}-rounded ${theme.rounded}` : '',
-				theme.size[square][this.size],
+				this.rounded ? `is-rounded ${theme.rounded}` : '',
+				theme.size[square][size],
 				`${theme[disabled][this.variant][style]}`
 			];
 		},

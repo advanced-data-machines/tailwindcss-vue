@@ -4,7 +4,6 @@ import cjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
-import del from 'rollup-plugin-delete';
 
 import fs from 'fs';
 import path from 'path';
@@ -34,7 +33,7 @@ const components = fs
 const cssComponents = fs.readdirSync(baseFolder + cssAssetsFolder + componentsFolder);
 
 const entries = {
-	'index': './src/index.js',
+	index: './src/index.js',
 	...components.reduce((obj, name) => {
 		obj[name] = (baseFolder + componentsFolder + name);
 		return obj;
@@ -111,7 +110,6 @@ export default () => {
 				dir: 'dist'
 			},
 			plugins: [
-				del({ targets: 'dist/*' }),
 				postcss({
 					extract: true,
 					plugins: [

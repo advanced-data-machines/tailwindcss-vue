@@ -161,7 +161,7 @@ export default {
 	},
 	methods: {
 		async updatePopper() {
-			//!this.popperJs ? this.createPopper() : this.popperJs.update();
+			//! this.popperJs ? this.createPopper() : this.popperJs.update();
 			this.createPopper();
 		},
 		createPopper() {
@@ -178,7 +178,7 @@ export default {
 					this.popperJs = null;
 				}
 
-				const modifiers  = [
+				const modifiers = [
 					{
 						name: 'offset',
 						options: {
@@ -186,7 +186,8 @@ export default {
 						}
 					}
 				].concat(this.modifiers);
-				const options = objectAssign({}, this.options, { placement: this.placement,
+				const options = objectAssign({}, this.options, {
+					placement: this.placement,
 					modifiers
 				});
 				this.popperJs = createPopper(this.referenceElm, this.popper, options);

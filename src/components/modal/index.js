@@ -1,5 +1,7 @@
 import Vue from 'vue';
-import TvModel from './modal.vue';
+import Modal from './modal.vue';
+import { TvModal } from '../../themes/default';
+
 import { installComponents, registerComponentProgrammatic } from '../../utils/plugins.js';
 
 const ModalProgrammatic = function(params) {
@@ -13,19 +15,19 @@ const ModalProgrammatic = function(params) {
 	}
 	const propsData = Object.assign(typeof params === 'string' ? { content } : params, { programmatic: true });
 	const vm = typeof window !== 'undefined' && window.Vue ? window.Vue : Vue;
-	const ModelComponent = vm.extend(TvModel);
-	return new ModelComponent({
+	const ModalComponent = vm.extend(Modal);
+	return new ModalComponent({
 		parent,
 		el: document.createElement('div'),
 		propsData
 	});
 };
 
-TvModel.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Modal.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvModal);
 	registerComponentProgrammatic(Vue, 'modal', ModalProgrammatic);
 };
 
-export default TvModel;
+export default Modal;
 
 export { ModalProgrammatic };

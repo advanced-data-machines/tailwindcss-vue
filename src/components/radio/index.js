@@ -1,8 +1,10 @@
-import TvRadio from './radio.vue';
+import Radio from './radio.vue';
+import { TvRadio } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvRadio.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Radio.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvRadio);
 };
 
-export default TvRadio;
+export default Radio;

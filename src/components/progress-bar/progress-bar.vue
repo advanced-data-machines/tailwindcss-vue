@@ -44,6 +44,10 @@ export default {
 	name: 'TvProgressBar',
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-progress-bar'
+		},
 		type: {
 			type: String,
 			default: 'line',
@@ -109,8 +113,8 @@ export default {
 			return val;
 		},
 		barStyle() {
-			let width = this.value;
-			let styles = {
+			const width = this.value;
+			const styles = {
 				width: `${width}%`,
 				transition: 'all 0.6s ease-in-out'
 			};
@@ -118,10 +122,10 @@ export default {
 		},
 		currentClass() {
 			const type = this.type === 'line' ? 'line' : 'svg';
-			const tag = `${this.$options._componentTag}-${type}`;
+			const tag = `${this.className}-${type}`;
 			const theme = this.currentTheme[type];
 			// add tags first
-			let classes = [
+			const classes = [
 				tag
 			];
 			if (type === 'line') {
@@ -135,13 +139,13 @@ export default {
 		},
 		currentBarClass() {
 			const type = this.type === 'line' ? 'line' : 'svg';
-			const tag = `${this.$options._componentTag}-${type}-bar`;
+			const tag = `${this.className}-${type}-bar`;
 			const theme = this.currentTheme[type];
 			const value = this.value;
 			// add tags first
-			let classes = [
+			const classes = [
 				tag,
-				`${tag}-${this.variant}`
+				`is-${this.variant}`
 			];
 			// base theme classes
 			classes.push(theme.bar.base);
@@ -158,12 +162,12 @@ export default {
 			return classes;
 		},
 		currentSvgTextClass() {
-			const tag = `${this.$options._componentTag}-svg-text`;
+			const tag = `${this.className}-svg-text`;
 			const theme = this.currentTheme.svg;
 			const value = this.value;
-			let classes = [
+			const classes = [
 				tag,
-				`${tag}-${this.variant}`,
+				`is-${this.variant}`,
 				theme.text.base
 			];
 			if (typeof this.customTextVariantClass === 'function') {
@@ -176,11 +180,11 @@ export default {
 			return classes;
 		},
 		currentSvgPathClass() {
-			const tag = `${this.$options._componentTag}-svg-path`;
-			const theme = this.currentTheme.svg;
+			const tag = `${this.className}-svg-path`;
+			const theme = this.currentTheme.svg.path;
 			return [
 				tag,
-				theme.path
+				theme
 			];
 		},
 		relativeStrokeWidth() {

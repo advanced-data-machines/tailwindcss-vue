@@ -1,8 +1,9 @@
-import TvDropdown from './dropdown.vue';
+import Dropdown from './dropdown.vue';
+import { TvDropdown } from '../../themes/default';
 import { installComponents } from '../../utils/plugins.js';
 
-TvDropdown.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Dropdown.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvDropdown);
 };
 
-export default TvDropdown;
+export default Dropdown;

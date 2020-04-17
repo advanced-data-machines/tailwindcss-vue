@@ -1,8 +1,10 @@
-import TvSideMenu from './side-menu.vue';
+import SideMenu from './side-menu.vue';
+import { TvSideMenu } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvSideMenu.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+SideMenu.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvSideMenu);
 };
 
-export default TvSideMenu;
+export default SideMenu;

@@ -16,6 +16,10 @@ export default {
 	name: 'TvSideMenuItem',
 	mixins: [Emitter, Menu],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-side-menu-item'
+		},
 		index: {
 			type: String,
 			default: null,

@@ -34,10 +34,10 @@ export default {
 	},
 	methods: {
 		beforeEnter(el) {
-			let enterDuration = this.duration.enter ? this.duration.enter : this.duration;
+			const enterDuration = this.duration.enter ? this.duration.enter : this.duration;
 			el.style.animationDuration = `${enterDuration}ms`;
 
-			let enterDelay = this.delay.enter ? this.delay.enter : this.delay;
+			const enterDelay = this.delay.enter ? this.delay.enter : this.delay;
 			el.style.animationDelay = `${enterDelay}ms`;
 
 			this.setStyles(el);
@@ -48,10 +48,10 @@ export default {
 			this.$emit('after-enter', el);
 		},
 		beforeLeave(el) {
-			let leaveDuration = this.duration.leave ? this.duration.leave : this.duration;
+			const leaveDuration = this.duration.leave ? this.duration.leave : this.duration;
 			el.style.animationDuration = `${leaveDuration}ms`;
 
-			let leaveDelay = this.delay.leave ? this.delay.leave : this.delay;
+			const leaveDelay = this.delay.leave ? this.delay.leave : this.delay;
 			el.style.animationDelay = `${leaveDelay}ms`;
 
 			this.setStyles(el);

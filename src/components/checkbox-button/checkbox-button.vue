@@ -36,6 +36,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-checkbox-button'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: undefined
@@ -97,17 +101,17 @@ export default {
 			return this.newValue === this.nativeValue;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const variant = this.variant || 'default';
 			const size = this.size || 'default';
 			const status = this.checked ? 'checked' : 'unchecked';
 			return [
 				tag,
-				`${tag}-size-${size}`,
+				`is-size-${size}`,
 				this.isDisabled
-					? `${tag}-${variant}-disabled ${theme.disabled[variant][status]}`
-					: `${tag}-${variant}-${status} ${theme.normal[variant][status]}`,
+					? `is-${variant} is-disabled ${theme.disabled[variant][status]}`
+					: `is-${variant} is-${status} ${theme.normal[variant][status]}`,
 				theme.base,
 				theme.size[size]
 			];

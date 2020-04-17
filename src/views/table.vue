@@ -1,7 +1,7 @@
 <template>
 	<section class="px-4 w-full">
 		<h1 class="text-3xl text-teal-300">Table</h1>
-		<tv-table :data="data" :columns="columns" :custom-row-class="handleCustomRow">
+		<tv-table :data="data" :columns="columns" :custom-row-class="handleCustomRow" resizable>
 			<template slot="header" slot-scope="props">
 				{{ props.column.field }} {{ props.index }}
 			</template>

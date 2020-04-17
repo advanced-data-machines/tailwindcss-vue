@@ -1,8 +1,9 @@
-import TvAutocompleteItem from '../autocomplete/autocomplete-item.vue';
+import AutocompleteItem from '../autocomplete/autocomplete-item.vue';
+import { TvAutocompleteItem } from '../../themes/default';
 import { installComponents } from '../../utils/plugins.js';
 
-TvAutocompleteItem.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+AutocompleteItem.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvAutocompleteItem);
 };
 
-export default TvAutocompleteItem;
+export default AutocompleteItem;

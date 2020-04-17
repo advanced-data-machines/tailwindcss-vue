@@ -3,19 +3,19 @@ module.exports = {
 	env: {
 		node: true
 	},
-	'extends': [
+	extends: [
 		'plugin:vue/strongly-recommended',
-		'eslint:recommended'
+		'@vue/standard'
 	],
 	rules: {
 		'no-var': 2,
-		'indent': ['error', 'tab'],
+		indent: ['error', 'tab'],
 		'no-tabs': 0,
-		'semi': [
+		semi: [
 			'error',
 			'always'
 		],
-		'quotes': [
+		quotes: [
 			'error',
 			'single'
 		],

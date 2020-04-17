@@ -1,8 +1,10 @@
-import TvPagination from './pagination.vue';
+import Pagination from './pagination.vue';
+import { TvPagination } from '../../themes/default';
+
 import { installComponents } from '../../utils/plugins.js';
 
-TvPagination.install = function(Vue, args = {}) {
-	installComponents(Vue, args, [this]);
+Pagination.install = function(Vue, args = {}) {
+	installComponents(Vue, args, this, TvPagination);
 };
 
-export default TvPagination;
+export default Pagination;

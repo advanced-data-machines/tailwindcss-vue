@@ -41,6 +41,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-input'
+		},
 		tagName: {
 			type: String,
 			default: 'input',
@@ -104,22 +108,22 @@ export default {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const state = this.validateState || 'default';
 			const size = this.size || 'default';
-			let classes = [
+			const classes = [
 				tag,
-				`${tag}-size-${size}`,
+				`is-size-${size}`,
 				theme.base,
 				theme.size[size]
 			];
 			if (this.isDisabled) {
-				classes.push(`${tag}-state-disabled ${theme.state.disabled}`);
+				classes.push(`is-disabled ${theme.state.disabled}`);
 			} else if (this.readonly) {
-				classes.push(`${tag}-state-readonly ${theme.state.readonly}`);
+				classes.push(`is-readonly ${theme.state.readonly}`);
 			} else {
-				classes.push(`${tag}-state-${state} ${theme.state[state]}`);
+				classes.push(`has-${state} ${theme.state[state]}`);
 			}
 			return classes;
 		}
@@ -159,7 +163,6 @@ export default {
 		},
 		onBlur() {
 			this.$refs.input.blur();
-
 		}
 	}
 };

@@ -38,6 +38,10 @@ export default {
 		}
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-switch'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: undefined
@@ -98,7 +102,7 @@ export default {
 			return this.disabled || (this.rootForm || {}).disabled;
 		},
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			return [
 				tag,
@@ -106,16 +110,16 @@ export default {
 			];
 		},
 		dotClass() {
-			const tag = `${this.$options._componentTag}-dot`;
+			const tag = `${this.className}-dot`;
 			const theme = this.currentTheme.dot;
 			const size = this.size || 'default';
 			const state = this.checked ? 'checked' : 'unchecked';
 			return [
 				tag,
-				`${tag}-size-${size}`,
-				`${tag}-state-${state}`,
+				`is-size-${size}`,
+				state,
 				theme.base,
-				this.isDisabled ? `${tag}-disabled ${theme.disabled[state]}` : theme.normal[state],
+				this.isDisabled ? `disabled ${theme.disabled[state]}` : theme.normal[state],
 				theme.size[size]
 			];
 		},
@@ -131,16 +135,16 @@ export default {
 			return style;
 		},
 		LineClass() {
-			const tag = `${this.$options._componentTag}-line`;
+			const tag = `${this.className}-line`;
 			const theme = this.currentTheme.line;
 			const size = this.size || 'default';
 			const state = this.checked ? 'checked' : 'unchecked';
 			return [
 				tag,
-				`${tag}-size-${size}`,
-				`${tag}-state-${state}`,
+				`is-size-${size}`,
+				`is-${state}`,
 				theme.base,
-				this.isDisabled ? `${tag}-disabled ${theme.disabled[state]}` : theme.normal[state],
+				this.isDisabled ? `is-disabled ${theme.disabled[state]}` : theme.normal[state],
 				theme.size[size]
 			];
 		}

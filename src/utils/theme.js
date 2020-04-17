@@ -1,12 +1,10 @@
-import DefaultTheme from '../themes/default/index.js';
 import { objectAssign } from '../utils/utils.js';
 
-let theme = {};
+const theme = {};
 
-export const extendDefaultTheme = function(theme, name) {
+export const extendDefaultTheme = function(theme, name, defaultTheme) {
 	const themeCustom = theme[name] || {};
-	const themeDefault = DefaultTheme[name];
-	return objectAssign({}, themeDefault, themeCustom);
+	return objectAssign({}, defaultTheme, themeCustom);
 };
 
 export const setThemeKey = (key, value) => {

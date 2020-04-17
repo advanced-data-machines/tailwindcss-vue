@@ -17,6 +17,10 @@ export default {
 		};
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-side-menu'
+		},
 		defaultActive: {
 			type: String,
 			default: ''
@@ -52,12 +56,12 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const state = this.collapse ? 'mini' : 'full';
 			return [
 				tag,
-				`${tag}-state-${state}`,
+				`is-${state}`,
 				theme.base,
 				theme.state[state]
 			];
@@ -111,7 +115,7 @@ export default {
 			delete this.submenus[item.index];
 		},
 		openMenu(index, indexPath) {
-			let openedMenus = this.openedMenus;
+			const openedMenus = this.openedMenus;
 			if (openedMenus.indexOf(index) !== -1) return;
 			// collapse all menu that are not under current menu item
 			if (this.uniqueOpened) {
@@ -129,7 +133,7 @@ export default {
 		},
 		handleSubmenuClick(submenu) {
 			const { index, indexPath } = submenu;
-			let isOpened = this.openedMenus.indexOf(index) !== -1;
+			const isOpened = this.openedMenus.indexOf(index) !== -1;
 			if (isOpened) {
 				this.closeMenu(index);
 				this.$emit('close', index, indexPath);
@@ -172,10 +176,10 @@ export default {
 			if (index && this.items && !isEmpty(this.items)) {
 				const activeItem = this.items[index];
 
-				let indexPath = activeItem.indexPath;
+				const indexPath = activeItem.indexPath;
 				// expand all submenus of the menu item
 				indexPath.forEach(index => {
-					let submenu = this.submenus[index];
+					const submenu = this.submenus[index];
 					submenu && this.openMenu(index, submenu.indexPath);
 				});
 			}

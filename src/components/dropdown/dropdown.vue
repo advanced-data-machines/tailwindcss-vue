@@ -38,6 +38,10 @@ export default {
 		'tv-popper': TvPopper
 	},
 	props: {
+		className: {
+			type: String,
+			default: 'tv-dropdown'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: null
@@ -149,35 +153,35 @@ export default {
 	},
 	computed: {
 		wrapperClass() {
-			const tag = `${this.$options._componentTag}-wrapper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-wrapper`;
+			const theme = this.currentTheme.wrapper;
 			return [
 				tag,
-				theme.wrapper
+				theme
 			];
 		},
 		popperClass() {
-			const tag = `${this.$options._componentTag}-popper`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-popper`;
+			const theme = this.currentTheme.popper;
 			return [
 				tag,
-				`${tag}-${this.placement}`,
-				theme.popper
+				`is-${this.placement}`,
+				theme
 			];
 		},
 		referenceClass() {
-			const tag = `${this.$options._componentTag}-reference`;
+			const tag = `${this.className}-reference`;
 			const theme = this.currentTheme.reference;
 			const state = this.disabled ? 'disabled' : 'default';
 			return [
 				tag,
 				theme.base,
-				`${tag}-${state}`,
+				`is-${state}`,
 				theme.state[state]
 			];
 		},
 		arrowClass() {
-			const tag = `${this.$options._componentTag}-arrow`;
+			const tag = `${this.className}-arrow`;
 			const theme = this.currentTheme.arrow;
 			return [
 				tag,
@@ -211,7 +215,7 @@ export default {
 			this.$emit('input', this.selected);
 			if (!this.multiple) {
 				if (this.closeOnClick) {
-					this.$refs['popper'].handleClose();
+					this.$refs.popper.handleClose();
 				}
 			}
 		}

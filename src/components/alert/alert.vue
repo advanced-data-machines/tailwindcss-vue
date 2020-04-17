@@ -19,6 +19,10 @@ export default {
 	name: 'TvAlert',
 	mixins: [MessageMixin, ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-alert'
+		},
 		ariaCloseLabel: {
 			type: String,
 			default: 'close'
@@ -26,12 +30,12 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const variant = this.variant || 'default';
 			return [
 				tag,
-				`${tag}-${variant}`,
+				`is-${variant}`,
 				theme.base,
 				`${theme.normal[variant]}`
 			];

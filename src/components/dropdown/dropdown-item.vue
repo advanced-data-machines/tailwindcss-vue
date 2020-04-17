@@ -13,6 +13,10 @@ export default {
 	name: 'TvDropdownItem',
 	mixins: [ThemeMixin],
 	props: {
+		className: {
+			type: String,
+			default: 'tv-dropdown-item'
+		},
 		value: {
 			type: [Object, String, Boolean, Array, Number, Function],
 			default: null
@@ -44,23 +48,23 @@ export default {
 	},
 	computed: {
 		currentClass() {
-			const tag = this.$options._componentTag;
+			const tag = this.className;
 			const theme = this.currentTheme;
 			const state = this.isClickable ? 'normal' : 'disabled';
 			const active = this.isActive ? 'active' : 'default';
 			return [
 				tag,
-				`${tag}-${state}-${active}`,
+				`is-${state} is-${active}`,
 				!this.excludePadding ? theme.padding : '',
 				theme[state][active]
 			];
 		},
 		separatorClass() {
-			const tag = `${this.$options._componentTag}-separator`;
-			const theme = this.currentTheme;
+			const tag = `${this.className}-separator`;
+			const theme = this.currentTheme.separator;
 			return [
 				tag,
-				theme.separator
+				theme
 			];
 		},
 		itemAriaRole() {
