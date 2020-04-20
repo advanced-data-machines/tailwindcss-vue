@@ -29,7 +29,6 @@ import SideSubmenu from './components/side-submenu';
 import Switch from './components/switch';
 import Table from './components/table';
 import Tooltip from './components/tooltip';
-import Theme from './utils/theme.js';
 
 // components to be used
 const components = [
@@ -110,6 +109,5 @@ export {
 	SideSubmenu,
 	Switch,
 	Table,
-	Theme,
 	Tooltip
 };

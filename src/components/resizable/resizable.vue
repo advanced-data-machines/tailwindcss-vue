@@ -57,8 +57,8 @@ export default {
 	},
 	data() {
 		return {
-			w: this.width,
-			h: this.height,
+			newWidth: this.width,
+			newHeight: this.height,
 			minW: this.minWidth,
 			minH: this.minHeight,
 			maxW: this.maxWidth,
@@ -80,14 +80,14 @@ export default {
 		},
 		style() {
 			return {
-				width: typeof this.w === 'number' ? this.w + 'px' : this.w,
-				height: typeof this.h === 'number' ? this.h + 'px' : this.h
+				width: typeof this.newWidth === 'number' ? this.newWidth + 'px' : this.newWidth,
+				height: typeof this.newHeight === 'number' ? this.newHeight + 'px' : this.newHeight
 			};
 		}
 	},
 	methods: {
 		emitEvent(eventName) {
-			this.$emit(eventName, { eventName, width: this.w, height: this.h });
+			this.$emit(eventName, { eventName, width: this.newWidth, height: this.newHeight });
 		},
 		handleMove(event) {
 			if (this.resizeState !== 0) {
@@ -95,40 +95,39 @@ export default {
 				let diffY = event.clientY - this.mouseY + this.offsetY;
 				this.offsetX = this.offsetY = 0;
 				if (this.resizeState & ELEMENT_MASK['resizable-r'].bit) {
-					if (this.w + diffX < this.minW) {
-						this.offsetX = (diffX - (diffX = this.minW - this.w));
-					} else if (this.maxW && this.w + diffX > this.maxW && (!this.fitParent || this.w + this.l < this.parent.width)) {
-						this.offsetX = (diffX - (diffX = this.maxW - this.w));
-					} else if (this.fitParent && this.l + this.w + diffX > this.parent.width) {
-						this.offsetX = (diffX - (diffX = this.parent.width - this.l - this.w));
+					if (this.newWidth + diffX < this.minW) {
+						this.offsetX = (diffX - (diffX = this.minW - this.newWidth));
+					} else if (this.maxW && this.newWidth + diffX > this.maxW && (!this.fitParent || this.newWidth < this.parent.width)) {
+						this.offsetX = (diffX - (diffX = this.maxW - this.newWidth));
+					} else if (this.fitParent && this.newWidth + diffX > this.parent.width) {
+						this.offsetX = (diffX - (diffX = this.parent.width - this.newWidth));
 					}
-					this.w += diffX;
+					this.newWidth += diffX;
 				}
 				if (this.resizeState & ELEMENT_MASK['resizable-b'].bit) {
-					if (this.h + diffY < this.minH) {
-						this.offsetY = (diffY - (diffY = this.minH - this.h));
-					} else if (this.maxH && this.h + diffY > this.maxH && (!this.fitParent || this.h + this.t < this.parent.height)) {
-						this.offsetY = (diffY - (diffY = this.maxH - this.h));
-					} else if (this.fitParent && this.t + this.h + diffY > this.parent.height) {
-						this.offsetY = (diffY - (diffY = this.parent.height - this.t - this.h));
+					if (this.newHeight + diffY < this.minH) {
+						this.offsetY = (diffY - (diffY = this.minH - this.newHeight));
+					} else if (this.maxH && this.newHeight + diffY > this.maxH && (!this.fitParent || this.newHeight < this.parent.height)) {
+						this.offsetY = (diffY - (diffY = this.maxH - this.newHeight));
+					} else if (this.fitParent && this.newHeight + diffY > this.parent.height) {
+						this.offsetY = (diffY - (diffY = this.parent.height - this.newHeight));
 					}
-					this.h += diffY;
+					this.newHeight += diffY;
 				}
 				if (this.resizeState & ELEMENT_MASK['resizable-l'].bit) {
-					if (this.w - diffX < this.minW) {
-						this.offsetX = (diffX - (diffX = this.w - this.minW));
-					} else if (this.maxW && this.w - diffX > this.maxW && this.l > 0) {
-						this.offsetX = (diffX - (diffX = this.w - this.maxW));
-					} else if (this.fitParent && this.l + diffX < 0) {
+					if (this.newWidth - diffX < this.minW) {
+						this.offsetX = (diffX - (diffX = this.newWidth - this.minW));
+					} else if (this.maxW && this.newWidth - diffX > this.maxW && this.l > 0) {
+						this.offsetX = (diffX - (diffX = this.newWidth - this.maxW));
+					} else if (this.fitParent && diffX < 0) {
 						this.offsetX = (diffX - (diffX = -this.l));
 					}
-					this.l += diffX;
-					this.w -= diffX;
+					this.newWidth -= diffX;
 				}
 
 				this.mouseX = event.clientX;
 				this.mouseY = event.clientY;
-				this.emitEvent('resize:move');
+				this.emitEvent('resize-move');
 			}
 		},
 		handleDown(event) {
@@ -142,7 +141,7 @@ export default {
 					this.resizeState = ELEMENT_MASK[elClass].bit;
 					this.parent.height = this.$el.parentElement.clientHeight;
 					this.parent.width = this.$el.parentElement.clientWidth;
-					this.emitEvent('resize:start');
+					this.emitEvent('resize-start');
 					break;
 				}
 			}
@@ -151,7 +150,7 @@ export default {
 			if (this.resizeState !== 0) {
 				this.resizeState = 0;
 				document.body.style.cursor = '';
-				this.emitEvent('resize:end');
+				this.emitEvent('resize-end');
 			}
 		}
 	},
@@ -169,23 +168,23 @@ export default {
 			this.minH = value;
 		},
 		width(value) {
-			typeof value === 'number' && (this.w = value);
+			typeof value === 'number' && (this.newWidth = value);
 		},
 		height(value) {
-			typeof value === 'number' && (this.h = value);
+			typeof value === 'number' && (this.newHeight = value);
 		}
 	},
 	mounted() {
 		if (this.active === 'b') {
-			typeof this.height !== 'number' && (this.h = this.$el.clientHeight);
+			typeof this.height !== 'number' && (this.newHeight = this.$el.clientHeight);
 		} else {
-			typeof this.width !== 'number' && (this.w = this.$el.clientWidth);
+			typeof this.width !== 'number' && (this.newWidth = this.$el.clientWidth);
 		}
-		typeof this.height !== 'number' && (this.h = this.$el.clientHeight);
-		this.w < this.minW && (this.w = this.minW);
-		this.h < this.minH && (this.h = this.minH);
-		this.w > this.maxW && (this.w = this.maxW);
-		this.h > this.maxH && (this.h = this.maxH);
+		typeof this.height !== 'number' && (this.newHeight = this.$el.clientHeight);
+		this.newWidth < this.minW && (this.newWidth = this.minW);
+		this.newHeight < this.minH && (this.newHeight = this.minH);
+		this.newWidth > this.maxW && (this.newWidth = this.maxW);
+		this.newHeight > this.maxH && (this.newHeight = this.maxH);
 		document.documentElement.addEventListener('mousemove', this.handleMove, true);
 		document.documentElement.addEventListener('mousedown', this.handleDown, true);
 		document.documentElement.addEventListener('mouseup', this.handleUp, true);

@@ -44,7 +44,7 @@ export default {
 			return [
 				tag,
 				`has-${state}`,
-				this.isRequired ? 'required' : '',
+				this.isRequired ? 'is-required' : '',
 				theme.base,
 				`${theme.state[state]}`
 			];

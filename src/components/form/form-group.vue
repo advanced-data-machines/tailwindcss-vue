@@ -76,14 +76,15 @@ export default {
 			return [
 				tag,
 				`is-${state}`,
-				this.isRequired ? 'required' : '',
+				this.isRequired ? 'is-required' : '',
 				theme
 			];
 		},
 		errorClass() {
+			const tag = `${this.className}-error`;
 			const theme = this.currentTheme.error;
 			return [
-				'has-error',
+				tag,
 				theme
 			];
 		},

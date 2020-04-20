@@ -28,8 +28,8 @@
 				<slot name="last" />
 			</template>
 		</tv-pagination>
-		<component :is="componentToRender" v-bind="getAttributes()" :class="wrapperClass">
-			<div :class="{ 'overflow-auto': responsive, 'h-full relative': resizable }">
+		<component ref="wrapper" :is="componentToRender" v-bind="getAttributes()" v-on="getListeners()" :class="wrapperClass">
+			<div ref="scroller" :class="{ 'overflow-auto': resizable || responsive, 'h-full relative': resizable }">
 				<table :class="tableClass">
 					<thead>
 						<tr>
@@ -136,7 +136,7 @@
 	</div>
 </template>
 <script>
-import { getValueByPath, indexOf, hasOwn } from '../../utils/utils.js';
+import { getValueByPath, indexOf, hasOwn, isEmpty } from '../../utils/utils.js';
 import ThemeMixin from '../../mixins/theme.js';
 import TvCheckbox from '../checkbox/checkbox.vue';
 import TvPagination from '../pagination/pagination.vue';
@@ -328,7 +328,7 @@ export default {
 			];
 		},
 		tableClass() {
-			const tag = `${this.className}-table`;
+			const tag = this.className;
 			const theme = this.currentTheme.table;
 			return [
 				tag,
@@ -433,8 +433,13 @@ export default {
 			// prevent table from being headless, data could change and created hook
 			// on column might not trigger
 			this.$nextTick(() => {
-				if (!this.newColumns.length) this.newColumns = newColumns;
+				if (!this.newColumns.length) {
+					this.newColumns = newColumns;
+				};
 			});
+			setTimeout(() => {
+				if (this.resizable && !isEmpty(this.$refs.scroller)) this.$emit('scroll-height', this.$refs.scroller.scrollHeight);
+			}, 0);
 
 			if (!this.backendSorting) {
 				this.sort(this.currentSortColumn, true);
@@ -623,6 +628,17 @@ export default {
 			if (this.resizable) {
 				return {
 					...this.resizableProps
+				};
+			}
+			return {};
+		},
+		getListeners() {
+			if (this.resizable) {
+				return {
+					'resize-start': (e) => this.$emit('resize-start', e),
+					'resize-move': (e) => this.$emit('resize-move', e),
+					'resize-end': (e) => this.$emit('resize-end', e),
+					mount: (e) => this.$emit('resize-mount', e)
 				};
 			}
 			return {};
