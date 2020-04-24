@@ -1,5 +1,13 @@
 <template>
-	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
+	<transition
+		:transition="transition"
+		:enter-class="enterClass"
+		:enter-active-class="enterActiveClass"
+		:enter-to-class="enterToClass"
+		:leave-class="leaveClass"
+		:leave-active-class="leaveActiveClass"
+		:leave-to-class="leaveToClass"
+	>
 		<div v-if="isActive" :class="wrapperClass">
 			<div :class="backDropClass" @click="cancel" />
 			<slot>
@@ -12,9 +20,10 @@
 import { HTMLElement } from '../../utils/ssr.js';
 import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 export default {
 	name: 'TvLoading',
-	mixins: [ThemeMixin],
+	mixins: [ThemeMixin, TransitionMixin],
 	props: {
 		className: {
 			type: String,

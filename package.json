@@ -11,8 +11,9 @@
 		"docs:build": "vuepress build docs",
 		"docs:dev": "vuepress dev docs",
 		"update-packages": "npx npm-check -u",
-		"prebuild:bundle": "node ./clean.js --path=./dist",
-		"build:bundle": "rollup -c && rollup -c --environment MINIFY"
+		"clean": "node ./clean.js --path=./dist",
+		"build:postcss": "postcss src/assets/css/**/*.css --base src/assets/css --dir dist",
+		"build:bundle": "npm run clean && rollup -c && rollup -c --environment MINIFY && npm run build:postcss"
 	},
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
@@ -43,21 +44,21 @@
 		"eslint-plugin-standard": "^4.0.1",
 		"eslint-plugin-vue": "^6.2.2",
 		"minimist": "^1.2.5",
+		"postcss-cli": "^7.1.0",
 		"postcss-import": "^12.0.1",
-		"rollup": "^2.6.1",
+		"rollup": "^2.7.2",
 		"rollup-plugin-babel": "^4.4.0",
 		"rollup-plugin-delete": "^1.2.0",
-		"rollup-plugin-postcss": "^2.9.0",
 		"rollup-plugin-terser": "^5.3.0",
 		"rollup-plugin-vue": "^5.1.6",
-		"tailwindcss": "^1.3.3",
+		"tailwindcss": "^1.3.5",
 		"vue": "^2.6.11",
 		"vue-router": "^3.1.6",
 		"vue-template-compiler": "^2.6.11",
 		"vuepress": "^1.4.1"
 	},
 	"peerDependencies": {
-		"tailwindcss": "^1.2.0",
+		"tailwindcss": "^1.3.0",
 		"vue": "^2.6.0"
 	},
 	"bugs": {

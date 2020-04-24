@@ -1,6 +1,14 @@
 <template>
 	<div :class="currentClass">
-		<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
+		<transition
+			:transition="transition"
+			:enter-class="enterClass"
+			:enter-active-class="enterActiveClass"
+			:enter-to-class="enterToClass"
+			:leave-class="leaveClass"
+			:leave-active-class="leaveActiveClass"
+			:leave-to-class="leaveToClass"
+		>
 			<template v-if="isActive">
 				<tv-alert v-bind="$options.propsData" @close="close" />
 			</template>
@@ -10,13 +18,14 @@
 <script>
 import NoticeMixin from '../../mixins/notice.js';
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 import TvAlert from './alert.vue';
 export default {
 	name: 'TvAlertNotice',
 	components: {
 		'tv-alert': TvAlert
 	},
-	mixins: [NoticeMixin, ThemeMixin],
+	mixins: [NoticeMixin, ThemeMixin, TransitionMixin],
 	props: {
 		indefinite: {
 			type: Boolean,

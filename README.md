@@ -46,7 +46,7 @@ module.exports = {
 
 #### *tailwind.config.js*
 
-> This file is likely to change to base color scheme without the need for custom color names
+> This file is likely to change
 
 ``` js
 const { colors } = require('tailwindcss/defaultTheme');
@@ -66,6 +66,12 @@ module.exports = {
 			},
 			stroke: {
 				...colors
+			},
+			transitionDuration: {
+				0: '0ms'
+			},
+			transitionDelay: {
+				0: '0ms'
 			}
 		},
 		container: {

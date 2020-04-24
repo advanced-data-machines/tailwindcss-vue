@@ -21,6 +21,12 @@ module.exports = {
 			},
 			inset: {
 				full: '100%'
+			},
+			transitionDuration: {
+				0: '0ms'
+			},
+			transitionDelay: {
+				0: '0ms'
 			}
 		},
 		container: {

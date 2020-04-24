@@ -1,5 +1,13 @@
 <template>
-	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
+	<transition
+		:transition="transition"
+		:enter-class="enterClass"
+		:enter-active-class="enterActiveClass"
+		:enter-to-class="enterToClass"
+		:leave-class="leaveClass"
+		:leave-active-class="leaveActiveClass"
+		:leave-to-class="leaveToClass"
+	>
 		<div v-show="isActive" :class="['relative', currentClass]">
 			<slot name="close" v-if="closable" :aria-close-label="ariaCloseLabel" :close="close">
 				<a @click="close" class="cursor-pointer pointer-events-auto absolute inset-y-0 right-0 flex items-center pl-1 pr-4" :aria-label="ariaCloseLabel">
@@ -14,10 +22,11 @@
 </template>
 <script>
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 import MessageMixin from '../../mixins/message.js';
 export default {
 	name: 'TvAlert',
-	mixins: [MessageMixin, ThemeMixin],
+	mixins: [MessageMixin, ThemeMixin, TransitionMixin],
 	props: {
 		className: {
 			type: String,

@@ -2,8 +2,12 @@
 	<component :is="tag">
 		<transition
 			:name="transition"
+			:enter-class="enterClass"
 			:enter-active-class="enterActiveClass"
+			:enter-to-class="enterToClass"
+			:leave-class="leaveClass"
 			:leave-active-class="leaveActiveClass"
+			:leave-to-class="leaveToClass"
 			@afer-leave="handleDestroy"
 		>
 			<span v-show="!isDisabled && showPopper" :aria-hidden="!showPopper">
@@ -16,6 +20,7 @@
 <script>
 import { createPopper } from '@popperjs/core';
 import { objectAssign } from '../../utils/utils.js';
+import TransitionMixin from '../../mixins/transition.js';
 function on(element, event, handler) {
 	if (element && event && handler) {
 		document.addEventListener ? element.addEventListener(event, handler, false) : element.attachEvent('on' + event, handler);
@@ -28,6 +33,7 @@ function off(element, event, handler) {
 }
 export default {
 	name: 'TvPopper',
+	mixins: [TransitionMixin],
 	props: {
 		tag: {
 			type: String,
@@ -98,18 +104,6 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
-		},
-		transition: {
-			type: String,
-			default: null
-		},
-		enterActiveClass: {
-			type: String,
-			default: 'animated fadeIn faster'
-		},
-		leaveActiveClass: {
-			type: String,
-			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,

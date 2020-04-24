@@ -14,8 +14,12 @@
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:transition="transition"
+		:enter-class="enterClass"
 		:enter-active-class="enterActiveClass"
+		:enter-to-class="enterToClass"
+		:leave-class="leaveClass"
 		:leave-active-class="leaveActiveClass"
+		:leave-to-class="leaveToClass"
 		:prevent-mobile="preventMobile"
 		:class="wrapperClass"
 	>
@@ -31,9 +35,10 @@
 <script>
 import TvPopper from '../popper/popper.vue';
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 export default {
 	name: 'TvDropdown',
-	mixins: [ThemeMixin],
+	mixins: [ThemeMixin, TransitionMixin],
 	components: {
 		'tv-popper': TvPopper
 	},
@@ -124,18 +129,6 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
-		},
-		transition: {
-			type: String,
-			default: null
-		},
-		enterActiveClass: {
-			type: String,
-			default: 'animated fadeIn faster'
-		},
-		leaveActiveClass: {
-			type: String,
-			default: 'animated fadeOut faster'
 		},
 		preventMobile: {
 			type: Boolean,

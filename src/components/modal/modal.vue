@@ -1,5 +1,13 @@
 <template>
-	<transition name="custom" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
+	<transition
+		:transition="transition"
+		:enter-class="enterClass"
+		:enter-active-class="enterActiveClass"
+		:enter-to-class="enterToClass"
+		:leave-class="leaveClass"
+		:leave-active-class="leaveActiveClass"
+		:leave-to-class="leaveToClass"
+	>
 		<div :role="ariaRole" :class="wrapperClass" v-if="isActive">
 			<div :class="backdropClass" @click="cancel('outside')" />
 			<div :class="[cardClass, width]">
@@ -18,6 +26,7 @@
 <script>
 import { removeElement } from '../../utils/dom.js';
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 export default {
 	name: 'TvModal',
 	provide() {
@@ -26,7 +35,7 @@ export default {
 			cancelModal: this.cancel
 		};
 	},
-	mixins: [ThemeMixin],
+	mixins: [ThemeMixin, TransitionMixin],
 	props: {
 		className: {
 			type: String,

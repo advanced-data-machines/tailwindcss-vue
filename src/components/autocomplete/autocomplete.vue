@@ -12,8 +12,12 @@
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:transition="transition"
+		:enter-class="enterClass"
 		:enter-active-class="enterActiveClass"
+		:enter-to-class="enterToClass"
+		:leave-class="leaveClass"
 		:leave-active-class="leaveActiveClass"
+		:leave-to-class="leaveToClass"
 		:class="wrapperClass"
 	>
 		<div ref="popper" :class="popperClass">
@@ -64,11 +68,11 @@
 </template>
 <script>
 import ThemeMixin from '../../mixins/theme.js';
+import TransitionMixin from '../../mixins/transition.js';
 import TvAutocompleteItem from './autocomplete-item.vue';
 import TvPopper from '../popper/popper.vue';
 import TvInput from '../input/input.vue';
 import { getValueByPath, isEmpty } from '../../utils/utils.js';
-
 const setWidth = {
 	name: 'sameWidth',
 	enabled: true,
@@ -86,7 +90,7 @@ const setWidth = {
 
 export default {
 	name: 'TvAutocomplete',
-	mixins: [ThemeMixin],
+	mixins: [ThemeMixin, TransitionMixin],
 	components: {
 		'tv-autocomplete-item': TvAutocompleteItem,
 		'tv-input': TvInput,
@@ -200,18 +204,6 @@ export default {
 		appendToBody: {
 			type: Boolean,
 			default: false
-		},
-		transition: {
-			type: String,
-			default: null
-		},
-		enterActiveClass: {
-			type: String,
-			default: 'animated fadeIn faster'
-		},
-		leaveActiveClass: {
-			type: String,
-			default: 'animated fadeOut faster'
 		}
 	},
 	data() {

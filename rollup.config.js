@@ -2,7 +2,6 @@ import vue from 'rollup-plugin-vue';
 import node from '@rollup/plugin-node-resolve';
 import cjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
-import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 
 import fs from 'fs';
@@ -21,7 +20,6 @@ const bannerTxt = `/*! Tailwindcss-Vue v${pack.version} | MIT License | https://
 
 const baseFolder = './src/';
 const componentsFolder = 'components/';
-const cssAssetsFolder = 'assets/css/';
 const pkgName = 'tailwindcss-vue';
 
 const components = fs
@@ -29,8 +27,6 @@ const components = fs
 	.filter((f) =>
 		fs.statSync(path.join(baseFolder + componentsFolder, f)).isDirectory()
 	);
-
-const cssComponents = fs.readdirSync(baseFolder + cssAssetsFolder + componentsFolder);
 
 const entries = {
 	index: './src/index.js',
@@ -78,47 +74,10 @@ export default () => {
 				]
 			}
 		];
-		const match = cssComponents.find(n => {
-			const split = n.split('.');
-			return split[0] === name;
-		});
-		if (typeof match !== 'undefined') {
-			input.push({
-				input: baseFolder + cssAssetsFolder + componentsFolder + `${name}.css`,
-				output: {
-					file: `dist/components/${name}/${name}.css`,
-					banner: bannerTxt
-				},
-				plugins: [
-					postcss({
-						extract: true,
-						plugins: [
-							require('postcss-import'),
-							require('autoprefixer')
-						]
-					})
-				]
-			});
-		}
 		return input;
 	};
 
 	let config = [
-		{
-			input: baseFolder + cssAssetsFolder + pkgName + '.css',
-			output: {
-				dir: 'dist'
-			},
-			plugins: [
-				postcss({
-					extract: true,
-					plugins: [
-						require('postcss-import'),
-						require('autoprefixer')
-					]
-				})
-			]
-		},
 		{
 			input: entries,
 			external: ['vue'],
@@ -171,8 +130,8 @@ export default () => {
 			external: ['vue'],
 			output: {
 				format: 'umd',
-				name: capitalize('tailwindcss-vue'),
-				file: 'dist/tailwindcss-vue.js',
+				name: capitalize(`${pkgName}`),
+				file: `dist/${pkgName}.js`,
 				exports: 'named',
 				banner: bannerTxt,
 				globals: {
@@ -200,7 +159,7 @@ export default () => {
 			external: ['vue'],
 			output: {
 				format: 'esm',
-				file: 'dist/tailwindcss-vue.esm.js',
+				file: `dist/${pkgName}.esm.js`,
 				banner: bannerTxt
 			},
 			plugins: [

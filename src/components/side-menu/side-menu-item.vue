@@ -1,12 +1,7 @@
 <template>
 	<li :class="currentClass" @click="handleClick">
 		<slot />
-		<transition name="custom" enter-active-class="animated fadeIn faster" leave-active-class="animated fadeOut faster" v-if="transitionTitle">
-			<span v-show="!menuCollapsed">
-				<slot name="title" />
-			</span>
-		</transition>
-		<slot v-else name="title" />
+		<slot name="title" :menu-collapsed="menuCollapsed" />
 	</li>
 </template>
 <script>
@@ -32,10 +27,6 @@ export default {
 		disabled: {
 			type: Boolean,
 			default: false
-		},
-		transitionTitle: {
-			type: Boolean,
-			default: true
 		}
 	},
 	computed: {

@@ -1,8 +1,4 @@
 /*! purgecss start ignore */
-/* animate css */
-@import './animate.css';
-
-/* components */
 @import './components/checkbox.css';
 @import './components/collapse-transition.css';
 @import './components/label.css';

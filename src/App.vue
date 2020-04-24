@@ -8,31 +8,65 @@
 				<div class="flex-grow">
 					<tv-side-menu-item @click="handleToggle">
 						<i :class="['mdi mdi-menu', 'text-2xl']" />
-						<span class="ml-4 nowrap" slot="title">
-							Menu
-						</span>
+						<template slot="title" slot-scope="props">
+							<transition
+								enter-class="opacity-0"
+								enter-active-class="ease-out duration-300"
+								enter-to-class="opacity-100"
+								leave-class="opacity-100"
+								leave-active-class="ease-out duration-300"
+								leave-to-class="opacity-0"
+							>
+								<span class="ml-4 nowrap" v-show="!props.menuCollapsed">Menu</span>
+							</transition>
+						</template>
 					</tv-side-menu-item>
 					<template v-for="item in routes">
 						<tv-side-submenu v-if="item.children && item.children.length > 0" :key="item.meta.index" :index="item.meta.index" :popup-width="'200px'">
 							<i slot="icon" :class="['mdi', item.meta.icon, 'text-2xl']" />
-							<span slot="title" class="ml-3 nowrap">
-								{{ item.meta.title }}
-							</span>
+							<template slot="title" slot-scope="props">
+								<transition
+									enter-class="opacity-0"
+									enter-active-class="ease-out duration-300"
+									enter-to-class="opacity-100"
+									leave-class="opacity-100"
+									leave-active-class="ease-out duration-300"
+									leave-to-class="opacity-0"
+								>
+									<span class="ml-4 nowrap" v-show="!props.menuCollapsed">{{ item.meta.title }}</span>
+								</transition>
+							</template>
 							<template v-for="child in item.children">
 								<tv-side-menu-item :key="child.meta.index" :index="child.meta.index" :route="routeConverter(child)" :transition-title="false">
-									<template slot="title">
-										<span class="pl-4 nowrap">
-											{{ child.meta.title }}
-										</span>
+									<template slot="title" slot-scope="props">
+										<transition
+											enter-class="opacity-0"
+											enter-active-class="ease-out duration-300"
+											enter-to-class="opacity-100"
+											leave-class="opacity-100"
+											leave-active-class="ease-out duration-300"
+											leave-to-class="opacity-0"
+										>
+											<span class="ml-4 nowrap" v-show="!props.menuCollapsed">{{ child.meta.title }}</span>
+										</transition>
 									</template>
 								</tv-side-menu-item>
 							</template>
 						</tv-side-submenu>
 						<tv-side-menu-item v-else :key="item.meta.index" :index="item.meta.index" :route="routeConverter(item)">
 							<i :class="['mdi', item.meta.icon, 'text-2xl']" />
-							<span class="ml-4 nowrap" slot="title">
-								{{ item.meta.title }}
-							</span>
+							<template slot="title" slot-scope="props">
+								<transition
+									enter-class="opacity-0"
+									enter-active-class="ease-out duration-300"
+									enter-to-class="opacity-100"
+									leave-class="opacity-100"
+									leave-active-class="ease-out duration-300"
+									leave-to-class="opacity-0"
+								>
+									<span class="ml-4 nowrap" v-show="!props.menuCollapsed">{{ item.meta.title }}</span>
+								</transition>
+							</template>
 						</tv-side-menu-item>
 					</template>
 				</div>

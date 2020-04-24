@@ -54,24 +54,6 @@ export default {
 				return this.parentBottom;
 			}
 		},
-		transition() {
-			switch (this.position) {
-			case 'top-right':
-			case 'top':
-			case 'top-left':
-				return {
-					enter: 'fadeInDown',
-					leave: 'fadeOut'
-				};
-			case 'bottom-right':
-			case 'bottom':
-			case 'bottom-left':
-				return {
-					enter: 'fadeInUp',
-					leave: 'fadeOut'
-				};
-			}
-		},
 		currentPostionCss() {
 			switch (this.position) {
 			case 'top':

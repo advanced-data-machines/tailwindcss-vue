@@ -2,16 +2,21 @@
 	<li class="relative" @mouseenter="hover = true" @mouseleave="hover = false">
 		<div @click="handleClick" :class="['relative', currentClass]">
 			<slot name="icon" />
-			<transition name="custom" enter-active-class="animated fadeIn faster" leave-active-class="animated fadeOut faster">
-				<span v-show="!menuCollapsed">
-					<slot name="title" />
-				</span>
-			</transition>
+			<slot name="title" :menu-collapsed="menuCollapsed" />
 			<slot name="arrow" :collapse="menuCollapsed" :opened="opened">
 				<tv-menu-arrow :collapse="menuCollapsed" :opened="opened" :menu-arrow-class="menuArrowClass" />
 			</slot>
 		</div>
-		<transition type="custom" v-if="menuCollapsed" enter-active-class="animated fadeIn fast" leave-active-class="animated fadeOut fast">
+		<transition
+			v-if="menuCollapsed"
+			:transition="transition"
+			:enter-class="enterClass"
+			:enter-active-class="enterActiveClass"
+			:enter-to-class="enterToClass"
+			:leave-class="leaveClass"
+			:leave-active-class="leaveActiveClass"
+			:leave-to-class="leaveToClass"
+		>
 			<ul v-show="hover" class="absolute top-0 z-30 children" :style="{'width': popupWidth, 'right': `-${popupWidth}`}">
 				<slot />
 			</ul>
@@ -24,13 +29,14 @@
 	</li>
 </template>
 <script>
-import TvCollapseTransition from '../../components/collapse-transition/collapse-transition.vue';
+import TvCollapseTransition from '../collapse-transition/collapse-transition.vue';
+import TransitionMixin from '../../mixins/transition.js';
 import MenuArrow from './menu-arrow.vue';
 import Emitter from '../../mixins/emitter.js';
 import Menu from './menu-mixin.js';
 export default {
 	name: 'TvSideSubmenu',
-	mixins: [Emitter, Menu],
+	mixins: [Emitter, Menu, TransitionMixin],
 	components: {
 		'tv-collapse-transition': TvCollapseTransition,
 		'tv-menu-arrow': MenuArrow
