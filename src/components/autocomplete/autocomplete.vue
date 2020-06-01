@@ -96,7 +96,6 @@ export default {
 		'tv-input': TvInput,
 		'tv-popper': TvPopper
 	},
-	inheritAttrs: false,
 	props: {
 		className: {
 			type: String,
