@@ -24,7 +24,7 @@ export default {
 	},
 	methods: {
 		handleConfirm() {
-			this.confirmModal();
+			this.confirmModal('hello!');
 		},
 		handleCancel() {
 			this.cancelModal('button');

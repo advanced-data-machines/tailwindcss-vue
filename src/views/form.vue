@@ -76,7 +76,8 @@
 					<span class="ml-3">{{ city }}</span>
 				</tv-switch>
 			</tv-form-group>
-			<tv-button @click="validate" rounded>Submit</tv-button>
+			<tv-button class="mr-2" @click="validate" rounded>Submit</tv-button>
+			<tv-button @click="cancel" variant="warning" rounded>Cancel</tv-button>
 		</tv-form>
 		<p>Checked:</p>
 		<code>{{ test.checked }}</code>
@@ -92,7 +93,6 @@
 </template>
 <script>
 import { isEmpty } from '../utils/utils';
-// import { isEmpty } from '../utils/utils';
 export default {
 	name: 'Form',
 	computed: {
@@ -138,6 +138,9 @@ export default {
 	methods: {
 		validate() {
 			this.$refs.form.validate().then(() => {}, (error) => console.log(error));
+		},
+		cancel() {
+			this.$refs.form.reset();
 		},
 		notify() {
 			this.$tailwindVue.notify({

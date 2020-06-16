@@ -62,9 +62,9 @@ export default {
 	watch: {
 		rules() {
 			// remove then add event listeners on form-item after form rules change
-			this.groups.forEach(field => {
-				field.removeValidateEvents();
-				field.addValidateEvents();
+			this.groups.forEach(group => {
+				group.removeValidateEvents();
+				group.addValidateEvents();
 			});
 			// validate with new rules
 			if (this.validateOnRuleChange) {
@@ -107,12 +107,12 @@ export default {
 				callback(valid);
 			}
 			let invalidGroups = {};
-			this.groups.forEach(field => {
-				field.validate('', (message, field) => {
+			this.groups.forEach(group => {
+				group.validate('', (message, group) => {
 					if (message) {
 						valid = false;
 					}
-					invalidGroups = objectAssign({}, invalidGroups, field);
+					invalidGroups = objectAssign({}, invalidGroups, group);
 					if (typeof callback === 'function' && ++count === this.groups.length) {
 						callback(valid, invalidGroups);
 					}
@@ -121,6 +121,11 @@ export default {
 			if (promise) {
 				return promise;
 			}
+		},
+		reset() {
+			this.groups.forEach(group => {
+				group.clearValidate();
+			});
 		},
 		handleSubmit(event) {
 			this.$emit('submit', event);
