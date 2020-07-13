@@ -27,8 +27,8 @@
 	},
 	"devDependencies": {
 		"@mdi/font": "^5.3.45",
-		"@rollup/plugin-commonjs": "^13.0.0",
-		"@rollup/plugin-node-resolve": "^8.1.0",
+		"@rollup/plugin-commonjs": "^13.0.1",
+		"@rollup/plugin-node-resolve": "^8.4.0",
 		"@vue/cli-plugin-babel": "^4.4.6",
 		"@vue/cli-plugin-eslint": "^4.4.6",
 		"@vue/cli-plugin-router": "^4.4.6",

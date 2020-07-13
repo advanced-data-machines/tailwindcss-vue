@@ -1,5 +1,5 @@
 <template>
-	<button :class="currentClass" @click="handleClick">
+	<button type="button" :class="currentClass" @click="handleClick" :disabled="disabled">
 		<slot />
 	</button>
 </template>
