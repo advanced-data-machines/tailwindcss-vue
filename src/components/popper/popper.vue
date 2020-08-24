@@ -8,7 +8,7 @@
 			:leave-class="leaveClass"
 			:leave-active-class="leaveActiveClass"
 			:leave-to-class="leaveToClass"
-			@afer-leave="handleDestroy"
+			@after-leave="handleDestroy"
 		>
 			<span v-show="!isDisabled && showPopper" :aria-hidden="!showPopper">
 				<slot>{{ content }}</slot>
@@ -154,8 +154,7 @@ export default {
 		}
 	},
 	methods: {
-		async updatePopper() {
-			//! this.popperJs ? this.createPopper() : this.popperJs.update();
+		updatePopper() {
 			this.createPopper();
 		},
 		createPopper() {
