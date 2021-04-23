@@ -13,6 +13,8 @@
 		:custom-offset="customOffset"
 		:append-to-body="appendToBody"
 		:class="wrapperClass"
+		:stopPropagation="stopPropagation"
+		:preventDefault="preventDefault"
 	>
 		<div :class="popperClass" :role="menuAriaRole">
 			<slot />
@@ -115,7 +117,15 @@ export default {
 		ariaRole: {
 			type: String,
 			default: null
-		}
+		},
+		stopPropagation: {
+			type: Boolean,
+			default: false
+		},
+		preventDefault: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
