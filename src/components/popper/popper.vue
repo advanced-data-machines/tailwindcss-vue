@@ -114,7 +114,15 @@ export default {
 		leaveActiveClass: {
 			type: String,
 			default: 'animated fadeOut faster'
-		}
+		},
+		stopPropagation: {
+			type: Boolean,
+			default: false
+		},
+		preventDefault: {
+			type: Boolean,
+			default: false
+		},
 	},
 	computed: {
 		closeOptions() {
@@ -199,6 +207,12 @@ export default {
 		},
 		toggle() {
 			if (this.disabled) return;
+			if(this.stopPropagation) {
+				event.stopPropagation();
+			}
+			if(this.preventDefault) {
+				event.preventDefault();
+			}
 			this.showPopper = !this.showPopper;
 		},
 		handleShow() {
